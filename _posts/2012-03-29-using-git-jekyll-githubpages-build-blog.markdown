@@ -52,9 +52,9 @@ GitHub Pages不支持jekyll的插件。
 然后在本地生成静态文件，再trace到github。
 
 #### 其他支持（本站为例）
-样式使用Twitter Bootstrap:<http://twitter.github.com/bootstrap>，之后改一下。  
-评论使用DISQUS:<http://disqus.com>  
-代码高亮使用Google Prettify<http://code.google.com/p/google-code-prettify/>  
+样式使用Twitter Bootstrap: <http://twitter.github.com/bootstrap>，之后改一下。  
+评论使用DISQUS: <http://disqus.com>  
+代码高亮使用Google Prettify: <http://code.google.com/p/google-code-prettify/>  
 
 #### 参考资料
 [GitHub Pages服务说明][2]  
