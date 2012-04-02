@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 使用Git, Jekyll和GitHub Pages搭建blog
-category: tutorial
+categories: [tutorial]
 tags: [git, jekyll, github pages]
 ---
 
