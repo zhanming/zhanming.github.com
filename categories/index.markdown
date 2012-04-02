@@ -1,11 +1,12 @@
 ---
-layout: default
+layout: page
 title: Categories
 ---
 
-<div id='tag_cloud'>
+<h3>Categories</h3>
+<div id="tag_cloud" class="cloud">
 {% for category in site.categories %}
-<a href="#{{ category[0] }}" title="{{ category[0] }}" rel="{{ category[1].size }}">{{ category[0] }} ({{ category[1].size }})</a>
+<a href="#{{ category[0] }}" title="{{ category[0] }}" rel="{{ 12 | minus:tag[0].size }}">{{ category[0] }} ({{ category[1].size }})</a>
 {% endfor %}
 </div>
 
@@ -23,8 +24,8 @@ title: Categories
 <script src="/media/js/jquery.tagcloud.js" type="text/javascript" charset="utf-8"></script> 
 <script language="javascript">
 $.fn.tagcloud.defaults = {
-    size: {start: 1, end: 1, unit: 'em'},
-      color: {start: '#f8e0e6', end: '#ff3333'}
+    size: {start: 10, end: 18, unit: 'pt'},
+    color: {start: '#5154e3', end: '#f16121'}
 };
 
 $(function () {

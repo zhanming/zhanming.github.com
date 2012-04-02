@@ -1,10 +1,10 @@
 ---
-layout: default
+layout: page
 navigation: About
 title: About
 ---
 
-## About
+### About
 
 
 #### 关于作者 / About me
@@ -18,7 +18,8 @@ title: About
 > Blog-aware, static site generator by [Jekyll][1] and [Bootstrap][2], Powered by [Github Pages][3].
 
 #### License
-> Code licensed under the [Apache License v2.0][4]. Documentation licensed under [CC BY 3.0][5].  
+> Code licensed under the [Apache License v2.0][4].   
+> Documentation licensed under [CC BY 3.0][5].  
 > Icons from [Glyphicons Free][6], licensed under [CC BY 3.0][5]. 
 
 
