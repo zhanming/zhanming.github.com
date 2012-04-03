@@ -62,8 +62,7 @@ GitHub Pages不支持jekyll的插件。
 [Markdown标记语言参考][4]  
 [Liquid的参考资料][7]
 
-
-[0]: http://pages.github.com/logo_pages.png "github pages"
+[0]: http://farm8.staticflickr.com/7064/7041398969_5d126230c9_m.jpg "github pages"
 [1]: http://git-scm.com
 [2]: https://pages.github.com
 [3]: https://github.com/mojombo/jekyll
