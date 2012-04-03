@@ -26,7 +26,7 @@ title: About
 [0]: http://qizhanming.com
 [1]: https://github.com/mojombo/jekyll
 [2]: http://twitter.github.com/bootstrap/
-[3]: https://pages.github.com
+[3]: http://pages.github.com
 [4]: http://www.apache.org/licenses/LICENSE-2.0
 [5]: http://creativecommons.org/licenses/by/3.0/
 [6]: http://glyphicons.com/
