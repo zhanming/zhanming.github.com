@@ -64,7 +64,7 @@ GitHub Pages不支持jekyll的插件。
 
 [0]: http://farm8.staticflickr.com/7064/7041398969_5d126230c9_m.jpg "github pages"
 [1]: http://git-scm.com
-[2]: https://pages.github.com
+[2]: http://pages.github.com
 [3]: https://github.com/mojombo/jekyll
 [4]: http://daringfireball.net/projects/markdown/
 [5]: http://disqus.com
