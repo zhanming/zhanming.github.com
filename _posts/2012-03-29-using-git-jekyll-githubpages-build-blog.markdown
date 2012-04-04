@@ -14,11 +14,11 @@ Jekyll is a simple, blog aware, static site generator. It takes a template direc
 #### 安装
 本文以CentOS 6.2为例进行安装:  
 安装gcc, make和git
-    $ yum install gcc make git
+    # yum install gcc make git
 安装ruby, ruby-devel和rubygems
-    $ yum install ruby ruby-devel rubygems
+    # yum install ruby ruby-devel rubygems
 安装jekyll
-    $ gem install jekyll
+    # gem install jekyll
 我安装的版本如下
     $ ruby --version
     ruby 1.8.7 (2011-06-30 patchlevel 352) [x86_64-linux]
