@@ -44,8 +44,11 @@ body {
 
 .post-title a {
 	color: black;
+	text-decoration: none;
 }
-
+.post-title a:hover {
+	border-bottom:1px solid #333;
+}
 .post-info {
 	color: #666;
 	font-size: 87%;
