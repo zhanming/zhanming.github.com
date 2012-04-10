@@ -22,8 +22,8 @@ Developed by a fast-moving online-news operation, Django was designed to handle 
 查看一下python的版本
     # python --version
     Python 2.6.6
-Django-1.4支持python2.5以上（python3暂不支持）。具体请看<https://www.djangoproject.com/weblog/2012/mar/23/14/>。  
-根据python的版本安装setuptools，pip（使用pip安装软件很方便，pip依赖setuptools），安装setuptools很简单，到<http://pypi.python.org/pypi/setuptools>下载并安装(注意跟python的版本对应)。
+Django-1.4支持python2.5以上（python3暂不支持）。具体请看[Django的官方博客][10]。  
+根据python的版本安装setuptools，pip（使用pip安装软件很方便，pip依赖setuptools），安装setuptools很简单，到其[pipy][11]下载并安装(注意跟python的版本对应)。
     # curl -O http://pypi.python.org/packages/2.6/s/setuptools/setuptools-0.6c11-py2.6.egg
     # sh setuptools-0.6c11-py2.6.egg
     # curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
@@ -103,7 +103,7 @@ class Order(models.Model):
     def __unicode__(self):
         return self.order_no
 </pre>
-这是一个models的例子，设计到了属性，国际化，自动填充时间等内容，关于models，更多请参考django网站的文档：<https://docs.djangoproject.com/en/dev/topics/db/models/>。
+这是一个models的例子，设计到了属性，国际化，自动填充时间等内容，关于models，更多请参考django网站的[models相关文档][12]。
 
 以下是admin.py的内容，使django可以管理这个模型。
 通常只需要添加就可以了如下例子：
@@ -142,7 +142,7 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 </pre>
 
-这是一个admin的例子，涉及到了列表显示，搜索，配置界面等，关于admin，更多请参考django网站的文档：<https://docs.djangoproject.com/en/dev/ref/contrib/admin/>。
+这是一个admin的例子，涉及到了列表显示，搜索，配置界面等，关于admin，更多请参考django网站的文档[admin相关文档][13]。
 
 #### 配置
 主要配置**settings.py**和**urls.py**。
@@ -161,7 +161,7 @@ if ROOT_PATH not in sys.path:
     sys.path.append(ROOT_PATH)
 </pre>
 
-修改数据库配置，本文使用sqlite3，这是django自带驱动的，其他的请参考django网站的文档：<https://docs.djangoproject.com/en/dev/ref/databases/>
+修改数据库配置，本文使用sqlite3，这是django自带驱动的，其他的请参考django网站的[database相关文档][14]
 <pre class="prettyprint linenums">
 DATABASES = {
     'default': {
@@ -286,3 +286,9 @@ COMMIT;
 [2]: http://pypi.python.org/pypi/setuptools
 [3]: http://pypi.python.org/pypi/pip
 [4]: http://www.ibm.com/developerworks/cn/linux/l-django/
+
+[10]: https://www.djangoproject.com/weblog/2012/mar/23/14/
+[11]: http://pypi.python.org/pypi/setuptools
+[12]: https://docs.djangoproject.com/en/dev/topics/db/models/
+[13]: https://docs.djangoproject.com/en/dev/ref/contrib/admin/
+[14]: https://docs.djangoproject.com/en/dev/ref/databases/
