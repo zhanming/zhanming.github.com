@@ -12,6 +12,7 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <link rel="stylesheet" href="/media/bootstarp/css/bootstrap.min.css?v=202" type="text/css" media="screen" />
+<link rel="stylesheet" href="/media/bootstarp/css/bootstrap-responsive.min.css?v=202" type="text/css" media="screen" />
 <link rel="stylesheet" href="/media/google-code-prettify/prettify.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/media/css/screen.css?v=001" type="text/css" media="screen" />
 <script type="text/javascript" charset="utf-8" src="/media/js/jquery-1.7.2.min.js"></script>
@@ -20,11 +21,12 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <div class="page-header">
-  	<h1><a class="brand" href="/">Zhanming's blog</a><small>Life is a series of events.</small></h1>
-      </div>
-    </div>
-    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="/">Zhanming's blog</a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
 	  {% if page.navigation %}<li><a href="/">Home</a></li>{% else %}<li class="active"><a href="/">Home</a></li>{% endif%}
@@ -62,7 +64,7 @@
       <span>&copy; {{ site.time | date: "%Y" }} {{ site.domain }}</span>
     </p>
 </div>
-<script type="text/javascript" charset="utf-8" src='/media/bootstrap/js/bootstrap.min.js?v=202'></script>
+<script type="text/javascript" charset="utf-8" src='/media/bootstarp/js/bootstrap.min.js?v=202'></script>
 <script type="text/javascript" charset="utf-8" src="/media/google-code-prettify/prettify.js"></script>
 <script type="text/javascript" charset="utf-8" src='/media/js/application.js?v=001'> </script>
 {% include comments_count %}
