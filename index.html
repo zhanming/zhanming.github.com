@@ -14,7 +14,7 @@ tags: [blog, development, java, go, python]
 </span>
 </div>
 <div class="entry">
-{{ post.content | truncatewords: 66 }}
+{{ post.content | truncatewords: 30 }}
 </div>
 <div><li class="icon-folder-open"></li> Categories: {% for cat in post.categories %}<a href="/categories/#{{ cat }}" rel="category tag">{{ cat }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %} | <li class="icon-comment"></li> <a href="{{ post.url }}#disqus_thread">Comments</a></div>
 </div>
