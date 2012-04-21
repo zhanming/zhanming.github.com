@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 使用Python和Django搭建Web应用
-categories: [tutorial]
+categories: [Tutorial]
 tags: [python, django, web development]
 ---
 
