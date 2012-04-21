@@ -23,7 +23,6 @@ body,p,input,button,select,textarea {
 }
 .post img {
 	clear: both;
-	width: 200px;
 	border: none;
 	float: right;
 	display: block;
