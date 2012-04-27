@@ -2,7 +2,7 @@
 layout: post
 title: Go语言入门 - 第 1 部分：安装
 categories: [Go]
-tags: [go]
+tags: [go, centos]
 ---
 
 ![go logo][0]
@@ -15,7 +15,7 @@ Go is an open source programming environment that makes it easy to build simple,
 
 #### 引文
 有两种官方编译器工具链: gc Go编译器和gccgo编译器。  
-本文以CentOS 6.2（Linux的一种发行版）为例介绍，使用编译好的二进制分发包进行安装。
+本文以CentOS 6.2为例介绍，使用编译好的二进制分发包进行安装。
 #### 下载
 访问[Go project's downloads page][3]。  
 (请下载与操作系统环境对应的二进制分发版，本环境使用`go.go1.linux-amd64.tar.gz`)  
