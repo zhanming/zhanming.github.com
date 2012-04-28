@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Go语言入门 - 第 2 部分：源码安装
+title: Go语言介绍 - Part 2：源码安装
 categories: [Go]
 tags: [go, centos]
 ---
@@ -59,7 +59,7 @@ Go的源码在google code上存放，国内用户由于某些原因可能无法�
     Installed commands in /usr/local/go/bin
 此时Go安装完毕。
 #### 验证
-设置环境变量，设置方法与[Go语言入门 - 第 1 部分: 安装][0]相同。
+设置环境变量，设置方法与[Go语言介绍 - Part 1：安装][0]相同。
     # go version
     go version go1.0.1
 安装成功，版本go1.0.1。

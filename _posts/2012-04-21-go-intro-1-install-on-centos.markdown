@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Go语言入门 - 第 1 部分：安装
+title: Go语言介绍 - Part 1：安装
 categories: [Go]
 tags: [go, centos]
 ---
