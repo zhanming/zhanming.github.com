@@ -5,11 +5,11 @@ categories: [Tutorial]
 tags: [git, jekyll, github pages]
 ---
 
-![github pages][0]
+<a href="http://www.flickr.com/photos/zhanming/7124698719/"><img src="http://farm9.staticflickr.com/8001/7124698719_cc5b56d1cd_m.jpg" width="129" height="30" alt="logo-pages"></a>
 
 #### 简介
 Jekyll是一个简单的，博客感知，静态站点生成器。原文如下：  
-Jekyll is a simple, blog aware, static site generator. It takes a template directory (representing the raw form of a website), runs it through Textile or Markdown and Liquid converters, and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind [GitHub Pages][2], which you can use to host your project’s page or blog right here from GitHub.  
+Jekyll is a simple, blog aware, static site generator. It takes a template directory (representing the raw form of a website), runs it through Textile or Markdown and Liquid converters, and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind [GitHub Pages](http://pages.github.com), which you can use to host your project’s page or blog right here from GitHub.  
 
 #### 安装
 本文以CentOS 6.2为例进行安装:  
@@ -34,7 +34,7 @@ GitHub 为每一个用户分配了一个二级域名&lt;user-id&gt;.github.com�
     $ printf "<h1>It works!</h1>" > index.html
 Jekyll本地测试
     $ jekyll --server
-访问**http://localhost:4000**查看效果。之后是一系列git的创建和提交到github过程。关于github相关操作，请参考[Github Help][8]。
+访问**http://localhost:4000**查看效果。之后是一系列git的创建和提交到github过程。关于github相关操作，请参考[Github Help](http://help.github.com)。
     $ cd ~/foo.github.com
     $ git init
     $ git add index.html
@@ -52,24 +52,14 @@ GitHub Pages不支持jekyll的插件。
 然后在本地生成静态文件，再trace到github。
 
 #### 其他支持（本站为例）
-样式使用[Twitter Bootstrap][9]，之后改一下。  
-评论使用[DISQUS][5]。  
-代码高亮使用[Google Prettify][10]。
+样式使用[Twitter Bootstrap](http://twitter.github.com/bootstrap)，之后改一下。  
+评论使用[DISQUS](http://disqus.com)。  
+代码高亮使用[Google Prettify](http://code.google.com/p/google-code-prettify/)。
 
 #### 参考资料
-[GitHub Pages服务说明][2]  
-[Jekyll Wiki][3]  
-[Markdown标记语言参考][4]  
-[Liquid的参考资料][7]
+[使用Github Pages建独立博客](http://beiyuu.com/github-pages/)，介绍得很详细。  
+[GitHub Pages服务说明](http://pages.github.com)  
+[Jekyll Wiki](https://github.com/mojombo/jekyll)  
+[Markdown标记语言参考](http://daringfireball.net/projects/markdown/)  
+[Liquid的参考资料](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers)
 
-[0]: http://farm8.staticflickr.com/7064/7041398969_5d126230c9_m.jpg "github pages"
-[1]: http://git-scm.com
-[2]: http://pages.github.com
-[3]: https://github.com/mojombo/jekyll
-[4]: http://daringfireball.net/projects/markdown/
-[5]: http://disqus.com
-[6]: https://github.com/plusjade/jekyll-bootstrap
-[7]: https://github.com/Shopify/liquid/wiki/Liquid-for-Designers
-[8]: http://help.github.com
-[9]: http://twitter.github.com/bootstrap
-[10]: http://code.google.com/p/google-code-prettify/

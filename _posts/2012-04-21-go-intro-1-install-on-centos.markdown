@@ -5,7 +5,7 @@ categories: [Go]
 tags: [go, centos]
 ---
 
-![go logo][0]
+<a href="http://www.flickr.com/photos/zhanming/6978325562/"><img src="http://farm9.staticflickr.com/8016/6978325562_acfff65d49_m.jpg" width="150" height="150" alt="go-logo"></a>
 
 #### 简介
 关于Go语言，原文介绍如下：  
@@ -17,7 +17,7 @@ Go is an open source programming environment that makes it easy to build simple,
 有两种官方编译器工具链: gc Go编译器和gccgo编译器。  
 本文以CentOS 6.2为例介绍，使用编译好的二进制分发包进行安装。
 #### 下载
-访问[Go project's downloads page][3]。  
+访问[Go project's downloads page](http://code.google.com/p/go/downloads)。  
 (请下载与操作系统环境对应的二进制分发版，本环境使用`go.go1.linux-amd64.tar.gz`)  
 ***注意***: 在Linux下，如果是从老版本更新过来的，必须先将老版本删除。（一般是安装在/usr/local/go目录下的）
     # rm -r /usr/local/go
@@ -91,10 +91,6 @@ func main() {
 如果可以看到“hello, world”这个消息，则表示安装成功。
 
 #### 参考资料
-[Go语言网站][1]  
-[Go语言文档 Install Go][2]  
+[Golang.org](http://golang.org)  
+[Install Go](http://golang.org/doc/install)  
 
-[0]: http://farm8.staticflickr.com/7234/6952562342_20050cf775_m.jpg "go logo"
-[1]: http://golang.org
-[2]: http://golang.org/doc/install
-[3]: http://code.google.com/p/go/downloads

@@ -5,7 +5,7 @@ categories: [Tutorial]
 tags: [python, django, web development]
 ---
 
-![django logo][0]
+<a href="http://www.flickr.com/photos/zhanming/6978716444/"><img src="http://farm9.staticflickr.com/8025/6978716444_3892988209_m.jpg" width="117" height="41" alt="django_logo"></a>
 
 #### 简介
 Django是Python开发的Web框架。使用Django搭建Web应用很方便。原文如下：  
@@ -22,8 +22,8 @@ Developed by a fast-moving online-news operation, Django was designed to handle 
 查看一下python的版本
     # python --version
     Python 2.6.6
-Django-1.4支持python2.5以上（python3暂不支持）。具体请看[Django的官方博客][10]。  
-根据python的版本安装setuptools，pip（使用pip安装软件很方便，pip依赖setuptools），安装setuptools很简单，到其[pipy][11]下载并安装(注意跟python的版本对应)。
+Django-1.4支持python2.5以上（python3暂不支持）。具体请看[Django的官方博客](https://www.djangoproject.com/weblog/2012/mar/23/14/)。  
+根据python的版本安装setuptools，pip（使用pip安装软件很方便，pip依赖setuptools），安装setuptools很简单，到其[pipy](http://pypi.python.org/pypi/setuptools)下载并安装(注意跟python的版本对应)。
     # curl -O http://pypi.python.org/packages/2.6/s/setuptools/setuptools-0.6c11-py2.6.egg
     # sh setuptools-0.6c11-py2.6.egg
     # curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
@@ -103,7 +103,7 @@ class Order(models.Model):
     def __unicode__(self):
         return self.order_no
 </pre>
-这是一个models的例子，设计到了属性，国际化，自动填充时间等内容，关于models，更多请参考django网站的[models相关文档][12]。
+这是一个models的例子，设计到了属性，国际化，自动填充时间等内容，关于models，更多请参考django网站的[models相关文档](https://docs.djangoproject.com/en/dev/topics/db/models/)。
 
 以下是admin.py的内容，使django可以管理这个模型。
 通常只需要添加就可以了如下例子：
@@ -142,7 +142,7 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 </pre>
 
-这是一个admin的例子，涉及到了列表显示，搜索，配置界面等，关于admin，更多请参考django网站的文档[admin相关文档][13]。
+这是一个admin的例子，涉及到了列表显示，搜索，配置界面等，关于admin，更多请参考django网站的文档[admin相关文档](https://docs.djangoproject.com/en/dev/ref/contrib/admin/)。
 
 #### 配置
 主要配置**settings.py**和**urls.py**。
@@ -161,7 +161,7 @@ if ROOT_PATH not in sys.path:
     sys.path.append(ROOT_PATH)
 </pre>
 
-修改数据库配置，本文使用sqlite3，这是django自带驱动的，其他的请参考django网站的[database相关文档][14]
+修改数据库配置，本文使用sqlite3，这是django自带驱动的，其他的请参考django网站的[database相关文档](https://docs.djangoproject.com/en/dev/ref/databases/)
 <pre class="prettyprint linenums">
 DATABASES = {
     'default': {
@@ -275,20 +275,8 @@ COMMIT;
 本文主要侧重与django的安装和初步使用，不涉及其他内容（如视图，模板，国际化，生产系统部署等），重点是从头开始，到一个简单的应用。
 
 #### 参考资料
-[Django网站][1]  
-[setuptools下载地址][2]  
-[pip下载地址][3]  
-[Python Web 框架，第 1 部分: 使用 Django 和 Python 开发 Web 站点][4]
+[Django网站](https://www.djangoproject.com/)  
+[setuptools下载地址](http://pypi.python.org/pypi/setuptools)  
+[pip下载地址](http://pypi.python.org/pypi/pip)  
+[Python Web 框架，第 1 部分: 使用 Django 和 Python 开发 Web 站点](http://www.ibm.com/developerworks/cn/linux/l-django/)
 
-
-[0]: http://farm8.staticflickr.com/7093/7041815133_344ae57053_m.jpg "django"
-[1]: https://www.djangoproject.com/
-[2]: http://pypi.python.org/pypi/setuptools
-[3]: http://pypi.python.org/pypi/pip
-[4]: http://www.ibm.com/developerworks/cn/linux/l-django/
-
-[10]: https://www.djangoproject.com/weblog/2012/mar/23/14/
-[11]: http://pypi.python.org/pypi/setuptools
-[12]: https://docs.djangoproject.com/en/dev/topics/db/models/
-[13]: https://docs.djangoproject.com/en/dev/ref/contrib/admin/
-[14]: https://docs.djangoproject.com/en/dev/ref/databases/
