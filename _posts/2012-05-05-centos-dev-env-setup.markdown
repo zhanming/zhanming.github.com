@@ -14,18 +14,18 @@ This series of posts explains in detail how I configured my development environm
 尽可能多的使用开源软件。完成一个基本的软件开发过程。
 #### 引文
 本文是在CentOS 6.2下进行，下面的软件将被安装，并使之一起工作 :  
-[Nginx](http://nginx.org): 代理http服务软件 `http://localhost`  
-[MySQL](http://www.mysql.com): 数据库软件  
-[Redmine](http://redmine.org): bug跟踪软件 `http://localhost/redmine`  
-[Git](http://git-scm.org): 源代码管理软件  
-[Java](http://java.sun.com): java编程语言  
-[Maven](http://maven.apache.org): java项目管理工具  
-[Nexus](http://nexus.sonatype.org): Maven仓库管理器 `http://localhost/nexus`  
-[Jenkins](http://jenkins-ci.org): 持续集成软件 `http://localhost/jenkins`  
-[Gerrit](http://code.google.com/p/gerrit): 代码审查软件 `http://localhost/gerrit`  
+1. [Nginx](http://nginx.org): 代理http服务软件 `http://localhost`  
+2. [MySQL](http://www.mysql.com): 数据库软件  
+3. [Redmine](http://redmine.org): bug跟踪软件 `http://localhost/redmine`  
+4. [Git](http://git-scm.org): 源代码管理软件  
+5. [Java](http://java.sun.com): java编程语言  
+6. [Maven](http://maven.apache.org): java项目管理工具  
+7. [Nexus](http://nexus.sonatype.org): Maven仓库管理器 `http://localhost/nexus`  
+8. [Jenkins](http://jenkins-ci.org): 持续集成软件 `http://localhost/jenkins`  
+9. [Gerrit](http://code.google.com/p/gerrit): 代码审查软件 `http://localhost/gerrit`  
 安装之前，先安装gcc
     # yum install gcc
-#### Nginx
+#### 1. Nginx
 ##### 安装
 本文使用Nginx-1.2.0
     # rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.2.0-1.el6.ngx.x86_64.rpm
@@ -37,7 +37,7 @@ This series of posts explains in detail how I configured my development environm
     # service nginx start
     Starting nginx:                                            [  OK  ]
 访问：http://localhost
-#### MySQL
+#### 2. MySQL
 ##### 安装
 本文使用yum安装
     # yum install mysql-server
@@ -52,7 +52,7 @@ This series of posts explains in detail how I configured my development environm
     mysql> exit;
     Bye
 
-#### Redmine
+#### 3. Redmine
 ##### 安装
 redmine需要安装一些头文件
     # yum install mysql-devel ImageMagick ImageMagick-devel
@@ -137,7 +137,7 @@ Redmine::Utils::relative_url_root = "/redmine"
 [Redmine 1.1.0 + Apache + Passenger installation on Red Hat to a sub-URI](http://www.redmine.org/projects/redmine/wiki/Redmine+Apache+Passenger_InstallOnRedHat)  
 [How to install Redmine 1.4 (CentOS 5.8)](http://www.bilot.com/?p=917)
 
-#### Java
+#### 4. Java
 ##### 安装
 到[Oracle官方网站](http://java.sun.com)下载JDK.(本文下载的是rpm包)
     # rpm -ivh jdk-7u4-linux-x64.rpm 
@@ -199,7 +199,7 @@ Create the C-shell script in /etc/profile.d/java.csh
     # echo $JAVA_HOME
     /usr/java/default
 
-#### Jenkins
+#### 5. Jenkins
 ##### 安装
 本文使用yum安装
     # wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
@@ -233,7 +233,7 @@ Create the C-shell script in /etc/profile.d/java.csh
 [CentOS に Jenkins と Maven](http://d.hatena.ne.jp/sardine/20110602)  
 [Running Jenkins behind Apache](https://wiki.jenkins-ci.org/display/JENKINS/Running+Jenkins+behind+Apache)
 
-#### Maven
+#### 6. Maven
 ##### 安装
 到[maven.apache.org](http://maven.apache.org)找一个镜像进行下载。
     # wget http://labs.renren.com/apache-mirror/maven/binaries/apache-maven-3.0.4-bin.tar.gz
@@ -263,7 +263,7 @@ Create the C-shell script in /etc/profile.d/java.csh
     Default locale: en_US, platform encoding: UTF-8
     OS name: "linux", version: "2.6.32-220.13.1.el6.x86_64", arch: "amd64", family: "unix"
 
-#### Nexus
+#### 7. Nexus
 ##### 安装
 到[Sonatype的官方网站](http://www.sonatype.org)下载
     # wget http://www.sonatype.org/downloads/nexus-2.0.4-1-bundle.tar.gz
@@ -301,14 +301,14 @@ Create the C-shell script in /etc/profile.d/java.csh
 [Installing Nexus OSS](http://kb.sonatype.org/entries/20673251-installing-nexus-oss)  
 [Repository Management with Nexus](http://www.sonatype.com/books/nexus-book/reference/install-sect-service.html)  
 [How do I change the port or address that Nexus binds to?](http://kb.sonatype.org/entries/21159382-how-do-i-change-the-port-or-address-that-nexus-binds-to)
-#### Git
+#### 8. Git
 ##### 安装
 本文使用yum安装
     # yum install git
 如果想使用图形化用户界面，可以安装默认的git-gui程序
     # yum install git-gui
 
-#### Gerrit
+#### 9. Gerrit
 ##### 安装
 下载安装包，访问http://code.google.com/p/gerrit，本文下载的是gerrit-2.3.war
 创建数据库(本文以MySQL为例)
