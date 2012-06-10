@@ -51,14 +51,15 @@ GOPATH是一个路径列表 - 指定多个目录可以由一个“：”分开�
     GCIMPORTS+=-I $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -I , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
     LDIMPORTS+=-L $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -L , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
 goinstall命令和"go"命令工具，将会知道GOPATH
+
 #### 目录布局
-The source for a package with the import path "X/Y/Z" is in the directory
 导入目录为`X/Y/Z`的包的源文件将在目录
     $GOPATH/src/X/Y/Z
 导入目录为`X/Y/Z`的包的二进制文件在
     $GOPATH/pkg/$GOOS_$GOARCH/X/Y/Z.a
 源文件位于`$GOPATH/src/A/B`的命令的二进制文件在
     $GOPATH/bin/B
+
 #### 仓库集成和创建"goinstallable"项目
 goinstall, 当获取一个包，根据包的导入路径去发现URL，举例，如果尝试
     goinstall code.google.com/p/gomatrix/matrix
