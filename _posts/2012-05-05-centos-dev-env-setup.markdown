@@ -280,9 +280,9 @@ Create the C-shell script in /etc/profile.d/java.csh
     RUN_AS_USER=root
     PIDDIR="/var/run"
 修改权限
-    chmod 755 /etc/init.d/nexus
+    # chmod 755 /etc/init.d/nexus
 启动服务
-    service nexus start
+    # service nexus start
 访问：http://localhost:8081/nexus
 ##### Nginx代理
     # vi /etc/nginx/conf.d/default.conf
@@ -294,7 +294,7 @@ Create the C-shell script in /etc/profile.d/java.csh
 注: nexus默认使用8081端口，相关配置信息在$NEXUS_HOME/bin/nexus.properties中；
 
 重新加载nginx配置
-    service nginx reload
+    # service nginx reload
 ##### 测试
 访问：http://localhost/nexus
 ##### 参考
@@ -379,6 +379,10 @@ Create the C-shell script in /etc/profile.d/java.csh
             listenUrl = proxy-http://*:8082/gerrit/
     [cache]
             directory = cache
+启动服务
+    # /usr/local/gerrit/bin/gerrit.sh start
+其他命令，如stop, restart等，可参考[Gerrit](http://code.google.com/p/gerrit)的文档说明  
+访问：http://localhost:8082/gerrit
 ##### Nginx代理
 编辑nginx配置
     # vi /etc/nginx/conf.d/default.conf
