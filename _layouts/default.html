@@ -9,13 +9,13 @@
 {% if page.title %}<meta name="title" content="{{ page.title }}" />{% endif %}
 {% if page.tags %}<meta name="keywords" content="{% for tag in page.tags %}{{ tag }}{% if forloop.last == false %}, {% endif %}{% endfor %}">{% endif %}
 <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="/assets/html5shiv/html5shiv.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="/media/bootstrap/css/bootstrap.min.css?v=204" type="text/css" media="screen" />
-<link rel="stylesheet" href="/media/bootstrap/css/bootstrap-responsive.min.css?v=204" type="text/css" media="screen" />
-<link rel="stylesheet" href="/media/google-code-prettify/prettify.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="/media/css/screen.css?v=001" type="text/css" media="screen" />
-<script type="text/javascript" charset="utf-8" src="/media/js/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/google-code-prettify/prettify.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/css/screen.css" type="text/css" media="screen" />
+<script type="text/javascript" charset="utf-8" src="/assets/js/jquery-1.7.2.min.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -68,9 +68,9 @@
       <span>&copy; {{ site.time | date: "%Y" }} {{ site.domain }}</span>
     </p>
 </div>
-<script type="text/javascript" charset="utf-8" src='/media/bootstrap/js/bootstrap.min.js?v=204'></script>
-<script type="text/javascript" charset="utf-8" src="/media/google-code-prettify/prettify.js"></script>
-<script type="text/javascript" charset="utf-8" src='/media/js/application.js?v=001'> </script>
+<script type="text/javascript" charset="utf-8" src='/assets/bootstrap/js/bootstrap.min.js'></script>
+<script type="text/javascript" charset="utf-8" src="/assets/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" charset="utf-8" src='/assets/js/application.js'> </script>
 {% include comments_count %}
 {% include analytics %}
 </body>
