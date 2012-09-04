@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>{{ page.title }} - Druid @ Zhanming's blog</title>
+<link href='/favicon.ico' rel='shortcut icon' type='image/ico'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="{{ site.author.name }}" />
+{% if page.title %}<meta name="title" content="{{ page.title }}" />{% endif %}
+{% if page.tags %}<meta name="keywords" content="{% for tag in page.tags %}{{ tag }}{% if forloop.last == false %}, {% endif %}{% endfor %}">{% endif %}
+<!--[if lt IE 9]>
+  <script src="/assets/html5shiv/html5shiv.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/google-code-prettify/prettify.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/assets/druid/css/screen.css" type="text/css" media="screen" />
+<script type="text/javascript" charset="utf-8" src="/assets/js/jquery-1.7.2.min.js"></script>
+</head>
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+<!-- Navbar ================================================== -->
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="/">Druid @ Zhanming's blog</a>
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+	  {% if page.navigation %}<li><a href="/druid/zh/">介绍</a></li>{% else %}<li class="active"><a href="/druid/zh/">介绍</a></li>{% endif%}
+	  {% if page.navigation == "getting-started" %}<li class="active"><a href="/druid/zh/getting-started">入门</a></li>{% else %}<li><a href="/druid/zh/getting-started">入门</a></li>{% endif %}
+          {% if page.navigation == "downloads" %}<li class="active"><a href="/druid/zh/downloads">下载</a></li>{% else %}<li><a href="/druid/zh/downloads">下载</a></li>{% endif %}
+          {% if page.navigation == "manual" %}<li class="active"><a href="/druid/zh/manual">手册</a></li>{% else %}<li><a href="/druid/zh/manual">手册</a></li>{% endif %}
+          {% if page.navigation == "faq" %}<li class="active"><a href="/druid/zh/faq">FAQ</a></li>{% else %}<li><a href="/druid/zh/faq">FAQ</a></li>{% endif %}
+	  <li class="dropdown">
+            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">语言<b class="caret"></b></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+		  <li><a tabindex="-1" href="/druid/zh/">简体中文</a></li>
+		  <li><a tabindex="-1" href="/druid/">English</a></li>
+		</ul>
+	  </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{{ content }}
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">返回顶部</a></p>
+    <p>设计和开发 with all the love in the world <a href="http://alibaba.com/" target="_blank">Alibaba</a> by <a href="https://github.com/wenshao" target="_blank">@wenshao</a>.</p>
+    <p>代码采用 <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>授权许可. 文档采用 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>授权许可.</p>
+    <p>Icons 来自 <a href="http://glyphicons.com">Glyphicons Free</a>, 采用 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>授权许可.</p>
+    <p>Web页面的设计样式来自 <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, 采用<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>授权许可.</p>
+    <ul class="footer-links">
+      <li><a href="http://code.alibabatech.com/wiki/display/Druid/Home">官方主页</a></li>
+      <li><a href="https://github.com/AlibabaTech/druid/issues?state=open">提交问题</a></li>
+      <li><a href="https://github.com/AlibabaTech/druid/wiki">路线图和修改日志</a></li>
+    </ul>
+    <center>&copy; {{ site.time | date: "%Y" }} {{ site.domain }}. </center>
+  </div>
+</footer>
+<script type="text/javascript" charset="utf-8" src='/assets/bootstrap/js/bootstrap.min.js'></script>
+<script type="text/javascript" charset="utf-8" src="/assets/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" charset="utf-8" src='/assets/druid/js/application.js'> </script>
+{% include analytics %}
+</body>
+</html>
