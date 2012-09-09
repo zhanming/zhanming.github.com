@@ -1,7 +1,7 @@
 ---
 layout: druid_zh_CN
 navigation: downloads
-title: Download
+title: 下载
 ---
 
 <div>
