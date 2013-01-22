@@ -73,6 +73,6 @@ Go的源码在google code上存放，国内用户由于某些原因可能无法�
 #### 参考文档
 [Installing Go from source][1]
 
-[0]: http://qizhanming.com/2012/04/21/go-intro-1-install-on-centos
+[0]: http://qizhanming.com/blog/2012/04/21/go-intro-1-install-on-centos
 [1]: http://golang.org/doc/install/source
 [2]: http://golang.org/doc/install
