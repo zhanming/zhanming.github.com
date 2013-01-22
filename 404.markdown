@@ -1,8 +1,17 @@
 ---
-layout: page
+layout: err
 title: 404 Page does't exist
 comments: false
 ---
 
+### Page Not Found :(
 
+#### 对不起，您尝试浏览的页面不存在。
+
+可能是如下原因：
+
+1. 一个错误的地址（a mistyped address）  
+2. 一个过期的链接（an out-of-date link）
+
+#### Suggest 
 * [back to home](/)
