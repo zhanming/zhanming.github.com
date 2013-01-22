@@ -30,7 +30,7 @@
       <div class="nav-collapse">
         <ul class="nav pull-right">
 	  {% if page.navigation %}<li><a href="/">Home</a></li>{% else %}<li class="active"><a href="/">Home</a></li>{% endif%}
-	  {% if page.navigation == "Archives" %}<li class="active"><a href="/archives">Archives</a></li>{% else %}<li><a href="/archives">Archives</a></li>{% endif %}
+	  {% if page.navigation == "Archives" %}<li class="active"><a href="/blog/archives">Archives</a></li>{% else %}<li><a href="/blog/archives">Archives</a></li>{% endif %}
 	  <li class="dropdown">
             <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
@@ -54,7 +54,7 @@
     <h6>Categories</h6>
     <ul class="unstyled">
     {% for category in site.categories %}
-      <li><a href="/categories/#{{category | first}}">{{category | first}} ({{category | last | size }})</a></li>
+      <li><a href="/blog/categories/#{{category | first}}">{{category | first}} ({{category | last | size }})</a></li>
     {% endfor %}
     </ul>
     <h6>Recent Posts</h6>
@@ -73,7 +73,7 @@
 </div>
 <div class="footer">
     <p>
-      <span>&copy; {{ site.time | date: "%Y" }} {{ site.domain }}</span>
+      <span>&copy; 2012 - {{ site.time | date: "%Y" }} {{ site.domain }}</span>
     </p>
 </div>
 <script type="text/javascript" charset="utf-8" src='/assets/bootstrap/js/bootstrap.min.js'></script>
