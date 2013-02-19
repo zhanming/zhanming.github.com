@@ -1,9 +1,11 @@
 ---
 layout: post
-title: Go语言介绍 - Part 1：安装
+title: Go语言介绍 - 1：安装
 categories: [Go]
 tags: [go, centos]
 ---
+
+***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-02-19
 
 <a href="http://www.flickr.com/photos/zhanming/6978325562/"><img src="http://farm9.staticflickr.com/8016/6978325562_acfff65d49_m.jpg" width="150" height="150" alt="go-logo"></a>
 
@@ -15,7 +17,8 @@ Go is an open source programming environment that makes it easy to build simple,
 
 #### 引文
 有两种官方编译器工具链: gc Go编译器和gccgo编译器。  
-本文以CentOS 6.2为例介绍，使用编译好的二进制分发包进行安装。
+本文以CentOS 6.2为例介绍，使用编译好的二进制分发包进行安装。  
+
 #### 下载
 访问[Go project's downloads page](http://code.google.com/p/go/downloads)。  
 (请下载与操作系统环境对应的二进制分发版，本环境使用`go.go1.linux-amd64.tar.gz`)  
@@ -24,6 +27,7 @@ Go is an open source programming environment that makes it easy to build simple,
 提取归档文件到 `/usr/local` 目录，在 `/usr/local/go` 中创建Go的目录树。
     # tar -C /usr/local -xzf go.go1.linux-amd64.tar.gz
 (通常情况下，这些命令必须以root身份运行，或通过sudo的.)
+
 #### 环境变量
 添加 `/usr/local/go/bin` 到 `/etc/profile.d/go.sh` (对于CentOS，这样添加便于维护，系统范围的环境变量)，也可以指定用户,$HOME/.bashrc中，建议添加到系统范围的环境变量中。
     # vi /etc/profile.d/go.sh
@@ -35,6 +39,7 @@ Go is an open source programming environment that makes it easy to build simple,
 使更改立即生效
     # source /etc/profile
 （也可以重启系统使之生效）  
+
 #### 测试
 很简单，直接在命令行中输入go。
     $ go

@@ -1,15 +1,18 @@
 ---
 layout: post
-title: Go语言介绍 - Part 2：源码安装
+title: Go语言介绍 - 2：源码安装
 categories: [Go]
 tags: [go, centos]
 ---
+
+***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-02-19
 
 #### 简介
 今天Go语言更新了，版本为1.0.1，与第一个版本发布，时隔了一个月左右的时间，更新速度不可谓不快。此次更新主要是bug fix，用户接口没有更改。  
 如此快的更新速度，从binary安装感觉不是很舒服了，从源码安装变得更加顺手，写几行命令就轻松完成。
 
 原文如下：Most users don't need to do this, and will instead install from precompiled binary packages as described in [Getting Started][2], a much simpler process. If you want to help develop what goes into those precompiled packages, though, read on.
+
 #### 引文
 本文以CentOS 6.2为例介绍，从源码进行Go语言的安装和更新。
 
@@ -42,9 +45,11 @@ Go的源码在google code上存放，国内用户由于某些原因可能无法�
     updating to branch release-branch.go1
     3206 files updated, 0 files merged, 0 files removed, 0 files unresolved
 默认将源码下载到当前目录的go文件夹中，本例在`/usr/local/go`中。
+
 #### 安装依赖
 在CentOS6.2 Desktop Edition上，默认只需要安装gcc。
     # yum install gcc
+
 #### 安装Go
 构建二进制分发版
     # cd /usr/local/go/src
@@ -58,11 +63,13 @@ Go的源码在google code上存放，国内用户由于某些原因可能无法�
     Installed Go for linux/amd64 in /usr/local/go
     Installed commands in /usr/local/go/bin
 此时Go安装完毕。
+
 #### 验证
 设置环境变量，设置方法与[Go语言介绍 - Part 1：安装][0]相同。
     # go version
     go version go1.0.1
 安装成功，版本go1.0.1。
+
 #### 保持更新
 以后每当要更新版本，就方便好多。
     # cd /usr/local/go/src
@@ -70,6 +77,7 @@ Go的源码在google code上存放，国内用户由于某些原因可能无法�
     # hg update release
     # ./all.bash
 即可完成更新。
+
 #### 参考文档
 [Installing Go from source][1]
 

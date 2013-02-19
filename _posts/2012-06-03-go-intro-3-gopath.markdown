@@ -1,9 +1,11 @@
 ---
 layout: post
-title: Go语言介绍 - Part 3：GOPATH
+title: Go语言介绍 - 3：GOPATH
 categories: [Go]
 tags: [go, centos]
 ---
+
+***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-02-19
 
 #### 简介
 Go语言的[GOPATH Wiki](http://code.google.com/p/go-wiki/wiki/GOPATH)中介绍了GOPATH这个环境变量的用法，本文半翻译，半举例一下。
@@ -40,6 +42,7 @@ GOPATH是一个路径列表 - 指定多个目录可以由一个“：”分开�
 默认会安装到第一个目录（`$HOME/p/3rdparty`）中.
 
 如果在`$HOME/p/dev`中写代码，使用“go”工具(如go install, go build等）会将二进制包安装到`$HOME/p/dev`中
+
 #### 集成GOPATH
 在OS X或Linux，加入下面的表达式将到PATH中，将会添加所有$GOPATH/bin目录。
     ${GOPATH//://bin:}/bin
@@ -70,6 +73,7 @@ goinstall将从http://code.google.com/p/gomatrix取得源代码，并且它将�
 如果你喜欢使用makefiles在你自己的机器上构建，并且你仍然想你的项目与goinstall一起工作，设置TARG变量到import路径。goinstall将忽略这个makefile,但是只要TARG匹配到了包的相对路径，goinstall将选择相同的import路径。
 
 #### 技巧和窍门
+
 ##### 第三方包
 GOPATH设置两个条目是很有用的。第一个是路径为第三方包存放的位置，第二个为你自己的项目。将第三方的GOPATH放到第一位，这样goinstall将使用它作为默认的目的地。然后你可以在第二个GOPATH目录下工作，并且可以使用"go"命令，goinstall,或者一个GOPATH包含的第三方的构建工具（如[gb](http://code.google.com/p/go-gb)）来导入所有你使用的包。
 ##### 举例
@@ -91,6 +95,7 @@ GOPATH设置两个条目是很有用的。第一个是路径为第三方包存�
     
 
 #### FAQ
+
 ##### 为什么`$GOPATH/src/cmd/mycmd/*.go`没有编译?
 当go命令搜索包时，它总是第一个从$GOROOT开始。这包含了目录，所以如果它在$GOROOT中发现（如上面这个例子）一个`cmd/`目录，它将不会去其他GOPATH目录中查找。这防止你自定义自己的`math/matrix`包以及自己的`cmd/mycmd`命令。
 
