@@ -5,7 +5,7 @@ categories: [Go]
 tags: [go, centos]
 ---
 
-***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-02-19
+***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-03-09
 
 #### 简介
 Go语言的[GOPATH Wiki](http://code.google.com/p/go-wiki/wiki/GOPATH)中介绍了GOPATH这个环境变量的用法，本文半翻译，半举例一下。
@@ -34,12 +34,12 @@ GOPATH是一个路径列表 - 指定多个目录可以由一个“：”分开�
 编辑当前用户的环境变量（.bashrc）
     $ vi ~/.bashrc
 设置GOPATH
-    export GOPATH=$HOME/p/3rdparty:$HOME/p/dev
+    export GOPATH=$HOME/p/ext:$HOME/p/dev
 使之生效
     $ source ~/.bashrc
 此处设置了GOPATH为为两个目录(一个用于存放第三方的包，一个用于开发)，如果用"go工具"进行安装第三方包，如[go-tour](http://code.google.com/p/go-tour/)
     go get code.google.com/p/go-tour/gotour
-默认会安装到第一个目录（`$HOME/p/3rdparty`）中.
+默认会安装到第一个目录（`$HOME/p/ext`）中.
 
 如果在`$HOME/p/dev`中写代码，使用“go”工具(如go install, go build等）会将二进制包安装到`$HOME/p/dev`中
 
@@ -80,7 +80,7 @@ GOPATH设置两个条目是很有用的。第一个是路径为第三方包存�
 如上例中设置了两个目录每个目录的结构都是这样的
     .
     `--p
-       |--3rdparty
+       |--ext
        |  |--bin # 命令目录
        |  |--pkg # 包目录
        |  |  `--linux_amd64
