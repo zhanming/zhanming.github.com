@@ -5,6 +5,8 @@ categories: [Tutorial]
 tags: [virtualbox, centos]
 ---
 
+***更新日期***: 2013-03-14
+
 #### 简介
 [http://en.wikipedia.org/wiki/VirtualBox][0]
 
@@ -17,11 +19,22 @@ Oracle VM VirtualBox (formerly Sun VirtualBox, Sun xVM VirtualBox and innotek Vi
     # yum install gcc kernel sources kernel-devel
     # ln -s /usr/src/kernels/2.6.32-358.0.1.el6.x86_64 /usr/src/linux
 重启操作系统    
-	# sh autorun.sh
+    # sh autorun.sh
+
+#### 配置sudo命令
+经常使用`su root -`比较麻烦，sudo比较好用。
+    # chmod 740 /etc/sudoers
+    # vi /etc/sudoers
+编辑sudoers文件，添加sodoer。
+    ## Allow root to run any commands anywhere
+    root    ALL=(ALL)       ALL
+    your_username        ALL=(ALL)       ALL
+保存之后再将权限修改回去
+    # chmod 440 /etc/sudoers
 
 #### 安装Google Chrome
 到[http://www.google.com/chrome/eula.html?hl=en][1]下载安装文件
-	# rpm -Uvh google-chrome-stable_current_x86_64.rpm
+    $ sudo rpm -Uvh google-chrome-stable_current_x86_64.rpm
 
 #### 参考资料
 [How to install Guest Additions in CentOS 5.1](https://forums.virtualbox.org/viewtopic.php?t=4960)。  
