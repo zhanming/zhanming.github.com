@@ -36,8 +36,15 @@ Oracle VM VirtualBox (formerly Sun VirtualBox, Sun xVM VirtualBox and innotek Vi
 到[http://www.google.com/chrome/eula.html?hl=en][1]下载安装文件
     $ sudo rpm -Uvh google-chrome-stable_current_x86_64.rpm
 
+#### 安装Git gui
+使用git-gui，图形用户界面相对方便些
+    $ sudo yum install git-gui
+使用方法，cd到项目的git repo根目录
+    $ git gui
+
 #### 参考资料
 [How to install Guest Additions in CentOS 5.1](https://forums.virtualbox.org/viewtopic.php?t=4960)。  
 
 [0]: http://en.wikipedia.org/wiki/VirtualBox
 [1]: http://www.google.com/chrome/eula.html?hl=en
+[2]: http://qizhanming.com/blog/2012/04/27/go-intro-2-install-form-source/
