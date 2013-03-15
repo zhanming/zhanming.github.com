@@ -37,7 +37,28 @@ export PATH=$PATH:$HOME/go/ext/bin:$HOME/go/dev/bin
 filetype plugin on
 syntax on
 </pre>
-至此，补齐功能完成，使用vim编辑时，使用<C-x> <C-o>进行自动补齐。
+至此，补齐功能完成，使用vim编辑时，使用<C-x> <C-o>进行自动补齐。  
+当然Vim的其他配置看个人喜好，比如缩进，行号显示等。  
+如下面的例子
+<pre class="prettyprint linenums">
+"" 行号
+set nu
+"" 自动缩进
+set autoindent
+"" 设置软制表符宽度为4
+set tabstop=4
+set softtabstop=4
+"" 设置缩进的空格书为4
+set shiftwidth=4
+"" 自动补齐括号
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>
+"" go programming language setting
+filetype plugin on
+syntax on
+au BufRead,BufNewFile *.go set filetype=go
+</pre>
 
 #### 参考资料
 [gocode at github][1]  
