@@ -3,9 +3,8 @@ layout: post
 title: VirtualBox配置CentOS备忘
 categories: [Tutorial]
 tags: [virtualbox, centos]
+update: 2013年03月14日
 ---
-
-***更新日期***: 2013-03-14
 
 #### 简介
 [http://en.wikipedia.org/wiki/VirtualBox][0]

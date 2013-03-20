@@ -5,7 +5,7 @@ categories: [Go]
 tags: [go, centos]
 ---
 
-***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-03-09
+***适用范围***: [go1, go1.0.3]
 
 #### 简介
 Go语言的[GOPATH Wiki](http://code.google.com/p/go-wiki/wiki/GOPATH)中介绍了GOPATH这个环境变量的用法，本文半翻译，半举例一下。

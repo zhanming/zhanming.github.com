@@ -5,11 +5,12 @@ categories: [Go]
 tags: [go, centos]
 ---
 
-***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-03-14
+***适用范围***: [go1, go1.0.3]
 
 #### 简介
 
-The standard Go distribution includes a Go syntax file for Vim in go/misc/vim/.
+The standard Go distribution includes a Go syntax file for Vim in go/misc/vim/.  
+参考[Asta谢的书：1.4Go开发工具][2]进行配置如下。
 
 #### 配置高亮
     $ mkdir ～/.vim

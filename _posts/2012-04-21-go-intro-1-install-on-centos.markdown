@@ -5,7 +5,7 @@ categories: [Go]
 tags: [go, centos]
 ---
 
-***适用范围***: [go1, go1.0.3], ***更新日期***: 2013-02-19
+***适用范围***: [go1, go1.0.3]
 
 <a href="http://www.flickr.com/photos/zhanming/6978325562/"><img src="http://farm9.staticflickr.com/8016/6978325562_acfff65d49_m.jpg" width="150" height="150" alt="go-logo"></a>
 
