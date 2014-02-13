@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CentOS 6.2安装VNC Server
+title: CentOS6.2安装VNC Server
 categories: [Linux]
 tags: [vncserver, centos]
 ---
