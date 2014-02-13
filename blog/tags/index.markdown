@@ -11,7 +11,7 @@ title: Tags
 {% endfor %}
 </div>
 
-<ul class="unstyled">
+<ul class="list-unstyled">
 {% for tag in site.tags %}
   <h4><li id="{{ tag[0] }}">{{ tag[0] }}</li></h4>
 {% for post in tag[1] %}

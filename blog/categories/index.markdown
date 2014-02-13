@@ -10,7 +10,7 @@ title: Categories
 {% endfor %}
 </div>
 
-<ul class="unstyled">
+<ul class="list-unstyled">
 {% for category in site.categories %}
   <h4><li id="{{ category[0] }}">{{ category[0] }}</li></h4>
 {% for post in category[1] %}
