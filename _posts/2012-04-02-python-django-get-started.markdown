@@ -17,31 +17,45 @@ Developed by a fast-moving online-news operation, Django was designed to handle 
 #### 安装Django
 本文以CentOS 6.2为例进行安装:  
 安装python
+
     # yum install python
+
 本文使用的是CentOS 6.2 Desktop，默认安装了python.
 查看一下python的版本
+
     # python --version
     Python 2.6.6
+
 Django-1.4支持python2.5以上（python3暂不支持）。具体请看[Django的官方博客](https://www.djangoproject.com/weblog/2012/mar/23/14/)。  
 根据python的版本安装setuptools，pip（使用pip安装软件很方便，pip依赖setuptools），安装setuptools很简单，到其[pipy](http://pypi.python.org/pypi/setuptools)下载并安装(注意跟python的版本对应)。
+
     # curl -O http://pypi.python.org/packages/2.6/s/setuptools/setuptools-0.6c11-py2.6.egg
     # sh setuptools-0.6c11-py2.6.egg
     # curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
     # python get-pip.py
+
 本文关注django，暂不考虑virtualenv，buildout等虚拟环境的安装。  
 安装django
+
     # pip install django
+
 查看django的版本
+
     $ django-admin.py --version
     1.4
 
 #### 创建Django项目及Web应用
 使用django搭建Web应用很快。
+
     $ mkdir ~/dev
     $ cd ~/dev
+
 创建项目，使用**django-admin.py**的**startproject**命令。
+
     ～/dev$ django-admin.py startproject djdemo
+
 django-1.4创建的目录结构较以前的版本有了些调整，本文例子如下：
+
     .
     `--djdemo
        |--djdemo
@@ -50,10 +64,14 @@ django-1.4创建的目录结构较以前的版本有了些调整，本文例子�
        |  |--urls.py
        |  `--wsgi.py
        `--manage.py
+
 创建应用，使用**manage.py**的**startapp**命令，本文创建一个订单(Order)的例子。
+
     $ cd djdemo
     ~/dev/djdemo$ python manage.py startapp orders
+
 django会自动创建此应用的基本文件，目录如下：
+
     .
     `--djdemo
        |--djdemo
@@ -67,7 +85,9 @@ django会自动创建此应用的基本文件，目录如下：
     +  |  |--tests.py
     +  |  `--views.py
        `--manage.py
+
 在orders文件夹中新建admin.py，用于django管理工具使用。最终目录如下：
+
     .
     `--djdemo
        |--djdemo
@@ -82,10 +102,13 @@ django会自动创建此应用的基本文件，目录如下：
        |  |--tests.py
        |  `--views.py
        `--manage.py
+
 #### 创建一个Django的模型
 接下来修改models.py，管理此应有的模型。
 注意：如果使用非ASCII码，需要在文件头部添加
+
     # -*- coding: utf-8 -*-
+
 添加Order模型：
 <pre class="prettyprint linenums">
 # -*- coding: utf-8 -*-
@@ -268,7 +291,9 @@ COMMIT;
 此时数据库初始化完毕。
 #### 测试
 启动django，进行应用的测试，使用**manage.py**的**runserver**命令，开启服务。
+
     ~/dev/djdemo$ python manage.py runserver
+
 现在可以访问**http://localhost:8000/admin**查看。
 
 #### 结束语
