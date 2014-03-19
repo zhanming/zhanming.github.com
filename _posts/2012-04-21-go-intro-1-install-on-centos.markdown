@@ -91,8 +91,10 @@ func main() {
 }
 </pre>
 使用go的工具运行
+
     $ go run hello.go
     hello, world
+
 如果可以看到“hello, world”这个消息，则表示安装成功。
 
 #### 参考资料
