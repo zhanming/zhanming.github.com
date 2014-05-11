@@ -75,4 +75,4 @@ au BufRead,BufNewFile *.go set filetype=go
 [Asta谢的书：1.4Go开发工具][2]
 
 [1]: https://github.com/nsf/gocode
-[2]: https://github.com/astaxie/build-web-application-with-golang/blob/master/01.4.md
+[2]: https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/01.4.md
