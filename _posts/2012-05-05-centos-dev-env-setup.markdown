@@ -29,23 +29,35 @@ This series of posts explains in detail how I configured my development environm
 ##### 安装
 本文使用Nginx-1.2.0
     # rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.2.0-1.el6.ngx.x86_64.rpm
+
 查看安装的Nginx的属性
+
     # nginx -V
+    
 设置为服务
+
     # chkconfig nginx on
+    
 ##### 测试
+
     # service nginx start
     Starting nginx:                                            [  OK  ]
+    
 访问：http://localhost
 #### 2. MySQL
 ##### 安装
 本文使用yum安装
+
     # yum install mysql-server
     # chkconfig mysqld on
     # service mysqld start
+    
 修改root的密码为‘root’(本文为演示，请自行设置您的密码)
+
     # /usr/bin/mysqladmin -u root password 'root'
+    
 ##### 测试
+
     # mysql -u root -p
     Enter password: 
     
@@ -55,18 +67,26 @@ This series of posts explains in detail how I configured my development environm
 #### 3. Redmine
 ##### 安装
 redmine需要安装一些头文件
+
     # yum install mysql-devel ImageMagick ImageMagick-devel
+    
 安装ruby
+
     # yum install ruby ruby-devel rubygems
+    
 查看一下版本
+
     # ruby --version
     ruby 1.8.7 (2011-06-30 patchlevel 352) [x86_64-linux]
     # gem --version
     1.3.7
 
 Redmin1.4.1使用bundler安装
+
     # gem install bundler
+    
 查看一下gem包
+
     # gem list --local
     
     *** LOCAL GEMS ***
@@ -74,27 +94,37 @@ Redmin1.4.1使用bundler安装
     bundler (1.1.3)
 
 安装Redmine
+
     # wget http://rubyforge.org/frs/download.php/76033/redmine-1.4.1.tar.gz
     # cp redmine-1.4.1.tar.gz /usr/local
     # cd /usr/local
     # tar zxvf redmine-1.4.1.tar.gz
+    
 建立一个链接
+
     # ln -s /usr/local/redmine-1.4.1 /usr/local/redmine
     # cd /usr/local/redmine
+    
 使用bundle安装(本文不是用development, test模式，postgresql, sqlite数据库)
+
     # bundle install --without development test postgresql sqlite
 
 建立数据库
+
     # mysql -u root -p
     mysql> create database redmine character set utf8;
     mysql> create user 'redmine'@'localhost' identified by 'my_password';
     mysql> grant all privileges on redmine.* to 'redmine'@'localhost';
     mysql> exit;
+    
 修改数据库配置文件
+
     # cd /usr/local/redmine/config
     # cp database.yml.example database.yml
     # vi database.yml
+    
 主要修改production部分(数据库的用户名和密码)
+
     production:
       adapter: mysql
       database: redmine
@@ -102,33 +132,47 @@ Redmin1.4.1使用bundler安装
       username: redmine
       password: my_password
       encoding: utf8
+      
 生成会话存储
+
     # rake generate_session_store
     Please install RDoc 2.4.2+ to generate documentation.
+    
 可以忽略这句:Please install RDoc 2.4.2+ to generate documentation.  
 创建数据库结构
+
     # RAILS_ENV=production rake db:migrate
+    
 初始化数据库
+
     # RAILS_ENV=production rake redmine:load_default_data
+    
 ##### 测试
+
     ruby script/server webrick -e production
+    
 访问http://localhost:3000
 ##### Nginx代理
 为使nginx能够代理，需要修改redmine的environment.rb
 
     # vi /usr/local/redmine/config/environment.rb
+    
 在最下面添加如下代码
 <pre class="prettyprint linenums">
 Redmine::Utils::relative_url_root = "/redmine"
 </pre>
 而且还要建立链接(配置时未找到好的解决办法)，否则javascript,css文件会找不到
+
     ln -s /usr/local/redmine/public /usr/local/redmine/public/redmine
+    
 更改nginx配置
+
     # vi /etc/nginx/conf.d/default.conf
 
     location /redmine/ {
         proxy_pass http://127.0.0.1:3000;
     }
+    
 ##### 测试
 访问：http://localhost/redmine
 
@@ -140,6 +184,7 @@ Redmine::Utils::relative_url_root = "/redmine"
 #### 4. Java
 ##### 安装
 到[Oracle官方网站](http://java.sun.com)下载JDK.(本文下载的是rpm包)
+
     # rpm -ivh jdk-7u4-linux-x64.rpm 
     Preparing...                ########################################### [100%]
        1:jdk                    ########################################### [100%]
@@ -149,14 +194,18 @@ Redmine::Utils::relative_url_root = "/redmine"
 	    charsets.jar...
 	    tools.jar...
 	    localedata.jar...
+	    
 默认安装位置为`/usr/java`
+
     # cd /usr/java/
     # ll
     total 4
     lrwxrwxrwx. 1 root root   16 May  6 10:06 default -> /usr/java/latest
     drwxr-xr-x. 8 root root 4096 May  6 10:06 jdk1.7.0_04
     lrwxrwxrwx. 1 root root   21 May  6 10:06 latest -> /usr/java/jdk1.7.0_04
+    
 ##### 设置环境变量
+
     # update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 2
     # update-alternatives --config java
     
@@ -172,8 +221,10 @@ Redmine::Utils::relative_url_root = "/redmine"
     java version "1.7.0_04"
     Java(TM) SE Runtime Environment (build 1.7.0_04-b20)
     Java HotSpot(TM) 64-Bit Server VM (build 23.0-b21, mixed mode)
+    
 有时需要设置`JAVA_HOME`,可以放到系统环境变量中，创建shell脚本(两种)  
 Create the Bourne script in /etc/profile.d/java.sh
+
     # vi /etc/profile.d/jdk.sh
 
     # Oracle jdk
@@ -193,29 +244,43 @@ Create the C-shell script in /etc/profile.d/java.csh
         setenv JAVA_HOME "/usr/java/default"
         setenv PATH "$JAVA_HOME/bin:$PATH"
     endif
+    
 使之立即生效
+
     # source /etc/profile
+    
 ##### 测试
+
     # echo $JAVA_HOME
     /usr/java/default
 
 #### 5. Jenkins
 ##### 安装
 本文使用yum安装
+
     # wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
     # rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
     # yum install jenkins
+    
 安装的文件信息在`/etc/init.d/jenkins`中可以找到,需要修改配置,默认是JENKINS_JAVA_CMD=""，jenkins会查找/usr/bin/java，正常是可能能找到的，但是我在安装时，始终出错，改为绝对路径就OK了。
+
     # vi /etc/sysconfig/jenkins
+    
 修改`JENKINS_JAVA_CMD`这个变量
+
     JENKINS_JAVA_CMD="/usr/java/default/bin/java"
+    
 ##### 测试
+
     service jenkins start
+    
 访问：http://localhost:8080  
 ##### Nginx代理
 为使nginx代理，也要修改一下配置
+
     # vi /etc/sysconfig/jenkins
     JENKINS_ARGS="--prefix=/jenkins"
+    
 此时，jenkins的入口地址为：http://localhost:8080/jenkins
 
     # vi /etc/nginx/conf.d/default.conf
@@ -223,8 +288,11 @@ Create the C-shell script in /etc/profile.d/java.csh
     location /jenkins/ {
         proxy_pass http://127.0.0.1:8080;
     }
+    
 重新加载nginx配置
+
     service nginx reload
+    
 ##### 测试
 访问：http://localhost/jenkins
 ##### 参考
@@ -236,15 +304,20 @@ Create the C-shell script in /etc/profile.d/java.csh
 #### 6. Maven
 ##### 安装
 到[maven.apache.org](http://maven.apache.org)找一个镜像进行下载。
+
     # wget http://labs.renren.com/apache-mirror/maven/binaries/apache-maven-3.0.4-bin.tar.gz
     # cp apache-maven-3.0.4-bin.tar.gz /usr/local
     # cd /usr/local
     # tar -xzvf apache-maven-3.0.4-bin.tar.gz
     # ln -s /usr/local/apache-maven-3.0.4 /usr/local/maven
     # rm -f apache-maven-3.0.4-bin.tar.gz
+    
 添加到系统环境变量
+
     # vi /etc/profile.d/maven.sh
+    
 添加如下内容
+
     # Maven Path
 
     if [ -d /usr/local/maven ]; then
@@ -252,9 +325,13 @@ Create the C-shell script in /etc/profile.d/java.csh
         PATH=$PATH:$M2_HOME/bin
         export M2_HOME PATH
     fi
+
 使之生效
+
     # source /etc/profile
+    
 ##### 测试
+
     # mvn -version
     Apache Maven 3.0.4 (r1232337; 2012-01-17 16:44:56+0800)
     Maven home: /usr/local/maven
@@ -266,25 +343,36 @@ Create the C-shell script in /etc/profile.d/java.csh
 #### 7. Nexus
 ##### 安装
 到[Sonatype的官方网站](http://www.sonatype.org)下载
+
     # wget http://www.sonatype.org/downloads/nexus-2.0.4-1-bundle.tar.gz
     # cp nexus-2.0.4-1-bundle.tar.gz /usr/local
     # cd /usr/local
     # tar zxvf nexus-2.0.4-1-bundle.tar.gz
     # ln -s /usr/local/nexus-2.0.4-1 /usr/local/nexus
     # rm -rf nexus-2.0.4-1-bundle.tar.gz
+    
 ##### 设置为服务
+
     # cp /usr/local/nexus/bin/nexus /etc/init.d
     # vi /etc/init.d/nexus
+    
 主要修改如下几项：
+
     NEXUS_HOME="/usr/local/nexus"
     RUN_AS_USER=root
     PIDDIR="/var/run"
+    
 修改权限
+
     # chmod 755 /etc/init.d/nexus
+    
 启动服务
+
     # service nexus start
+    
 访问：http://localhost:8081/nexus
 ##### Nginx代理
+
     # vi /etc/nginx/conf.d/default.conf
 
     location /nginx/ {
@@ -294,7 +382,9 @@ Create the C-shell script in /etc/profile.d/java.csh
 注: nexus默认使用8081端口，相关配置信息在$NEXUS_HOME/bin/nexus.properties中；
 
 重新加载nginx配置
+
     # service nginx reload
+    
 ##### 测试
 访问：http://localhost/nexus
 ##### 参考
@@ -304,14 +394,18 @@ Create the C-shell script in /etc/profile.d/java.csh
 #### 8. Git
 ##### 安装
 本文使用yum安装
+
     # yum install git
+    
 如果想使用图形化用户界面，可以安装默认的git-gui程序
+
     # yum install git-gui
 
 #### 9. Gerrit
 ##### 安装
 下载安装包，访问http://code.google.com/p/gerrit，本文下载的是gerrit-2.3.war
 创建数据库(本文以MySQL为例)
+
     # mysql -u root -p
     mysql> CREATE USER 'gerrit2'@'localhost' IDENTIFIED BY 'gerrit2';
     mysql> CREATE DATABASE reviewdb;
@@ -320,18 +414,25 @@ Create the C-shell script in /etc/profile.d/java.csh
     mysql> FLUSH PRIVILEGES;
 
 安装gerrit
+
     # cp gerrit-2.3.war /usr/local
     # cd /usr/local
     # java -jar gerrit-2.3.war init -d review_site
+    
 安装过程一般直接回车即可，主要注意一下地方：
 数据库(本文是用MySQL,默认为H2)
+
     *** SQL Database
     *** 
 
     Database server type           [H2/?]: mysql
+    
 认证类型(本文使用http,默认为OPENID)
+
     Authentication method          [OPENID/?]: http
+    
 端口(本文使用8082，因为前面安装nexus已经使用了8081端口)
+
     *** HTTP Daemon
     *** 
 
@@ -348,7 +449,9 @@ Create the C-shell script in /etc/profile.d/java.csh
     Waiting for server to start ... OK
     Opening browser ...
     No protocol specified
+    
 新建passwd文件
+
     # mkdir /etc/nginx/passwd
     # htpasswd -c /etc/nginx/passwd/gerrit2.passwd gerrit2
     New password: 
@@ -356,6 +459,7 @@ Create the C-shell script in /etc/profile.d/java.csh
     Adding password for user gerrit2
 
 查看gerrit的配置文件，整个配置文件是这样的
+
     # vi /usr/local/gerrit/etc/gerrit.config
 
     [gerrit]
@@ -379,12 +483,16 @@ Create the C-shell script in /etc/profile.d/java.csh
             listenUrl = proxy-http://*:8082/gerrit/
     [cache]
             directory = cache
+    
 启动服务
+
     # /usr/local/gerrit/bin/gerrit.sh start
+    
 其他命令，如stop, restart等，可参考[Gerrit](http://code.google.com/p/gerrit)的文档说明  
 访问：http://localhost:8082/gerrit
 ##### Nginx代理
 编辑nginx配置
+
     # vi /etc/nginx/conf.d/default.conf
 
     location /gerrit/ {
@@ -394,6 +502,7 @@ Create the C-shell script in /etc/profile.d/java.csh
         auth_basic        "Gerrit Code Review";
         auth_basic_user_file /etc/nginx/passwd/gerrit2.passwd;
     }
+    
 ##### 测试
 访问：http://localhost/gerrit/  
 输入用户名`gerrit2`，密码为刚才设置的密码(本文设为`gerrit2`);
