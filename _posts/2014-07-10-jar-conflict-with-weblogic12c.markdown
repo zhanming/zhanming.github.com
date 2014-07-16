@@ -1,0 +1,76 @@
+---
+layout: post
+title: 解决WebLogic12c的jar包冲突
+categories: [Java]
+tags: [jpa, weblogic]
+---
+#### 前提说明
+部署一个JavaEE程序到Weblogic 12c上很简单，WebLogic12c已经支持JPA2.1标准，使用的ecipse-link作为默认实现。
+
+我们使用的是JPA，实现是基于Hibernate的，部署到Weblogic的时候一直有jar包冲突。
+
+#### 环境说明
+程序中使用的JPA和实现如下：
+
+hibernate-4.3.5.Final.jar
+
+hibernate-jpa-2.1-api-1.0.0.Final.jar
+
+本来以为只要在weblogic.xml里描述符就OK了。于是改成了这样：
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<wls:weblogic-web-app
+		xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
+			http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+
+		<wls:context-root>/</wls:context-root>
+		<wls:container-descriptor>
+			<wls:prefer-web-inf-classes>true</wls:prefer-web-inf-classes>
+		</wls:container-descriptor>
+	</wls:weblogic-web-app>
+
+但是一直有问题，网上找了好久，找到了<http://javaiscoool.blogspot.com/2012/12/deploy-jpa20-application-on-weblogic1033.html>，才发现，需要修改persistence.xml的文件名，很诡异。
+不知道为什么，只要是persistence.xml，WebLogic不论如何都是使用它自己的实现进行解析，结果一直jar包冲突。
+
+#### 解决办法
+
+修改persistence.xml为其他的名字如foo.xml（foo.xml为示例作用），并且要将这个名字配置到Spring的applicationContext.xml中，我的程序是使用Spring的。
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:META-INF/foo.xml"/>
+		<property name="persistenceUnitName" value="persistenceUnit" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+注：persistenceUnitName和dataSource的值，请按项目自行修改。
+
+然后，添加`WEB-INF/weblogic.xml`，使用了WebLogic的`prefer-application-packages`描述符，具体内容如下：
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<wls:weblogic-web-app
+		xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
+			http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+
+		<wls:context-root>/</wls:context-root>
+		<wls:container-descriptor>
+			<wls:prefer-application-packages>
+				<wls:package-name>antlr.*</wls:package-name>
+				<wls:package-name>org.apache.commons.*</wls:package-name>
+				<wls:package-name>javax.persistence.*</wls:package-name>
+				<wls:package-name>org.hibernate.*</wls:package-name>
+			</wls:prefer-application-packages>
+		</wls:container-descriptor>
+	</wls:weblogic-web-app>
+
+这样，WebLogic就会使用项目内的jar包了。
+
+#### 参考资料
+[Deploy JPA2.0 application on weblogic10.3.3][1]  
+[weblogic.xml Deployment Descriptor Elements][2]  
+[1]: http://javaiscoool.blogspot.com/2012/12/deploy-jpa20-application-on-weblogic1033.html
+[2]: http://docs.oracle.com/cd/E24329_01/web.1211/e21049/weblogic_xml.htm
