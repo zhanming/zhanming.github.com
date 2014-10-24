@@ -24,10 +24,13 @@ This series of posts explains in detail how I configured my development environm
 8. [Jenkins](http://jenkins-ci.org): 持续集成软件 `http://localhost/jenkins`  
 9. [Gerrit](http://code.google.com/p/gerrit): 代码审查软件 `http://localhost/gerrit`  
 安装之前，先安装gcc
+
     # yum install gcc
+
 #### 1. Nginx
 ##### 安装
 本文使用Nginx-1.2.0
+
     # rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.2.0-1.el6.ngx.x86_64.rpm
 
 查看安装的Nginx的属性
