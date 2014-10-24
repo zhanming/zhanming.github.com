@@ -378,7 +378,7 @@ Create the C-shell script in /etc/profile.d/java.csh
 
     # vi /etc/nginx/conf.d/default.conf
 
-    location /nginx/ {
+    location /nexus/ {
         proxy_pass http://127.0.0.1:8081;
     }
 
