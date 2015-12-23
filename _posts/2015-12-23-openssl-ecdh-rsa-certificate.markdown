@@ -12,7 +12,7 @@ ECDH是基于ECC（Elliptic Curve Cryptosystems，椭圆曲线密码体制）的
 本文只对ECDH进行介绍，只为测试。
 
 #### 环境说明
-CentOS 7.2
+CentOS 7.2(CentOS_7_x86_64_1151)
 
 OpenSSL 1.0.2e
 
