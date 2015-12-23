@@ -22,7 +22,7 @@ OpenSSL 1.0.2e
 	# openssl version
 	OpenSSL 1.0.1e-fips 11 Feb 2013
 
-2.OpenSSL应在1.0.2以上，去官网下载，源码安装一下，请根据实际情况更改下载地址。
+2.OpenSSL应在1.0.2以上，这里使用1.0.2e，去官网下载，源码安装一下，请根据实际情况更改下载地址。
 
 	# cd /usr/src
 	# wget https://www.openssl.org/source/openssl-1.0.2e.tar.gz
