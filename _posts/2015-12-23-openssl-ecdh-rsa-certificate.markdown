@@ -5,6 +5,12 @@ categories: [Linux]
 tags: [centos, openssl, ecdh, rsa]
 ---
 #### 前言
+对于ECDH，Wikipedia如下描述
+
+Elliptic curve Diffie–Hellman (ECDH) is an anonymous key agreement protocol that allows two parties, each having an elliptic curve public–private key pair, to establish a shared secret over an insecure channel.
+
+参见<https://en.wikipedia.org/wiki/Elliptic_curve_Diffie-Hellman>
+
 ECDH是基于ECC（Elliptic Curve Cryptosystems，椭圆曲线密码体制）的DH（ Diffie-Hellman）密钥交换算法。交换双方可以在不共享任何秘密的情况下协商出一个密钥。与Diffie-Hellman相比ECDH具有ECC的高强度、短密钥长度、计算速度快等优点。
 
 由于ECDH每次用一个固定的DH key, 导致不能向前保密（forward secrecy），安全性会降低，所以一般都是用ECDHE（ECDH的ephemeral version）或其他版本的ECDH算法。
