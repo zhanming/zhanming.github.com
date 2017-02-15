@@ -3,6 +3,7 @@ layout: post
 title: Go语言介绍 - 3：GOPATH
 categories: [Go]
 tags: [go, centos]
+summary: Go语言的[GOPATH Wiki](http://code.google.com/p/go-wiki/wiki/GOPATH)中介绍了GOPATH这个环境变量的用法，本文半翻译，半举例一下。
 ---
 
 ***适用范围***: [go1, go1.0.3]

@@ -3,6 +3,7 @@ layout: post
 title: Go的Vim的高亮和自动补齐
 categories: [Go]
 tags: [go, centos]
+summary: 参考[Asta谢的书：1.4Go开发工具][2]进行配置如下。
 ---
 
 ***适用范围***: [go1, go1.0.3]

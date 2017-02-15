@@ -3,6 +3,7 @@ layout: post
 title: 解决WebLogic12c的jar包冲突
 categories: [Java]
 tags: [jpa, weblogic]
+summary: 部署一个JavaEE程序到Weblogic 12c上很简单，WebLogic12c已经支持JPA2.1标准，使用的ecipse-link作为默认实现。
 ---
 #### 前提说明
 部署一个JavaEE程序到Weblogic 12c上很简单，WebLogic12c已经支持JPA2.1标准，使用的ecipse-link作为默认实现。

@@ -3,6 +3,7 @@ layout: post
 title: 从GitHub将Maven项目导入Eclipse4.2
 categories: [Java]
 tags: [java, maven, eclipse, github]
+summary: GitHub中的Maven项目一般没有本地配置文件（主要是为了去除依赖，使项目整体结构清晰）。但是当导入Github的Maven项目，并与本地的Eclipse直接结成，总有些困难，直到Eclipse 4.2(Juno). 本文介绍如何导入github项目，并直接与eclipse集成。
 ---
 
 #### 简介

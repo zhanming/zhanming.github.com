@@ -3,6 +3,7 @@ layout: post
 title: CentOS6.2下开发环境搭建 - 安装
 categories: [Linux]
 tags: [centos, nginx, redmine, java, gerrit, maven, nexus, jenkins]
+summary: 这几天看到一篇博文：http://blog.j12r.com/2011/11/development-environment/,他主要在ubuntu下使用的，我主要用centos,就也做了一些配置，记录一下配置过程。使用的软件也略有不同。
 ---
 
 #### 简介

@@ -3,6 +3,7 @@ layout: post
 title: Go语言介绍 - 1：安装
 categories: [Go]
 tags: [go, centos]
+summary: 关于Go语言，原文介绍如下：本系列文章主要针对Go语言，进行入门介绍。
 ---
 
 ***适用范围***: [go1, go1.0.3]

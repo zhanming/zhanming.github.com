@@ -3,6 +3,7 @@ layout: post
 title: CentOS6下配置SFTP备忘
 categories: [Linux]
 tags: [centos, sftp, chroot, selinux]
+summary: SFTP在Linux环境下搭建很简单，因为Linux一般默认支持SSH（SSH-2.0）协议。搭建SFTP服务，安全的进行文件的传输，Chroot可以控制用户的访问目录。
 ---
 #### 前言
 SFTP

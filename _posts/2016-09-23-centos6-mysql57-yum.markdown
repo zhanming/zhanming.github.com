@@ -3,6 +3,7 @@ layout: post
 title: CentOS6下Yum安装MySQL5.7备忘
 categories: [Linux]
 tags: [centos, mysql, yum]
+summary: MySQL 5.7的安装与MySQL 5.6发生了一些变化，记录一下大致的安装和配置过程。
 ---
 #### 前言
 MySQL 5.7

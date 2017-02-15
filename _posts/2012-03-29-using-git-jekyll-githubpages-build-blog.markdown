@@ -3,6 +3,7 @@ layout: post
 title: 使用Git, Jekyll和GitHub Pages搭建blog
 categories: [Tutorial]
 tags: [git, jekyll, github pages]
+summary: Jekyll是一个简单的，博客感知，静态站点生成器。
 ---
 
 <a href="http://www.flickr.com/photos/zhanming/7124698719/"><img src="http://farm9.staticflickr.com/8001/7124698719_cc5b56d1cd_m.jpg" width="129" height="30" alt="logo-pages"></a>

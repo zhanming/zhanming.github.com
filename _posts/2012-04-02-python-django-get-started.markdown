@@ -3,6 +3,7 @@ layout: post
 title: 使用Python和Django搭建Web应用
 categories: [Tutorial]
 tags: [python, django, web development]
+summary: Django是Python开发的Web框架。使用Django搭建Web应用很方便。写本文时django的最新版本为1.4，但本文不关注新版本的特性，只搭建一个简单的应用。
 ---
 
 <a href="http://www.flickr.com/photos/zhanming/6978716444/"><img src="http://farm9.staticflickr.com/8025/6978716444_3892988209_m.jpg" width="117" height="41" alt="django_logo"></a>

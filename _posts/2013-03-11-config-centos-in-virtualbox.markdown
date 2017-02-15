@@ -4,6 +4,7 @@ title: VirtualBox配置CentOS备忘
 categories: [Tutorial]
 tags: [virtualbox, centos]
 update: 2013年03月14日
+summary: Oracle VM VirtualBox配置CentOS, 本文以VirtualBox 4.2.8安装的CentOS 6.4_x86_64为例。
 ---
 
 #### 简介

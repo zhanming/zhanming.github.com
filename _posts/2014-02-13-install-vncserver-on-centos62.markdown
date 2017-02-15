@@ -3,6 +3,7 @@ layout: post
 title: CentOS6.2安装VNC Server
 categories: [Linux]
 tags: [vncserver, centos]
+summary: CentOS6.2安装VNC Server，具体安装和配置过程记录。
 ---
 #### 环境说明
 CentOS 6.2 Minimal Desktop
