@@ -7,13 +7,13 @@ layout: default
     <a href="{{ page.url }}" title="到《{{ page.title }}》的永久链接">{{ page.title }}</a>
   </h3>
   <div class="post-info">
-   <span><li class="glyphicon glyphicon-pencil"></li> Post on: {{ page.date | date: "%Y年%m月%d日" }} | <li class="glyphicon glyphicon-tags"></li> Tags: {% for tag in page.tags %}<a href="/blog/tags/#{{ tag }}" rel="tag">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %}{%if page.update%} | <li class="glyphicon glyphicon-share-alt"></li> Updated on: {{ page.update}}{% endif%}</span>
+   <span>{{ page.date | date: "%Y-%m-%d" }} | 标签: {% for tag in page.tags %}<a href="/blog/tags/#{{ tag }}" rel="tag">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %}{%if page.update%} | 更新: {{ page.update}}{% endif%}</span>
   </div>
   <div class="entry">
     {{ content }}
   </div>
   <div>
-    <li class="glyphicon glyphicon-folder-open"></li> Categories: {% for cat in page.categories %}<a href="/blog/categories/#{{ cat }}" rel="category tag">{{ cat }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %} | <li class="glyphicon glyphicon-comment"></li> <a href="{{ post.url }}#disqus_thread">Comments</a>
+    分类: {% for cat in page.categories %}<a href="/blog/categories/#{{ cat }}" rel="category tag">{{ cat }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %} | <a href="{{ post.url }}#disqus_thread">评论</a>
   </div>
 </div>
 {% comment %}<!---->{% endcomment %}

@@ -1,5 +1,5 @@
 ---
-layout: err
+layout: error
 title: 404 Page does't exist
 comments: false
 ---
