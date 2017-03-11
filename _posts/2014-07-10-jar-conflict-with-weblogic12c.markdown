@@ -73,5 +73,6 @@ hibernate-jpa-2.1-api-1.0.0.Final.jar
 #### 参考资料
 [Deploy JPA2.0 application on weblogic10.3.3][1]  
 [weblogic.xml Deployment Descriptor Elements][2]  
+
 [1]: http://javaiscoool.blogspot.com/2012/12/deploy-jpa20-application-on-weblogic1033.html
 [2]: http://docs.oracle.com/cd/E24329_01/web.1211/e21049/weblogic_xml.htm
