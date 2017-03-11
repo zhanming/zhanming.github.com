@@ -1,20 +1,20 @@
 ---
 layout: post
-title: CentOS6.2下开发环境搭建 - 安装
+title: CentOS 6.2 下开发环境搭建 - 安装
 categories: [Linux]
 tags: [centos, nginx, redmine, java, gerrit, maven, nexus, jenkins]
-summary: 这几天看到一篇博文：http://blog.j12r.com/2011/11/development-environment/,他主要在ubuntu下使用的，我主要用centos,就也做了一些配置，记录一下配置过程。使用的软件也略有不同。
+summary: 这几天看到一篇博文：http://blog.j12r.com/2011/11/development-environment/,他主要在 Ubuntu 下使用的，我主要用 CentOS，就也做了一些配置，记录一下配置过程。使用的软件也略有不同。
 ---
 
 #### 简介
-这几天看到一篇博文：http://blog.j12r.com/2011/11/development-environment/,他主要在ubuntu下使用的，我主要用centos,就也做了一些配置，记录一下配置过程。使用的软件也略有不同。
+这几天看到一篇博文：http://blog.j12r.com/2011/11/development-environment/,他主要在 Ubuntu 下使用的，我主要用 CentOS，就也做了一些配置，记录一下配置过程。使用的软件也略有不同。
 
 原文如下：  
 This series of posts explains in detail how I configured my development environment at [j12r.com](http://j12r.com).
 
 尽可能多的使用开源软件。完成一个基本的软件开发过程。
 #### 引文
-本文是在CentOS 6.2下进行，下面的软件将被安装，并使之一起工作 :  
+本文是在 CentOS 6.2 下进行，下面的软件将被安装，并使之一起工作 :  
 1. [Nginx](http://nginx.org): 代理http服务软件 `http://localhost`  
 2. [MySQL](http://www.mysql.com): 数据库软件  
 3. [Redmine](http://redmine.org): bug跟踪软件 `http://localhost/redmine`  
@@ -24,17 +24,17 @@ This series of posts explains in detail how I configured my development environm
 7. [Nexus](http://nexus.sonatype.org): Maven仓库管理器 `http://localhost/nexus`  
 8. [Jenkins](http://jenkins-ci.org): 持续集成软件 `http://localhost/jenkins`  
 9. [Gerrit](http://code.google.com/p/gerrit): 代码审查软件 `http://localhost/gerrit`  
-安装之前，先安装gcc
+安装之前，先安装 gcc
 
     # yum install gcc
 
 #### 1. Nginx
 ##### 安装
-本文使用Nginx-1.2.0
+本文使用 Nginx-1.2.0
 
     # rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.2.0-1.el6.ngx.x86_64.rpm
 
-查看安装的Nginx的属性
+查看安装的 Nginx 的属性
 
     # nginx -V
     
@@ -47,16 +47,16 @@ This series of posts explains in detail how I configured my development environm
     # service nginx start
     Starting nginx:                                            [  OK  ]
     
-访问：http://localhost
+访问：`http://localhost`
 #### 2. MySQL
 ##### 安装
-本文使用yum安装
+本文使用 yum 安装
 
     # yum install mysql-server
     # chkconfig mysqld on
     # service mysqld start
     
-修改root的密码为‘root’(本文为演示，请自行设置您的密码)
+修改 root 的密码为 ‘root’ (本文为演示，请自行设置您的密码)
 
     # /usr/bin/mysqladmin -u root password 'root'
     
@@ -70,11 +70,11 @@ This series of posts explains in detail how I configured my development environm
 
 #### 3. Redmine
 ##### 安装
-redmine需要安装一些头文件
+redmine 需要安装一些头文件
 
     # yum install mysql-devel ImageMagick ImageMagick-devel
     
-安装ruby
+安装 ruby
 
     # yum install ruby ruby-devel rubygems
     
@@ -85,11 +85,11 @@ redmine需要安装一些头文件
     # gem --version
     1.3.7
 
-Redmin1.4.1使用bundler安装
+Redmin 1.4.1 使用 bundler 安装
 
     # gem install bundler
     
-查看一下gem包
+查看一下 gem 包
 
     # gem list --local
     
@@ -97,7 +97,7 @@ Redmin1.4.1使用bundler安装
     
     bundler (1.1.3)
 
-安装Redmine
+安装 Redmine
 
     # wget http://rubyforge.org/frs/download.php/76033/redmine-1.4.1.tar.gz
     # cp redmine-1.4.1.tar.gz /usr/local
@@ -109,7 +109,7 @@ Redmin1.4.1使用bundler安装
     # ln -s /usr/local/redmine-1.4.1 /usr/local/redmine
     # cd /usr/local/redmine
     
-使用bundle安装(本文不是用development, test模式，postgresql, sqlite数据库)
+使用 bundle 安装(本文不是用 development, test 模式，postgresql, sqlite 数据库)
 
     # bundle install --without development test postgresql sqlite
 
@@ -127,7 +127,7 @@ Redmin1.4.1使用bundler安装
     # cp database.yml.example database.yml
     # vi database.yml
     
-主要修改production部分(数据库的用户名和密码)
+主要修改 production 部分(数据库的用户名和密码)
 
     production:
       adapter: mysql
@@ -142,7 +142,7 @@ Redmin1.4.1使用bundler安装
     # rake generate_session_store
     Please install RDoc 2.4.2+ to generate documentation.
     
-可以忽略这句:Please install RDoc 2.4.2+ to generate documentation.  
+可以忽略这句: Please install RDoc 2.4.2+ to generate documentation.  
 创建数据库结构
 
     # RAILS_ENV=production rake db:migrate
@@ -155,9 +155,9 @@ Redmin1.4.1使用bundler安装
 
     ruby script/server webrick -e production
     
-访问http://localhost:3000
-##### Nginx代理
-为使nginx能够代理，需要修改redmine的environment.rb
+访问 `http://localhost:3000`
+##### Nginx 代理
+为使 nginx 能够代理，需要修改 redmine 的 environment.rb
 
     # vi /usr/local/redmine/config/environment.rb
     
@@ -165,11 +165,11 @@ Redmin1.4.1使用bundler安装
 <pre class="prettyprint linenums">
 Redmine::Utils::relative_url_root = "/redmine"
 </pre>
-而且还要建立链接(配置时未找到好的解决办法)，否则javascript,css文件会找不到
+而且还要建立链接(配置时未找到好的解决办法)，否则 javascript, css 文件会找不到
 
     ln -s /usr/local/redmine/public /usr/local/redmine/public/redmine
     
-更改nginx配置
+更改 nginx 配置
 
     # vi /etc/nginx/conf.d/default.conf
 
@@ -178,7 +178,7 @@ Redmine::Utils::relative_url_root = "/redmine"
     }
     
 ##### 测试
-访问：http://localhost/redmine
+访问：`http://localhost/redmine`
 
 ##### 参考
 [HowTo Install Redmine in a sub-URI](http://www.redmine.org/projects/redmine/wiki/HowTo_Install_Redmine_in_a_sub-URI)    
@@ -187,7 +187,7 @@ Redmine::Utils::relative_url_root = "/redmine"
 
 #### 4. Java
 ##### 安装
-到[Oracle官方网站](http://java.sun.com)下载JDK.(本文下载的是rpm包)
+到 [Oracle官方网站](http://java.sun.com)下载 JDK (本文下载的是 rpm 包)
 
     # rpm -ivh jdk-7u4-linux-x64.rpm 
     Preparing...                ########################################### [100%]
@@ -199,7 +199,7 @@ Redmine::Utils::relative_url_root = "/redmine"
 	    tools.jar...
 	    localedata.jar...
 	    
-默认安装位置为`/usr/java`
+默认安装位置为 `/usr/java`
 
     # cd /usr/java/
     # ll
@@ -226,7 +226,7 @@ Redmine::Utils::relative_url_root = "/redmine"
     Java(TM) SE Runtime Environment (build 1.7.0_04-b20)
     Java HotSpot(TM) 64-Bit Server VM (build 23.0-b21, mixed mode)
     
-有时需要设置`JAVA_HOME`,可以放到系统环境变量中，创建shell脚本(两种)  
+有时需要设置 `JAVA_HOME`，可以放到系统环境变量中，创建 shell 脚本(两种)  
 Create the Bourne script in /etc/profile.d/java.sh
 
     # vi /etc/profile.d/jdk.sh
@@ -260,17 +260,17 @@ Create the C-shell script in /etc/profile.d/java.csh
 
 #### 5. Jenkins
 ##### 安装
-本文使用yum安装
+本文使用 yum 安装
 
     # wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
     # rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
     # yum install jenkins
     
-安装的文件信息在`/etc/init.d/jenkins`中可以找到,需要修改配置,默认是JENKINS_JAVA_CMD=""，jenkins会查找/usr/bin/java，正常是可能能找到的，但是我在安装时，始终出错，改为绝对路径就OK了。
+安装的文件信息在 `/etc/init.d/jenkins` 中可以找到,需要修改配置,默认是 `JENKINS_JAVA_CMD=""`，jenkins 会查找 `/usr/bin/java`，正常是可能能找到的，但是我在安装时，始终出错，改为绝对路径就 OK 了。
 
     # vi /etc/sysconfig/jenkins
     
-修改`JENKINS_JAVA_CMD`这个变量
+修改 `JENKINS_JAVA_CMD` 这个变量
 
     JENKINS_JAVA_CMD="/usr/java/default/bin/java"
     
@@ -278,14 +278,14 @@ Create the C-shell script in /etc/profile.d/java.csh
 
     service jenkins start
     
-访问：http://localhost:8080  
-##### Nginx代理
-为使nginx代理，也要修改一下配置
+访问：`http://localhost:8080`  
+##### Nginx 代理
+为使 nginx 代理，也要修改一下配置
 
     # vi /etc/sysconfig/jenkins
     JENKINS_ARGS="--prefix=/jenkins"
     
-此时，jenkins的入口地址为：http://localhost:8080/jenkins
+此时，jenkins 的入口地址为：`http://localhost:8080/jenkins`
 
     # vi /etc/nginx/conf.d/default.conf
 
@@ -293,12 +293,12 @@ Create the C-shell script in /etc/profile.d/java.csh
         proxy_pass http://127.0.0.1:8080;
     }
     
-重新加载nginx配置
+重新加载 nginx 配置
 
     service nginx reload
     
 ##### 测试
-访问：http://localhost/jenkins
+访问：`http://localhost/jenkins`
 ##### 参考
 [Installing Jenkins on RedHat distributions](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+RedHat+distributions)  
 [RedHat Linux RPM packages for Jenkins](http://pkg.jenkins-ci.org/redhat/)  

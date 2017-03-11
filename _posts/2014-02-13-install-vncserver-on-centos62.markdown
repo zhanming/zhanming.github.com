@@ -1,19 +1,19 @@
 ---
 layout: post
-title: CentOS6.2安装VNC Server
+title: CentOS 6.2 安装 VNC Server
 categories: [Linux]
 tags: [vncserver, centos]
-summary: CentOS6.2安装VNC Server，具体安装和配置过程记录。
+summary: CentOS6.2 安装 VNC Server，具体安装和配置过程记录。
 ---
 #### 环境说明
 CentOS 6.2 Minimal Desktop
 
 #### 安装并配置VNC Server
-安装tigervnc-server
+安装 tigervnc-server
 
     # yum -y install tigervnc-server
 
-设置VNC client的密码
+设置 VNC client 的密码
 
     # vncpasswd
     Password:
@@ -27,7 +27,8 @@ CentOS 6.2 Minimal Desktop
 
     # vi /root/.vnc/xstartup
 
-注释掉最后一行`twm &`并添加gnome显示
+注释掉最后一行 `twm &` 并添加 gnome 显示
+
 <pre class="prettyprint linenums">
 xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
 #twm &
@@ -44,7 +45,7 @@ VNCSERVERS="1:root"
 VNCSERVERARGS[1]="-geometry 1024x768 -alwaysshared -depth 24"
 </pre>
 
-配置防火墙并添加5901端口
+配置防火墙并添加 5901 端口
 
     # vi /etc/sysconfig/iptables
 
@@ -70,18 +71,18 @@ VNCSERVERARGS[1]="-geometry 1024x768 -alwaysshared -depth 24"
 COMMIT
 </pre>
 
-重启iptables服务
+重启 iptables 服务
 
     # service iptables restart
 
-开启vncserver服务
+开启 vncserver 服务
 
     # service vncserver start
 
-服务端配置完成了，可以使用远程登录到root帐号（生产系统建议不要使用root）
+服务端配置完成了，可以使用远程登录到 root 帐号（生产系统建议不要使用 root）
 
 #### 下载安装客户端
-推荐使用RealVNC<http://www.realvnc.com/products/vnc/>
+推荐使用 RealVNC<http://www.realvnc.com/products/vnc/>
 
 服务器地址： ip:1, 之后确认，输入密码即可。
 

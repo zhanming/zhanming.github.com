@@ -1,23 +1,23 @@
 ---
 layout: post
-title: 解决WebLogic12c的jar包冲突
+title: 解决 WebLogic 12c 的 jar 包冲突
 categories: [Java]
 tags: [jpa, weblogic]
-summary: 部署一个JavaEE程序到Weblogic 12c上很简单，WebLogic12c已经支持JPA2.1标准，使用的ecipse-link作为默认实现。
+summary: 部署一个 Java EE 程序到 Weblogic 12c 上很简单，WebLogic 12c 已经支持 JPA 2.1 标准，使用的 ecipse-link 作为默认实现。
 ---
 #### 前提说明
-部署一个JavaEE程序到Weblogic 12c上很简单，WebLogic12c已经支持JPA2.1标准，使用的ecipse-link作为默认实现。
+部署一个 Java EE 程序到 Weblogic 12c 上很简单，WebLogic 12c 已经支持 JPA 2.1 标准，使用的 ecipse-link 作为默认实现。
 
-我们使用的是JPA，实现是基于Hibernate的，部署到Weblogic的时候一直有jar包冲突。
+我们使用的是 JPA，实现是基于 Hibernate 的，部署到 Weblogic 的时候一直有 jar 包冲突。
 
 #### 环境说明
-程序中使用的JPA和实现如下：
+程序中使用的 JPA 和实现如下：
 
 hibernate-4.3.5.Final.jar
 
 hibernate-jpa-2.1-api-1.0.0.Final.jar
 
-本来以为只要在weblogic.xml里描述符就OK了。于是改成了这样：
+本来以为只要在 weblogic.xml 里描述符就 OK 了。于是改成了这样：
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<wls:weblogic-web-app
@@ -32,12 +32,12 @@ hibernate-jpa-2.1-api-1.0.0.Final.jar
 		</wls:container-descriptor>
 	</wls:weblogic-web-app>
 
-但是一直有问题，网上找了好久，找到了<http://javaiscoool.blogspot.com/2012/12/deploy-jpa20-application-on-weblogic1033.html>，才发现，需要修改persistence.xml的文件名，很诡异。
-不知道为什么，只要是persistence.xml，WebLogic不论如何都是使用它自己的实现进行解析，结果一直jar包冲突。
+但是一直有问题，网上找了好久，找到了 <http://javaiscoool.blogspot.com/2012/12/deploy-jpa20-application-on-weblogic1033.html>，才发现，需要修改 persistence.xml 的文件名，很诡异。
+不知道为什么，只要是 persistence.xml，WebLogic 不论如何都是使用它自己的实现进行解析，结果一直 jar 包冲突。
 
 #### 解决办法
 
-修改persistence.xml为其他的名字如foo.xml（foo.xml为示例作用），并且要将这个名字配置到Spring的applicationContext.xml中，我的程序是使用Spring的。
+修改 persistence.xml 为其他的名字如 foo.xml（foo.xml 为示例作用），并且要将这个名字配置到 Spring 的 applicationContext.xml 中，我的程序是使用 Spring 的。
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -46,9 +46,9 @@ hibernate-jpa-2.1-api-1.0.0.Final.jar
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-注：persistenceUnitName和dataSource的值，请按项目自行修改。
+注：persistenceUnitName 和 dataSource 的值，请按项目自行修改。
 
-然后，添加`WEB-INF/weblogic.xml`，使用了WebLogic的`prefer-application-packages`描述符，具体内容如下：
+然后，添加 `WEB-INF/weblogic.xml`，使用了 WebLogic 的 `prefer-application-packages` 描述符，具体内容如下：
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<wls:weblogic-web-app
@@ -68,7 +68,7 @@ hibernate-jpa-2.1-api-1.0.0.Final.jar
 		</wls:container-descriptor>
 	</wls:weblogic-web-app>
 
-这样，WebLogic就会使用项目内的jar包了。
+这样，WebLogic 就会使用项目内的 jar 包了。
 
 #### 参考资料
 [Deploy JPA2.0 application on weblogic10.3.3][1]  

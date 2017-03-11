@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Go语言介绍 - 1：安装
+title: Go 语言介绍 - 1：安装
 categories: [Go]
 tags: [go, centos]
-summary: 关于Go语言，原文介绍如下：本系列文章主要针对Go语言，进行入门介绍。
+summary: 关于 Go 语言，原文介绍如下：本系列文章主要针对 Go 语言，进行入门介绍。
 ---
 
 ***适用范围***: [go1, go1.0.3]
@@ -11,38 +11,49 @@ summary: 关于Go语言，原文介绍如下：本系列文章主要针对Go语�
 <a href="http://www.flickr.com/photos/zhanming/6978325562/"><img src="http://farm9.staticflickr.com/8016/6978325562_acfff65d49_m.jpg" width="150" height="150" alt="go-logo"></a>
 
 #### 简介
-关于Go语言，原文介绍如下：  
+关于 Go 语言，原文介绍如下：  
 Go is an open source programming environment that makes it easy to build simple, reliable, and efficient software.
 
-本系列文章主要针对Go语言，进行入门介绍。
+本系列文章主要针对 Go 语言，进行入门介绍。
 
 #### 引文
-有两种官方编译器工具链: gc Go编译器和gccgo编译器。  
-本文以CentOS 6.2为例介绍，使用编译好的二进制分发包进行安装。  
+有两种官方编译器工具链: gc Go 编译器和 gccgo 编译器。  
+本文以 CentOS 6.2 为例介绍，使用编译好的二进制分发包进行安装。  
 
 #### 下载
-访问[Go project's downloads page](http://code.google.com/p/go/downloads)。  
-(请下载与操作系统环境对应的二进制分发版，本环境使用`go.go1.linux-amd64.tar.gz`)  
-***注意***: 在Linux下，如果是从老版本更新过来的，必须先将老版本删除。（一般是安装在/usr/local/go目录下的）
+访问 [Go project's downloads page](http://code.google.com/p/go/downloads)。  
+(请下载与操作系统环境对应的二进制分发版，本环境使用 `go.go1.linux-amd64.tar.gz`)  
+***注意***: 在Linux下，如果是从老版本更新过来的，必须先将老版本删除。（一般是安装在 `/usr/local/go` 目录下的）
+
     # rm -r /usr/local/go
+
 提取归档文件到 `/usr/local` 目录，在 `/usr/local/go` 中创建Go的目录树。
+
     # tar -C /usr/local -xzf go.go1.linux-amd64.tar.gz
-(通常情况下，这些命令必须以root身份运行，或通过sudo的.)
+
+(通常情况下，这些命令必须以 root 身份运行，或通过 sudo 的.)
 
 #### 环境变量
-添加 `/usr/local/go/bin` 到 `/etc/profile.d/go.sh` (对于CentOS，这样添加便于维护，系统范围的环境变量)，也可以指定用户,$HOME/.bashrc中，建议添加到系统范围的环境变量中。
+添加 `/usr/local/go/bin` 到 `/etc/profile.d/go.sh` (对于 CentOS，这样添加便于维护，系统范围的环境变量)，也可以指定用户, $HOME/.bashrc 中，建议添加到系统范围的环境变量中。
+
     # vi /etc/profile.d/go.sh
+
 添加如下内容
+
     # Initialization script for go path
     
     export GOROOT=/usr/local/go
     export PATH=$PATH:$GOROOT/bin    
+
 使更改立即生效
+
     # source /etc/profile
+
 （也可以重启系统使之生效）  
 
 #### 测试
-很简单，直接在命令行中输入go。
+很简单，直接在命令行中输入 go。
+
     $ go
     Go is a tool for managing Go source code.
     
@@ -79,9 +90,9 @@ Go is an open source programming environment that makes it easy to build simple,
 
     Use "go help [topic]" for more information about that topic.
 
-至此，Go安装完毕。
+至此，Go 安装完毕。
 
-当然，可以更进一步测试，新建hello.go，并输入如下代码：
+当然，可以更进一步测试，新建 hello.go，并输入如下代码：
 <pre class="prettyprint linenums">
 package main
 
@@ -91,12 +102,12 @@ func main() {
     fmt.Printf("hello, world\n")
 }
 </pre>
-使用go的工具运行
+使用 go 的工具运行
 
     $ go run hello.go
     hello, world
 
-如果可以看到“hello, world”这个消息，则表示安装成功。
+如果可以看到 `hello, world` 这个消息，则表示安装成功。
 
 #### 参考资料
 [Golang.org](http://golang.org)  

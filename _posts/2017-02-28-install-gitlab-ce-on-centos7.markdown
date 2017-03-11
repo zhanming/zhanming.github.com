@@ -3,14 +3,14 @@ layout: post
 title: CentOS7 下 Yum 安装 GitLab CE 8.16.6
 categories: [Linux]
 tags: [centos, gitlab, yum]
-summary: GitLab CE 8.16.6的安装，记录一下大致的安装和配置过程。
+summary: GitLab CE 8.16.6 的安装，记录一下大致的安装和配置过程。
 ---
 #### 前言
-CentOS 7 下Yum安装 GitLab CE 8.16.6 ，记录一下大致的安装和配置过程。
+CentOS 7 下 Yum 安装 GitLab CE 8.16.6 ，记录一下大致的安装和配置过程。
 
 官方推荐 Omnibus Packages , 本文也使用这个，非常方便。
 
-参考[Download GitLab Community Edition (CE)][2], 中，[Chinese GitLab CE mirror hosted by TUNA][3], 使用清华大学开源软件镜像站的镜像。
+参考 [Download GitLab Community Edition (CE)][2], 中，[Chinese GitLab CE mirror hosted by TUNA][3], 使用清华大学开源软件镜像站的镜像。
 
 注意: gitlab-ce 镜像仅支持 x86-64 架构
 
@@ -18,7 +18,7 @@ CentOS 7 下Yum安装 GitLab CE 8.16.6 ，记录一下大致的安装和配置�
 CentOS 7
 
 #### 安装和配置步骤
-1.配置yum源
+1.配置 yum 源
 
 新建 `/etc/yum.repos.d/gitlab-ce.repo` ，内容为
 
@@ -42,6 +42,7 @@ CentOS 7
 此过程需要一段时间，安装各种包和服务。
 
 安装后的配置文件目录：
+
 <pre>
 主文件：/etc/gitlab/
 主目录：/var/opt/gitlab/
@@ -54,7 +55,7 @@ CentOS 7
 
 5.使用
 
-访问`http://localhost/`。
+访问 `http://localhost/`。
 
 如果其他机器访问，请打开防火墙 HTTP 服务，访问的IP地址输入正确。
 
@@ -67,15 +68,16 @@ CentOS 7
 默认备份目录为 `/var/opt/gitlab/backups`  
 定时备份需要写一下 crontab 。
 
-sudo su -  
-crontab -e  
+	$ sudo su -  
+	$ crontab -e  
+
 加入以下, 实现每天凌晨2点进行一次自动备份:
 
 	0 2 * * * /opt/gitlab/bin/gitlab-rake gitlab:backup:create
 
 6.更新
 
-注意：不要停止gitlab，直接更新即可。  
+注意：不要停止 gitlab，直接更新即可。  
 比如 8.17.0 版本已经有了，或在 Admin Area 中可以看到 `update available` 或 `update ASAP`。
 
 	$ sudo yum update gitlab-ce
@@ -86,7 +88,7 @@ crontab -e
 	$ sudo gitlab-ctl restart
 
 #### 参考资料
-[gitlab部署迁移升级][1]  
+[gitlab 部署迁移升级][1]  
 [Download GitLab Community Edition (CE)][2]  
 [Gitlab Community Edition 镜像使用帮助][3]
  
