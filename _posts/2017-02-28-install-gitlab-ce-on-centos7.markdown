@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CentOS7 下 Yum 安装 GitLab CE 8.16.6
+title: CentOS 7 下 Yum 安装 GitLab CE 8.16.6
 categories: [Linux]
 tags: [centos, gitlab, yum]
 summary: GitLab CE 8.16.6 的安装，记录一下大致的安装和配置过程。
