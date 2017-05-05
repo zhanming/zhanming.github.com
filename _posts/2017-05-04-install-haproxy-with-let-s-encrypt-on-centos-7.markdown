@@ -3,7 +3,7 @@ layout: post
 title: CentOS 7 下配置 HAProxy 和 Let's Encrypt
 categories: [Linux]
 tags: [centos, haproxy, let's encrypt, security]
-summary: CenOS 7 下配置 HAProxy 和 Let's Encrypt，记录一下大致的安装和配置过程。主要是为了使用 HAProxy，查到了 [How To Secure HAProxy with Let's Encrypt on CentOS 7][3]，里面写的很详细，基本没有问题，但是再记录一下。
+summary: CenOS 7 下配置 HAProxy 和 Let's Encrypt，记录一下大致的安装和配置过程。主要是为了使用 HAProxy，查到了 How To Secure HAProxy with Let's Encrypt on CentOS 7，里面写的很详细，基本没有问题，但是再记录一下。
 ---
 #### 介绍
 CenOS 7 下配置 HAProxy 和 Let's Encrypt，记录一下安装和配置过程。
