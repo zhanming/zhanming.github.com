@@ -27,7 +27,7 @@ CentOS 7（Minimal Install）
 
 安装 mysql 源
 
-	$ sudo yum localinstall mysql57-community-release-el6-9.noarch.rpm
+	$ sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm
 
 检查 yum 源是否安装成功
 
