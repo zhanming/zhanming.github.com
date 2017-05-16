@@ -742,8 +742,8 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 #### 参考资料
 [Installing Percona XtraBackup on Red Hat Enterprise Linux and CentOS][1]  
 [How To Configure MySQL Backups with Percona XtraBackup on Ubuntu 16.04][2]  
-[Gitlab Community Edition 镜像使用帮助][3]
+[How To Create Hot Backups of MySQL Databases with Percona XtraBackup on CentOS 7][3]
  
 [1]: https://www.percona.com/doc/percona-xtrabackup/2.2/installation/yum_repo.html
 [2]: https://www.digitalocean.com/community/tutorials/how-to-configure-mysql-backups-with-percona-xtrabackup-on-ubuntu-16-04
-[3]: https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/
+[3]: https://www.digitalocean.com/community/tutorials/how-to-create-hot-backups-of-mysql-databases-with-percona-xtrabackup-on-centos-7
