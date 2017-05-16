@@ -683,7 +683,7 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 
 启动 MySQL 服务，完成数据恢复。
 
-	$ sudo systemctl start mysql
+	$ sudo systemctl start mysqld.service
 
 如果数据库启动顺利，接下来，我们查询一下数据库，验证一下数据是否恢复
 
