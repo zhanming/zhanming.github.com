@@ -322,19 +322,18 @@ FreeIPA 4.3 版本以后，复制服务安装流程简化
 
 	# yum install bind-utils
 
-验证正向域名查找
+验证域名的正向查找
 
 	# dig +short ipa2.example.com A
-	10.11.0.199
 
-返回了 IP 地址，确认一下是否正确
+返回了 `your_replica_server_ipv4`，确认一下是否正确
 
-验证反向域名查找
+验证域名的反向查找
 
-	# dig +short -x 10.11.0.199
+	# dig +short -x your_replica_server_ipv4
 	ipa2.example.com
 
-返回了域名，确认一下是否正确
+返回了域名 `ipa2.example.com`，确认一下是否正确
 
 ### 安装 FreeIPA 客户端
 
@@ -512,6 +511,8 @@ FreeIPA 4.3 版本以后，复制服务安装流程简化
 ### 查看 FreeIPA 复制服务
 
 可以登录 `http://ipa.example.com` 之后进入 IPA Server 选项，之后进入 Topology 查看。
+
+同样的，可以登录 `http://ipa2.example.com` 因为两个系统是同步的，所以内容是一样的。
 
 ## 结束语
 本例介绍 FreeIPA 的安装（主服务器和复制服务器）的安装。
