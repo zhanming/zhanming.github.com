@@ -46,16 +46,16 @@ CentOS 7（Minimal Install）
 
 安装服务
 
-	$ sudo systemctl enable mysqld.service
+	$ sudo systemctl enable mysqld
 
 启动服务
 
-	$ sudo systemctl start mysqld.service
+	$ sudo systemctl start mysqld
 	
 
 查看服务状态
 
-	$ sudo systemctl status mysqld.service
+	$ sudo systemctl status mysqld
 
 4.修改 root 默认密码
 
@@ -108,7 +108,7 @@ MySQL 5.7 启动后，在 `/var/log/mysqld.log` 文件中给 root 生成了一�
 
 重启 MySQL 服务，使配置生效
 
-	$ sudo systemctl restart mysqld.service
+	$ sudo systemctl restart mysqld
 
 5.添加远程登录用户
 
@@ -129,7 +129,7 @@ MySQL 默认为 latin1, 一般修改为 UTF-8
 
 重启 MySQL 服务，使配置生效
 
-	$ sudo systemctl restart mysqld.service
+	$ sudo systemctl restart mysqld
 
 查看字符集
 

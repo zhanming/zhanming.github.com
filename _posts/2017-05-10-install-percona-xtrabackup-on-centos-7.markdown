@@ -145,10 +145,6 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 
 注意： `admin` 是 admin 的组，`wheel` 是 CentOS 默认的 sudo 组，`backup` 是新增的 mysql 备份的组。
 
-接下来，我们将执行如下命令，使 mysql 组可以通过 `/var/lib/mysql` 目录及其子目录，否则 backup 用户无法进入这些目录（尽管 backup 已经加入了 mysql 组）
-
-	$ sudo find /var/lib/mysql -type d -exec chmod 750 {} \;
-
 #### 创建备份相关的资源
 
 现在我们已经有了 Mysql 用户 `backup`, 系统用户 `backup`，我们需要创建配置文件，密钥文件和其他脚本，这样我们就可以创建并保护备份的安全。
@@ -640,7 +636,7 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 ##### 还原备份数据到 MySQL 数据目录
 首先，停止 MySQL 服务
 
-	$ sudo systemctl stop mysqld.service
+	$ sudo systemctl stop mysqld
 	
 因为备份目录与 MySQL 的数据目录可能有冲突，我们需要删除或剪切 `/var/lib/mysql` 目录
 
@@ -668,7 +664,6 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 执行之后，`completed OK!` 说明拷贝完成，一旦文件已经就位，我们需要将修复所有者和权限，这样 MySQL 的用户和组就可以访问了。
 
 	$ sudo chown -R mysql:mysql /var/lib/mysql
-	$ sudo find /var/lib/mysql -type d -exec chmod 750 {} \;
 
 因为 CentOS 7 默认启用了 SELinux，这也需要进行授权，可以先查看一下
 
@@ -683,7 +678,7 @@ MySQL 的数据目录 `/var/lib/mysql` 的所有者和所有组是 `mysql`。
 
 启动 MySQL 服务，完成数据恢复。
 
-	$ sudo systemctl start mysqld.service
+	$ sudo systemctl start mysqld
 
 如果数据库启动顺利，接下来，我们查询一下数据库，验证一下数据是否恢复
 
