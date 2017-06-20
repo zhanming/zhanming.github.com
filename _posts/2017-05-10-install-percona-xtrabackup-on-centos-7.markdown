@@ -61,7 +61,7 @@ MySQL 5.7
 
 首先使用 MySQL 的 `root` 用户登录。
 
-	$ sudo mysql -u root -p
+	$ mysql -u root -p
 
 ##### 创建一个 MySQL 用户并且授权
 
