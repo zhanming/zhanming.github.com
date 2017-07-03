@@ -27,7 +27,7 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 	# ipa --version
 	VERSION: 4.4.0, API_VERSION: 2.213
 
-添加命令如下： 参考 [FreeIPA HowTo/LDAP][3]
+添加命令如下： 参考 [FreeIPA - HowTo/LDAP][3]
 
 	# ldapmodify -x -D 'cn=Directory Manager' -W
 	dn: uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com
@@ -74,7 +74,7 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 	...
 	
 
-修改配置文件，因为本例使用 Omnibus 进行安装的, 参考 [GitLab Setting up LDAP sign-in][4]
+修改配置文件，因为本例使用 Omnibus 进行安装的, 参考 [GitLab - Setting up LDAP sign-in][4]
 
 	$ sudo vi /etc/gitlab/gitlab.rb
 
@@ -107,7 +107,7 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 
 保存 `:wq` 之后，退出。
 
-本例只演示基础配置，如用户角色过滤等，本例暂不演示，请参考 [LDAP (GitLab)][5]
+本例只演示基础配置，如用户角色过滤等，本例暂不演示，请参考 [GitLab - LDAP][5]
 
 重新配置 GitLab
 
@@ -149,9 +149,9 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 ## 参考资料
 [CentOS 7 下 Yum 安装 GitLab CE 8.16.6][1]  
 [CentOS 7 配置 Free IPA 服务(主服务和复制服务)][2]  
-[HowTo/LDAP (FreeIPA)][3]  
-[Setting up LDAP sign-in (GitLab)][4]  
-[LDAP (GitLab)][5]
+[FreeIPA - HowTo/LDAP][3]  
+[GitLab - Setting up LDAP sign-in][4]  
+[GitLab - LDAP][5]
  
 [1]: http://qizhanming.com/blog/2017/02/28/install-gitlab-ce-on-centos7
 [2]: http://qizhanming.com/blog/2017/06/07/how-to-config-freeipa-server-and-replica-on-centos-7
