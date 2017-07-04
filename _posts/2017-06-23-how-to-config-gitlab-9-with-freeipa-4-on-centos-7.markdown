@@ -10,6 +10,12 @@ summary: CentOS 7 下配置 GitLab CE 9 与 FreeIPA 4 集成，记录一下大�
 
 本例记录一下 GitLab CE 9 配置 LDAP（使用 FreeIPA 4）进行账户访问。
 
+`注意`
+
+本例只是测试，`请不要用于生产`，因为 GitLab CE 有一个 bug 还没有解决，配置 LDAP 成功之后，Web 方式登录没有问题，但是不能进行 `git clone` 操作。
+
+关于这个 bug，具体参见 [GitLab issue #13440 - Can't clone repo over HTTP with LDAP authorization][6]。
+
 ### 环境说明
 CentOS 7（Minimal Install）安装 GitLab CE 9  
 请参考 [CentOS 7 下 Yum 安装 GitLab CE 8.16.6][1]
@@ -158,3 +164,4 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 [3]: https://www.freeipa.org/page/HowTo/LDAP
 [4]: https://docs.gitlab.com/omnibus/settings/ldap.html
 [5]: https://docs.gitlab.com/ce/administration/auth/ldap.html
+[6]: https://gitlab.com/gitlab-org/gitlab-ce/issues/13440
