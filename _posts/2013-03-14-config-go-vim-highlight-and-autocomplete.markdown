@@ -8,50 +8,65 @@ summary: 参考 [Asta 谢的书：1.4 Go 开发工具][2] 进行配置如下。
 
 ***适用范围***: [go1, go1.0.3]
 
-#### 简介
+## 简介
 
 The standard Go distribution includes a Go syntax file for Vim in go/misc/vim/.  
 参考 [Asta 谢的书：1.4 Go 开发工具][2] 进行配置如下。
 
-#### 配置高亮
+### 配置高亮
 
-    $ mkdir ～/.vim
-    $ cp -r $GOROOT/misc/vim/* ~/.vim/
+```terminal
+$ mkdir ～/.vim
+$ cp -r $GOROOT/misc/vim/* ~/.vim/
+```
 
-#### 配置自动补齐
+### 配置自动补齐
 编辑本用户的环境变量
 
-    $ vi ~/.bashrc
+```terminal
+$ vi ~/.bashrc
+```
 
 设置 GOPATH 并将 GOPATH 的 bin 目录添加到到 `PATH` 中，这样 gocode 可以探测到，并进行补齐提示。
-<pre class="prettyprint linenums">
+
+```shell
 # User specific aliases and functions
 export GOPATH=$HOME/go/ext:$HOME/go/dev
 export PATH=$PATH:$HOME/go/ext/bin:$HOME/go/dev/bin
-</pre>
+```
+
 使之生效
 
-    $ source ~/.bashrc
+```terminal
+$ source ~/.bashrc
+```
 
 安装 gocode
 
-    $ go get -u github.com/nsf/gocode
-    $ cd ~/go/ext/src/github.com/nsf/gocode/vim
-    $ ./update.bash
+```terminal
+$ go get -u github.com/nsf/gocode
+$ cd ~/go/ext/src/github.com/nsf/gocode/vim
+$ ./update.bash
+```
 
 编辑用户的 vim 配置文件(CentOS 的 vim 配置默认在 `/etc/vimrc` 文件中，可以自己新建一个)
 
-    $ vi ~/.vimrc
+```terminal
+$ vi ~/.vimrc
+```
 
 添加如下内容
-<pre class="prettyprint linenums">
+
+```conf
 filetype plugin on
 syntax on
-</pre>
+```
+
 至此，补齐功能完成，使用 vim 编辑时，使用 <C-x> <C-o> 进行自动补齐。  
 当然 Vim 的其他配置看个人喜好，比如缩进，行号显示等。  
 如下面的例子
-<pre class="prettyprint linenums">
+
+```conf
 "" 行号
 set nu
 "" 自动缩进
@@ -69,9 +84,9 @@ inoremap { {}<LEFT>
 filetype plugin on
 syntax on
 au BufRead,BufNewFile *.go set filetype=go
-</pre>
+```
 
-#### 参考资料
+## 参考资料
 [gocode at github][1]  
 [Asta 谢的书：1.4 Go 开发工具][2]
 

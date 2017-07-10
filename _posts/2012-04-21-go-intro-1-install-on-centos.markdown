@@ -8,92 +8,103 @@ summary: 关于 Go 语言，原文介绍如下：本系列文章主要针对 Go 
 
 ***适用范围***: [go1, go1.0.3]
 
-<a href="http://www.flickr.com/photos/zhanming/6978325562/"><img src="http://farm9.staticflickr.com/8016/6978325562_acfff65d49_m.jpg" width="150" height="150" alt="go-logo"></a>
-
-#### 简介
+## 简介
 关于 Go 语言，原文介绍如下：  
 Go is an open source programming environment that makes it easy to build simple, reliable, and efficient software.
 
 本系列文章主要针对 Go 语言，进行入门介绍。
 
-#### 引文
+### 引文
 有两种官方编译器工具链: gc Go 编译器和 gccgo 编译器。  
 本文以 CentOS 6.2 为例介绍，使用编译好的二进制分发包进行安装。  
 
-#### 下载
+### 下载
 访问 [Go project's downloads page](http://code.google.com/p/go/downloads)。  
 (请下载与操作系统环境对应的二进制分发版，本环境使用 `go.go1.linux-amd64.tar.gz`)  
 ***注意***: 在Linux下，如果是从老版本更新过来的，必须先将老版本删除。（一般是安装在 `/usr/local/go` 目录下的）
 
-    # rm -r /usr/local/go
+```terminal
+# rm -r /usr/local/go
+```
 
 提取归档文件到 `/usr/local` 目录，在 `/usr/local/go` 中创建Go的目录树。
 
-    # tar -C /usr/local -xzf go.go1.linux-amd64.tar.gz
+```terminal
+# tar -C /usr/local -xzf go.go1.linux-amd64.tar.gz
+```
 
 (通常情况下，这些命令必须以 root 身份运行，或通过 sudo 的.)
 
-#### 环境变量
-添加 `/usr/local/go/bin` 到 `/etc/profile.d/go.sh` (对于 CentOS，这样添加便于维护，系统范围的环境变量)，也可以指定用户, $HOME/.bashrc 中，建议添加到系统范围的环境变量中。
+### 环境变量
+添加 `/usr/local/go/bin` 到 `/etc/profile.d/go.sh` (对于 CentOS，这样添加便于维护，系统范围的环境变量)，也可以指定用户, `$HOME/.bashrc` 中，建议添加到系统范围的环境变量中。
 
-    # vi /etc/profile.d/go.sh
+```terminal
+# vi /etc/profile.d/go.sh
+```
 
 添加如下内容
 
-    # Initialization script for go path
+```shell
+# Initialization script for go path
     
-    export GOROOT=/usr/local/go
-    export PATH=$PATH:$GOROOT/bin    
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin    
+```
 
 使更改立即生效
 
-    # source /etc/profile
+```terminal
+# source /etc/profile
+```
 
 （也可以重启系统使之生效）  
 
 #### 测试
 很简单，直接在命令行中输入 go。
 
-    $ go
-    Go is a tool for managing Go source code.
+```terminal
+$ go
+Go is a tool for managing Go source code.
     
-    Usage:
+Usage:
     
-	    go command [arguments]
+    go command [arguments]
     
-    The commands are:
+The commands are:
     
-        build       compile packages and dependencies
-        clean       remove object files
-        doc         run godoc on package sources
-        env         print Go environment information
-        fix         run go tool fix on packages
-        fmt         run gofmt on package sources
-        get         download and install packages and dependencies
-        install     compile and install packages and dependencies
-        list        list packages
-        run         compile and run Go program
-        test        test packages
-        tool        run specified go tool
-        version     print Go version
-        vet         run go tool vet on packages
+    build       compile packages and dependencies
+    clean       remove object files
+    doc         run godoc on package sources
+    env         print Go environment information
+    fix         run go tool fix on packages
+    fmt         run gofmt on package sources
+    get         download and install packages and dependencies
+    install     compile and install packages and dependencies
+    list        list packages
+    run         compile and run Go program
+    test        test packages
+    tool        run specified go tool
+    version     print Go version
+    vet         run go tool vet on packages
     
-    Use "go help [command]" for more information about a command.
+Use "go help [command]" for more information about a command.
     
-    Additional help topics:
+Additional help topics:
     
-        gopath      GOPATH environment variable
-        packages    description of package lists
-        remote      remote import path syntax
-        testflag    description of testing flags
-        testfunc    description of testing functions
+    gopath      GOPATH environment variable
+    packages    description of package lists
+    remote      remote import path syntax
+    testflag    description of testing flags
+    testfunc    description of testing functions
 
-    Use "go help [topic]" for more information about that topic.
+Use "go help [topic]" for more information about that topic.
+```
 
 至此，Go 安装完毕。
 
 当然，可以更进一步测试，新建 hello.go，并输入如下代码：
-<pre class="prettyprint linenums">
+
+```go
 package main
 
 import "fmt"
@@ -101,11 +112,14 @@ import "fmt"
 func main() {
     fmt.Printf("hello, world\n")
 }
-</pre>
+```
+
 使用 go 的工具运行
 
-    $ go run hello.go
-    hello, world
+```terminal
+$ go run hello.go
+hello, world
+```
 
 如果可以看到 `hello, world` 这个消息，则表示安装成功。
 

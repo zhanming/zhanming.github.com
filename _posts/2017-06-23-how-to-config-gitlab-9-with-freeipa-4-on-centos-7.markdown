@@ -10,8 +10,7 @@ summary: CentOS 7 下配置 GitLab CE 9 与 FreeIPA 4 集成，记录一下大�
 
 本例记录一下 GitLab CE 9 配置 LDAP（使用 FreeIPA 4）进行账户访问。
 
-`注意`
-
+> **`注意`**
 本例只是测试，`请不要用于生产`，因为 GitLab CE 有一个 bug 还没有解决，配置 LDAP 成功之后，Web 方式登录没有问题，但是不能进行 `git clone` 操作。
 
 关于这个 bug，具体参见 [GitLab issue #13440 - Can't clone repo over HTTP with LDAP authorization][6]。
@@ -30,86 +29,94 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 
 查看版本
 
-	# ipa --version
-	VERSION: 4.4.0, API_VERSION: 2.213
+```terminal
+# ipa --version
+VERSION: 4.4.0, API_VERSION: 2.213
+```
 
 添加命令如下： 参考 [FreeIPA - HowTo/LDAP][3]
 
-	# ldapmodify -x -D 'cn=Directory Manager' -W
-	dn: uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com
-	changetype: add
-	objectclass: account
-	objectclass: simplesecurityobject
-	uid: system
-	userPassword: your_password
-	passwordExpirationTime: 20380119031407Z
-	nsIdleTimeout: 0
-	<blank line>
-	^D
+```terminal
+# ldapmodify -x -D 'cn=Directory Manager' -W
+dn: uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com
+changetype: add
+objectclass: account
+objectclass: simplesecurityobject
+uid: system
+userPassword: your_password
+passwordExpirationTime: 20380119031407Z
+nsIdleTimeout: 0
+<blank line>
+^D
+```
 
 这样就创建了一个 System Account，会有这样的提示：
 
-	adding new entry "uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com"
+```terminal
+adding new entry "uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com"
+```
 
 最后的 `^D` 是使用 `Ctrl + D` 退出
 
-`注意`  
-
+> `注意`  
+> 
 - 这个账户没有特殊的权限，只有读的权限，这样保证相对安全。
 - 主题替换上文的 `dc=example,dc=com` 为您自己的域。
 
 ### 配置 GitLab CE
 查看 GitLab 版本
 
-	$ sudo gitlab-rake gitlab:env:info
-
-如下结果
-
-	System information
-	System:		
-	Current User:	git
-	Using RVM:	no
-	...
-	...
-	GitLab information
-	Version:	9.2.5
-	...
-	...
-	Using LDAP:	no  # 没有启用 ldap
-	Using Omniauth:	no
-	...
-	
+```terminal
+$ sudo gitlab-rake gitlab:env:info
+System information
+System:		
+Current User:	git
+Using RVM:	no
+...
+...
+GitLab information
+Version:	9.2.5
+...
+...
+Using LDAP:	no  # 没有启用 ldap
+Using Omniauth:	no
+...
+```	
 
 修改配置文件，因为本例使用 Omnibus 进行安装的, 参考 [GitLab - Setting up LDAP sign-in][4]
 
-	$ sudo vi /etc/gitlab/gitlab.rb
+```terminal
+$ sudo vi /etc/gitlab/gitlab.rb
+```
 
 修改如下内容：
 
-	### LDAP Settings
-	###! Docs: https://docs.gitlab.com/omnibus/settings/ldap.html
-	###! **Be careful not to break the indentation in the ldap_servers block. It is
-	###!   in yaml format and the spaces must be retained. Using tabs will not work.**
+```ruby
+### LDAP Settings
+###! Docs: https://docs.gitlab.com/omnibus/settings/ldap.html
+###! **Be careful not to break the indentation in the ldap_servers block. It is
+###!   in yaml format and the spaces must be retained. Using tabs will not work.**
 	
-	gitlab_rails['ldap_enabled'] = true # 启用 ldap
+gitlab_rails['ldap_enabled'] = true # 启用 ldap
 	
-	###! **remember to close this block with 'EOS' below**
-	gitlab_rails['ldap_servers'] = YAML.load <<-EOS
-	  main: # 'main' is the GitLab 'provider ID' of this LDAP server
-	    label: 'LDAP' # 登录标题显示 LDAP 
-	    host: 'ipa.example.com' # FreeIPA 的 IP 地址或域名
-	    port: 636  # 389 为 ldap, 636 为 ldaps
-	    uid: 'uid'
-	    method: 'ssl' # "tls" or "ssl" or "plain"
-	    bind_dn: 'uid=system,cn=sysaccounts,cn=etc,dn=example,dn=com'
-	    password: 'your_password'
-	    active_directory: false # 不是 Microsoft 的 AD
-	    allow_username_or_email_login: false
-	    block_auto_created_users: false
-	    base: 'cn=users,cn=accounts,dn=example,dn=com'
-	...
-	...
-	EOS
+###! **remember to close this block with 'EOS' below**
+gitlab_rails['ldap_servers'] = YAML.load <<-EOS
+  main: # 'main' is the GitLab 'provider ID' of this LDAP server
+    label: 'LDAP' # 登录标题显示 LDAP 
+    host: 'ipa.example.com' # FreeIPA 的 IP 地址或域名
+    port: 636  # 389 为 ldap, 636 为 ldaps
+    uid: 'uid'
+    method: 'ssl' # "tls" or "ssl" or "plain"
+    bind_dn: 'uid=system,cn=sysaccounts,cn=etc,dn=example,dn=com'
+    password: 'your_password'
+    active_directory: false # 不是 Microsoft 的 AD
+    allow_username_or_email_login: false
+    block_auto_created_users: false
+    base: 'cn=users,cn=accounts,dn=example,dn=com'
+...
+...
+EOS
+```
 
 保存 `:wq` 之后，退出。
 
@@ -117,21 +124,24 @@ CentOS 7（Minimal Install）安装 FreeIPA 4
 
 重新配置 GitLab
 
-	$ sudo gitlab-ctl reconfigure
+```terminal
+$ sudo gitlab-ctl reconfigure
+```
 
 验证 ldap 配置
 
-	$ sudo gitlab-rake gitlab:ldap:check
-	Checking LDAP ...
+```terminal
+$ sudo gitlab-rake gitlab:ldap:check
+Checking LDAP ...
 	
-	Server: ldapmain
-	LDAP authentication... Success
-	LDAP users with access to your GitLab server (only showing the first 100 results)
-		DN: uid=admin,cn=users,cn=accounts,dc=example,dc=com	 uid: admin
-		...
-	    ...
-	    ...
-	Checking LDAP ... Finished
+Server: ldapmain
+LDAP authentication... Success
+LDAP users with access to your GitLab server (only showing the first 100 results)
+	DN: uid=admin,cn=users,cn=accounts,dc=example,dc=com	 uid: admin
+	...
+	...
+Checking LDAP ... Finished
+```
 
 这样 GitLab CE 配置基本成功。
 
