@@ -1,0 +1,7 @@
+<h6>最近发布</h6>
+<ul class="list-unstyled">
+	{% for post in site.posts limit:10%}
+	<li><a href="{{ post.url }}">{{ post.title }}</a><li>
+	{% endfor %}
+</ul>
+

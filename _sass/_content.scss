@@ -1,0 +1,37 @@
+/*
+*
+* Custom Content Docs  ******************************************
+*
+*/
+
+/** code formatting **/
+
+pre {
+/*    background-color: #F5F8FA!important; */
+    display: block;
+    padding: 20.5px!important;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+/*    color: #333; */
+    word-break: normal !important;
+    word-wrap: break-word;
+    border: 0!important;
+    border-radius: 4px;
+}
+
+code {
+/*    background-color: #F5F8FA!important; */
+    border-radius: 2px;
+/*    color: #0c5176 !important; */
+    font-size: 90%;
+    padding: 3px 7px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+pre code {
+    overflow-x: auto;
+    overflow-wrap: normal;
+    white-space: pre;
+}

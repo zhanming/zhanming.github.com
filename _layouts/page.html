@@ -2,5 +2,31 @@
 layout: default
 ---
 
-{{ content }}
+<div class="row">
+	<div class="col-md-9">
+		{{ content }}
+	</div>
+	<div class="col-md-3">
+		<h6>分类</h6>
+		<ul class="list-unstyled">
+			{% for category in site.categories %}
+			<li><a href="/blog/categories/#{{category | first}}">{{category | first}} ({{category | last | size }})</a></li>
+			{% endfor %}
+		</ul>
+		<h6>最近发布</h6>
+		<ul class="list-unstyled">
+			{% for post in site.posts limit:10%}
+			<li><a href="{{ post.url }}">{{ post.title }}</a><li>
+			{% endfor %}
+		</ul>
+
+		{% comment %}
+		<h6>扫一扫</h6>
+		<ul class="list-unstyled">
+			<img src="https://chart.googleapis.com/chart?cht=qr&chs=160x160&choe=UTF-8&chld=L|4&chl={{ site.context }}{{ page.url }}"/>
+		</ul>
+		{% endcomment %}
+	</div>
+</div>
+
 

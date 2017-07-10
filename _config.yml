@@ -1,48 +1,114 @@
-safe: true
-# This is the URI format. 
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Zhanming's blog
+email: qizhanming@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  This blog is mainly about my learning experience, 
+  including java, python, go, linux and maybe something else.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://qizhanming.com" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: jekyllrb
+#github_username:  jekyll
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM                        # Use GitHub style syntax.
+  syntax_highlighter: rouge         # Use rouge highlighter. This is required by GitHub pages.
+  toc_levels: 2..3
+
+  highlighter: rouge		    # Use rouge highlighter. This is required by GitHub pages.
+
+#theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+exclude:
+  - .gitignore
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+safe: false
+# This is the URI format.
 # For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink: /blog/:year/:month/:day/:title
 
-exclude: ["README.md", "changelog"]
-auto: true
-markdown: kramdown
 paginate: 7
+paginate_path: "/blog/page/:num/"
 
-# Themes are encouraged to use these universal variables 
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:  _sass
+  style:    :compressed
+
+# Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : Zhanming's blog
-domain: qizhanming.com
-context: http://qizhanming.com
-author :
-  name : Qi Zhanming
-  email : qizhanming@gmail.com
-  github : zhanming
+domain:
+  name: qizhanming.com
+  url: http://qizhanming.com
+
+context: /blog
+
+author:
+  name: Qi Zhanming
+  email: qizhanming@gmail.com
+  github: zhanming
 
 # All specific configurations are namespaced into this hash
 #
-settings :
+addons:
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
   # Set 'provider' to false to turn commenting off globally.
   #
-  comments :
-    provider : disqus
-    disqus :
-      short_name : zhanming
+  comments:
+    provider: disqus
+    disqus:
+      short_name: zhanming
 
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
   # Set 'provider' to false to turn analytics off globally.
   #
-  analytics :
-    provider : google 
-    google : 
-      tracking_id : 'UA-30365969-1'
+  analytics:
+    provider: google
+    google:
+      tracking_id: 'UA-30365969-1'
   # These paths are to the main pages Jekyll-Bootstrap ships with.
   # Some JB helpers refer to these paths; change theme here if needed.
   #
   archive_uri: /blog/archive
   categories_uri : /blog/categories
   tags_uri : /blog/tags
+
 

@@ -1,0 +1,33 @@
+/*
+ *
+ * tables
+ *
+ */
+
+
+table {
+    border: 1px solid rgba(204, 204, 204, 0.29);
+    margin: 0 0 15px 0;
+    width: 100%;
+}
+
+table>tbody>tr:nth-of-type(even) {
+    background-color: #f7f7f7;
+}
+
+td,
+th {
+    padding: 10px;
+}
+
+th,
+td.th {
+    font-weight: bold;
+    padding: 7px 10px 7px 10px;
+    text-align: left;
+}
+
+thead {
+    background: rgba(96, 125, 139, 0.16);
+}
+

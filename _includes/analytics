@@ -1,4 +1,4 @@
 {% if site.settings.analytics.provider and page.analytics != false %}
-{% case site.settings.analytics.provider %}
+{% case site.addons.analytics.provider %}
   {% when "google" %}{% include analytics-providers/google %}{% endcase %}
 {% endif %}
