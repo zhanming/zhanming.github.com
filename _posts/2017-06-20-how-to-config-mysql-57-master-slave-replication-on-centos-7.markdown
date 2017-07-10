@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CentOS 7 下 MySQL 5.7 配置主从复制（Master Slave Replication ）
+title: CentOS 7 下 MySQL 5.7 配置主从复制
 categories: [Linux]
 tags: [centos, mysql, replication]
 summary: CentOS 7 下 MySQL 5.7 配置主从复制（Master Slave Replication ），记录一下大致的安装和配置过程。
