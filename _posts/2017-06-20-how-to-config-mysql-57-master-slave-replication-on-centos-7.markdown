@@ -131,11 +131,9 @@ log_bin=/var/log/mysql/mysql-bin.log
 relay_log=/var/log/mysql/mysql-relay-bin.log
 read_only=1
 ```
-
-> `注意`
->
-- 从库使用 `read_only=1`，这样会将从库设为只读的，如果有其他需求（如在从库上需要建表），请去掉这个配置选项。
-- `log_slave_updates=1`，这个配置一般在 MySQL 5.6 以前使用， MySQL 5.7 以后可以不使用，本例就没有写这个参数。
+> 从库使用 `read_only=1`，这样会将从库设为只读的，如果有其他需求（如在从库上需要建表），请去掉这个配置选项。
+> 
+> `log_slave_updates=1`，这个配置一般在 MySQL 5.6 以前使用， MySQL 5.7 以后可以不使用，本例就没有写这个参数。
 
 跟主库一样，从库设置的二进制日志文件的目录不是默认的，需要新建一下
 
@@ -169,11 +167,10 @@ mysql> CHANGE MASTER TO MASTER_HOST='10.0.0.101',
     -> MASTER_LOG_FILE='mysql-bin.000001',
     -> MASTER_LOG_POS=0;
 ```
-
-> `注意` 
->
-- `MASTER_LOG_POS` 设置为 0，因为要从日志的开头读起。 可以通过 SHOW SLAVE STATUS\G 查看复制是否执行正确
-- `MASTER_LOG_FILE` 设置为 mysql-bin.000001 ，此选项初始化设置时需要跟主库中的一致。设置好后，如果主库发生重启等，不需再次设置，从库会跟着更新。
+ 
+> `MASTER_LOG_POS` 设置为 0，因为要从日志的开头读起。 可以通过 SHOW SLAVE STATUS\G 查看复制是否执行正确
+> 
+> `MASTER_LOG_FILE` 设置为 mysql-bin.000001 ，此选项初始化设置时需要跟主库中的一致。设置好后，如果主库发生重启等，不需再次设置，从库会跟着更新。
 
 查看从库状态
 
@@ -288,9 +285,7 @@ $ sudo systemctl restart mysqld
 
 ## 从另一个服务器开始复制
 
-`注意` 本例已上内容，演示的是 MySQL 实例初始化后的复制配置。
-  
-一般的情况是：已经有数据库了，新建复制数据库，这就需要先使两个 MySQL 实例的内容一致，之后在进行复制配置
+本例之前的内容，演示的是 MySQL 实例初始化后的复制配置。一般的情况是：已经有数据库了，新建复制数据库，这就需要先使两个 MySQL 实例的内容一致，之后在进行复制配置
 
 #### 主库操作
 

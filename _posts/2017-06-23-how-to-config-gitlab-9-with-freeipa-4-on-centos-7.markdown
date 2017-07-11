@@ -58,11 +58,10 @@ adding new entry "uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com"
 ```
 
 最后的 `^D` 是使用 `Ctrl + D` 退出
-
-> `注意`  
-> 
-- 这个账户没有特殊的权限，只有读的权限，这样保证相对安全。
-- 主题替换上文的 `dc=example,dc=com` 为您自己的域。
+ 
+> 这个账户没有特殊的权限，只有读的权限，这样保证相对安全。
+>
+> 主题替换上文的 `dc=example,dc=com` 为您自己的域。
 
 ### 配置 GitLab CE
 查看 GitLab 版本
@@ -157,11 +156,9 @@ Checking LDAP ... Finished
 
 这样用户就可以登录 GitLab 了。
 
-`注意`
-
-如果用户名密码错误，有如下提示 
-
-`Could not authenticate you from Ldapmain because "Invalid credentials".`
+> `注意` 如果用户名密码错误，有如下提示 
+>
+> `Could not authenticate you from Ldapmain because "Invalid credentials".`
 
 ## 参考资料
 [CentOS 7 下 Yum 安装 GitLab CE 8.16.6][1]  
