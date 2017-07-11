@@ -17,8 +17,8 @@ body,p,input,button,select,textarea {
 	margin: 20px auto;
 }
 .post {
-	font-size: 13px;
-	line-height: 160%;
+/*	font-size: 13px; */
+/*	line-height: 160%; */
 	margin-bottom: 18px;
 }
 .post img {
