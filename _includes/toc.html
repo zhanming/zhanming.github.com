@@ -3,7 +3,7 @@
 	{% assign my_min = page.toc_min | default: site.toc_min | default: 2 %} 
 	{% assign my_max = page.toc_max | default: site.toc_max | default: 3 %} 
 	{% assign my_name = page.url | default: "unnamed" %}
-	<div id="side-toc-title">大纲:</div>
+	<h6>大纲</h6>
 	{% include toc_pure_liquid.html html=content sanitize=true class="inline_toc" id="my_toc" h_min=my_min h_max=my_max page_name=my_name %}
 	{% endunless %}
 </div>

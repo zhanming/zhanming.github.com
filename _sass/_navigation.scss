@@ -16,11 +16,11 @@
     padding-left: 0;
     line-height: 24px;
     li {
-        padding: 2px 8px 2px 15px;
+        padding: 2px 8px 2px 10px;
         width: 100%;
         a {
             display: inline-block;
-            font-size: 12px;
+/*            font-size: 12px; */
             padding: 0 10px 0 10px;
             text-decoration: none;
         }
@@ -37,20 +37,5 @@
     font-size: 14px;
     margin: 0px 8px 0 0;
     color: #4fa1d0;
-}
-
-i.fa.fa-question {
-    font-size: 21px;
-    margin: 0 11px 0 0;
-}
-
-div#side-toc-title {
-    font-size: 12px;
-    font-weight: bold;
-    margin: 11px 0 10px 13px;
-}
-
-.edit {
-    margin: 10px 0 20px 15px;
 }
 
