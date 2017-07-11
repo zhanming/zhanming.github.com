@@ -10,7 +10,7 @@ layout: default
 		<h6>分类</h6>
 		<ul class="list-unstyled">
 			{% for category in site.categories %}
-			<li><a href="/blog/categories/#{{category | first}}">{{category | first}} ({{category | last | size }})</a></li>
+			<li><a href="/blog/categories#{{category | first}}">{{category | first}} ({{category | last | size }})</a></li>
 			{% endfor %}
 		</ul>
 		{% include recently.html %}
