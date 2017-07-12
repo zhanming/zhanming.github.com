@@ -27,8 +27,10 @@ CentOS Linux release 7.3.1611 (Core)
 ```
 两台 MySQL 服务器
 
-	mysql101   10.0.0.101   # 主服务器
-	mysql102   10.0.0.102   # 从服务器
+| Host     | Role   | Descprition | Private IP Address |
+|----------|--------|-------------|--------------------|
+| mysql101 | Master | 主服务器     | 10.0.0.101         |
+| mysql102 | Slave  | 从服务器     | 10.0.0.102         |
 
 ## 安装和配置
 两台 MySQL 服务器的版本需要一致。
