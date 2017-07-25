@@ -157,7 +157,7 @@ GOPATH 设置两个条目是很有用的。第一个是路径为第三方包存�
     
 ## FAQ
 
-### 为什么 `$GOPATH/src/cmd/mycmd/*.go` 没有编译?
+**为什么 `$GOPATH/src/cmd/mycmd/*.go` 没有编译?**  
 当 go 命令搜索包时，它总是第一个从$GOROOT开始。这包含了目录，所以如果它在 `$GOROOT` 中发现（如上面这个例子）一个 `cmd/` 目录，它将不会去其他GOPATH目录中查找。这防止你自定义自己的 `math/matrix` 包以及自己的 `cmd/mycmd` 命令。
 
 ## 参考
