@@ -121,14 +121,14 @@ WantedBy=multi-user.target
 
 ```terminal
 $ sudo systemctl daemon-reload
-$ sudo systemctl enable nexus.service
-$ sudo systemctl start nexus.service
+$ sudo systemctl enable nexus
+$ sudo systemctl start nexus
 ```
 
 11.查看服务
 
 ```terminal
-$ sudo systemctl status nexus.service
+$ sudo systemctl status nexus
 ```
 
 12.添加防火墙规则
@@ -158,7 +158,7 @@ nexus-context-path=/nexus
 重启服务
 
 ```terminal
-$ sudo systemctl restart nexus.service
+$ sudo systemctl restart nexus
 ```
 
 访问测试  
