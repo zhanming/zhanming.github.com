@@ -1,13 +1,13 @@
 ---
 layout: post
-title: CentOS 7 配置 Free IPA 服务(主服务和复制服务)
+title: CentOS 7 配置 Free IPA (主从复制)
 categories: [Linux]
 tags: [centos, freeipa]
-summary: CentOS 7 配置 Free IPA 服务器（主服务和复制服务），记录一下大致的安装和配置过程。
+summary: CentOS 7 配置 Free IPA (主从复制)，记录一下大致的安装和配置过程。
 ---
 ## 前言
 
-CentOS 7 配置 Free IPA 服务端（主服务和复制服务），记录一下大致的安装和配置过程。
+CentOS 7 配置 Free IPA (主从复制)，记录一下大致的安装和配置过程。
 
 域控制器，主要作用是很好的管理计算机，统一身份认证。 Microsoft Windows 的产品 Active Directory 是 Windows 下常用的域管理。本文介绍一下 CentOS 7 下域控制器 FreeIPA 的安装和配置。
 
