@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 下配置 HAProxy 和 Let's Encrypt
 categories: [Linux]
 tags: [centos, haproxy, let's encrypt, security]
+update: 2017-11-24
 summary: CenOS 7 下配置 HAProxy 和 Let's Encrypt，记录一下大致的安装和配置过程。主要是为了使用 HAProxy，查到了 How To Secure HAProxy with Let's Encrypt on CentOS 7，里面写的很详细，基本没有问题，但是再记录一下。
 ---
 
@@ -142,7 +143,7 @@ $ sudo firewall-cmd --reload
 
 ## 配置 HAProxy1 服务器 
 
-### 第一步，安装 Let's Encrypt Client
+### 第一步，安装 Let's Encrypt 客户端
 1.在防火墙上开放 `80` 和 `443` 端口，安装 Let's Encrypt Client 需要使用。
 
 ```terminal
@@ -151,57 +152,43 @@ $ sudo firewall-cmd --permanent --zone=public --add-service=https
 $ sudo firewall-cmd --reload
 ```
 
-2.目前安装 `letsencrypt` 比较好的方法是从 GitHub 上克隆 。
+2.安装 Let's encrypt 的客户端 certbot
 
-安装 Git 和 Bc
+先安装 EPEL 仓库（因为 certbot 在这个源里，目前还没在默认的源里）
 
 ```terminal
-$ sudo yum install git bc
+$ sudo yum install epel-release
 ```
 
-3.克隆 Let's Encrypt
+安装 certbot
 
 ```terminal
-$ sudo git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
-Cloning into '/opt/letsencrypt'...
-remote: Counting objects: 45465, done.
-remote: Compressing objects: 100% (36/36), done.
-remote: Total 45465 (delta 11), reused 0 (delta 0), pack-reused 45429
-Receiving objects: 100% (45465/45465), 13.62 MiB | 1.43 MiB/s, done.
-Resolving deltas: 100% (32535/32535), done.
+$ sudo yum install certbot
 ```
 
-克隆完成之后 `letsencrypt` 已经下载到 `/opt/letsencrypt` 文件夹中。
+### 第二步，运行 Certbot
+Certbot 有很多种方式运行，本例中使用 Standalone plugin 方式获得一个证书。
 
-### 第二步，获得一个证书
-Let's Encrypt 有很多种方式获得证书，本例中使用 Standalone plugin 方式获得一个证书。
+1.保证 `80` 端口开放
 
-1.保证 `443` 端口开放
+因为 Let's Encrypt 使用 Standalone plugin 方式会临时使用一个 Web Server, 会用到 `80` 端口。
 
-因为 Let's Encrypt 使用 Standalone plugin 方式会临时使用一个 Web Server, 会用到 `443` 端口。
-
-因为刚才已经在防火墙打开了 `443` 端口，现在可以检测一下是否被使用，要确保 `443` 端口开放并且不被别的程序使用。
+因为刚才已经在防火墙打开了 `80` 端口，现在可以检测一下是否被使用，要确保 `80` 端口开放并且不被别的程序使用。
 
 ```terminal
-$ sudo ss -lnp|grep 443
+$ sudo ss -lnp|grep 80
 ```
 
-`ss` 命令会查询包含 `443` 的进程，如果出现类似如下结果，表明已经占用，请自行查找原因，停止服务，保证 `443` 端口开放，但不被使用。
+`ss` 命令会查询包含 `80` 的进程，如果出现类似如下结果，表明已经占用，请自行查找原因，停止服务，保证 `80` 端口开放，但不被使用。
 
 ```terminal
-    tcp    LISTEN     0      128       *:443                    *:* ......
+    tcp    LISTEN     0      128       *:80                    *:* ......
 ```
 
-2.运行 Let's Encrypt
+2.运行如下命令
 
 ```terminal
-$ cd /opt/letsencrypt
-```
-
-使用 Standalone plugin 进行安装
-
-```terminal
-$ sudo ./letsencrypt-auto certonly --standalone
+$ sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d example.com -d www.example.com
 ```
 
 此命令会下载 Let's Encrypt ACME Client 所需的组件, 并且开始安装，过程如下：
@@ -249,7 +236,7 @@ Creating CSR: /etc/letsencrypt/csr/0000_csr-certbot.pem
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at
    /etc/letsencrypt/live/example.com/fullchain.pem. Your cert will
-   expire on 2017-08-02. To obtain a new or tweaked version of this
+   expire on 2017-11-24. To obtain a new or tweaked version of this
    certificate in the future, simply run letsencrypt-auto again. To
    non-interactively renew *all* of your certificates, run
    "letsencrypt-auto renew"
@@ -387,35 +374,40 @@ defaults
 	
 # 这里是配置 80 端口的负载均衡
 frontend www-http
-   bind *:80
-   reqadd X-Forwarded-Proto:\ http
-   default_backend www-backend
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+
+	#访问控制列表，使用 80 端口，进行 renew
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
+
+    default_backend www-backend
 	
 # 这里是配置 443 端口的负载均衡
 frontend www-https
-   bind *:443 ssl crt /etc/haproxy/certs/example.com.pem
-   reqadd X-Forwarded-Proto:\ https
-   acl letsencrypt-acl path_beg /.well-known/acme-challenge/
-   use_backend letsencrypt-backend if letsencrypt-acl
-   default_backend www-backend
+    bind *:443 ssl crt /etc/haproxy/certs/example.com.pem
+    reqadd X-Forwarded-Proto:\ https
+   
+    default_backend www-backend
+
 #---------------------------------------------------------------------
 # static backend for serving up images, stylesheets and such
 #---------------------------------------------------------------------
 # 后台的实际的机器（将 http 重定向到 https）
 backend www-backend
-   redirect scheme https if !{ ssl_fc }
-   server www-1 10.0.0.11:80 check
-   server www-2 10.0.0.12:80 check
+    redirect scheme https if !{ ssl_fc }
+    server www-1 10.0.0.11:80 check
+    server www-2 10.0.0.12:80 check
 	
 backend letsencrypt-backend
-server letsencrypt 127.0.0.1:54321
+    server letsencrypt 127.0.0.1:54321
 ```
 
 注册并启动　haproxy 服务
 
 ```terminal
-$ sudo systemctl enable haproxy.service
-$ sudo systemctl start haproxy.service
+$ sudo systemctl enable haproxy
+$ sudo systemctl start haproxy
 ```
 
 测试一下
@@ -425,156 +417,117 @@ $ sudo systemctl start haproxy.service
 本例使用的默认的轮训负载均衡算法 `roundrobin`，会交替访问后端的两个服务器，如果想改变算法，请自行查找 HAProxy 使用的负载均衡算法: `roundrobin`, `leastconn`, `static-rr`, `source`, `uri`, `url_param`, `hdr(name)`, `rdp-cookie（name）`
 
 ### 第五步，安装证书的自动更新（Auto Renewal）
-Standalone plugin 默认使用 `80` 或 `443` 作为默认端口
+Standalone plugin 默认使用 `80` 或 `443` 作为默认端口，本例是 HAProxy 在 `80` 端口代理之后转到了内部的 `54321` 端口
 
-```
---tls-sni-01-port TLS_SNI_01_PORT
-            Port number to perform tls-sni-01 challenge. Boulder
-            in testing mode defaults to 5001. (default: 443)
---http-01-port HTTP01_PORT
-            Port used in the SimpleHttp challenge. (default: 80)
-```
-
-本例使用 `54321` ，以免与HAProxy冲突，需要先在防火墙上开放端口：
+#### 创建 Renewal 脚本
+打开一个新的文件
 
 ```terminal
-$ sudo firewall-cmd --permanent --zone=public --add-port=54321/tcp
-$ sudo firewall-cmd --reload
+$ sudo vi /usr/local/bin/renew.sh
 ```
 
-然后执行如下命令(注意！替换 `exmaple.com` 为您自己的域名)
-
-```terminal
-$ cd /opt/letsencrypt
-$ sudo ./letsencrypt-auto certonly --agree-tos --renew-by-default --standalone-supported-challenges http-01 --http-01-port 54321 -d example.com
-```
-
-成功之后，需要创建一个新的结合证书文件(注意！替换 `exmaple.com` 为您自己的域名)
-
-```terminal
-$ sudo DOMAIN='example.com' sudo -E bash -c 'cat /etc/letsencrypt/live/$DOMAIN/fullchain.pem /etc/letsencrypt/live/$DOMAIN/privkey.pem > /etc/haproxy/certs/$DOMAIN.pem'
-```
-
-然后重启 HAProxy 服务，应用新证书
-
-```terminal
-$ sudo service haproxy reload
-```
-
-现在，我们知道了如何 renew 我们的证书，我们可以自动化这一过程，使用一些脚本和 cron 作业
-
-#### 创建一个 Let's Encrypt 配置文件
-使用 Let's Encrypt 的样例文件，放到 `/usr/local/etc/le-renew-haproxy.ini`
-
-```terminal
-$ sudo cp /opt/letsencrypt/examples/cli.ini /usr/local/etc/le-renew-haproxy.ini
-```
-
-编辑这个文件
-
-```terminal
-$ sudo vi /usr/local/etc/le-renew-haproxy.ini
-```
-
-修改如下部分(注意！替换 `exmaple.com` 为您自己的域名)
-
-```conf
-# Use a 4096 bit RSA key instead of 2048
-rsa-key-size = 4096
-	
-# Uncomment and update to register with the specified e-mail address
-email = foo@example.com
-domains = example.com
-
-# Uncomment to use the standalone authenticator on port 443
-# authenticator = standalone
-# standalone-supported-challenges = tls-sni-01
-standalone-supported-challenges = http-01
-```
-
-现在我们可以根据配置文件 renew 证书，跟刚才使用域名变量 `DOMAIN='example.com'` 是一样的
-
-```terminal
-$ cd /opt/letsencrypt
-$ sudo ./letsencrypt-auto certonly --renew-by-default --config /usr/local/etc/le-renew-haproxy.ini --http-01-port 54321
-```
-
-我们要创建一个脚本，进行证书的 renew
-
-#### 创建证书的 renew 脚本和 cron 作业
-脚本会检查证书的过期日期是否小于30天，cron 作业每星期执行一次。
-
-首先，下载这个脚本，并且使它可以执行。您也可以更改此脚本，满足自己的需求。
-
-```terminal
-$ sudo curl -L -o /usr/local/sbin/le-renew-haproxy https://gist.githubusercontent.com/thisismitch/7c91e9b2b63f837a0c4b/raw/700cfe953e5d5e71e528baf20337198195606630/le-renew-haproxy
-$ sudo chmod +x /usr/local/sbin/le-renew-haproxy
-```
-
-如果网络有问题，脚本内容如下，如果跟您本地情况不符(如，端口号不想使用 `54321`)，可以自行更改。
+在这个空文件内，拷贝如下脚本内容（`注意，替换　example.com 为您的域名`）：
 
 ```shell
-#!/bin/bash
+#!/bin/sh
 
-web_service='haproxy'
-config_file='/usr/local/etc/le-renew-haproxy.ini'
-domain=`grep "^\s*domains" $config_file | sed "s/^\s*domains\s*=\s*//" | sed 's/(\s*)\|,.*$//'`
-http_01_port='54321'
-combined_file="/etc/haproxy/certs/${domain}.pem"
-	
-le_path='/opt/letsencrypt'
-exp_limit=30;
-	
-if [ ! -f $config_file ]; then
-        echo "[ERROR] config file does not exist: $config_file"
-        exit 1;
-fi
-	
-cert_file="/etc/letsencrypt/live/$domain/fullchain.pem"
-key_file="/etc/letsencrypt/live/$domain/privkey.pem"
-	
-if [ ! -f $cert_file ]; then
-	echo "[ERROR] certificate file not found for domain $domain."
-fi
-	
-exp=$(date -d "`openssl x509 -in $cert_file -text -noout|grep "Not After"|cut -c 25-`" +%s)
-datenow=$(date -d "now" +%s)
-days_exp=$(echo \( $exp - $datenow \) / 86400 |bc)
-	
-echo "Checking expiration date for $domain..."
-	
-if [ "$days_exp" -gt "$exp_limit" ] ; then
-	echo "The certificate is up to date, no need for renewal ($days_exp days left)."
-	exit 0;
-else
-	echo "The certificate for $domain is about to expire soon. Starting Let's Encrypt (HAProxy:$http_01_port) renewal script..."
-	$le_path/letsencrypt-auto certonly --agree-tos --renew-by-default --config $config_file --http-01-port $http_01_port
-	
-	echo "Creating $combined_file with latest certs..."
-	sudo bash -c "cat /etc/letsencrypt/live/$domain/fullchain.pem /etc/letsencrypt/live/$domain/privkey.pem > $combined_file"
-	
-	echo "Reloading $web_service"
-	/usr/sbin/service $web_service reload
-	echo "Renewal process finished for domain $domain"
-	exit 0;
-fi
+SITE=example.com
+
+# move to the correct let's encrypt directory
+cd /etc/letsencrypt/live/$SITE
+
+# cat files to make combined .pem for haproxy
+cat fullchain.pem privkey.pem > /etc/haproxy/certs/$SITE.pem
+
+# reload haproxy
+systemctl reload haproxy
 ```
 
-这个脚本会自动检查日期，如果没有到期，只会输出还有多久到期
+接下来，使这个脚本可以执行
 
 ```terminal
-$ sudo /usr/local/sbin/le-renew-haproxy
+$ sudo chmod u+x /usr/local/bin/renew.sh
 ```
 
-将得到如下结果
+然后，可以执行一次试试
 
 ```terminal
-......
-Checking expiration date for example.com...
-The certificate is up to date, no need for renewal (89 days left).
+$ sudo /usr/local/bin/renew.sh
 ```
 
-接下来，我们将编辑一个 crontab 来创建一个作业，每星期执行一次
+应该没有任何错误，接下来我们将更新配置，创建作业，使这个脚本能定时执行
+
+#### 更新　Certbot 配置
+更改配置文件
+
+```terminal
+$ sudo vi /etc/letsencrypt/renewal/example.com.conf
+```
+
+我们需要更改如下配置　
+
+```shell
+http01_port = 54321
+```
+
+此处的 http 方式的端口号(54321)与 HAProxy 的一致
+
+`:wq` 保存并退出之后，测试一下。
+
+#### 测试 Certbot 的 renew
+
+第一次，测试 renew，需要关闭 HAProxy 服务
+
+```terminal
+$ sudo systemctl stop haproxy
+```
+
+运行 certbot 命令，renew 如下
+
+```terminal
+$ sudo certbot renew --http-01-port=80 --dry-run
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+-------------------------------------------------------------------------------
+Processing /etc/letsencrypt/renewal/example.com.conf
+-------------------------------------------------------------------------------
+Cert is due for renewal, auto-renewing...
+Plugins selected: Authenticator standalone, Installer None
+Starting new HTTPS connection (1): acme-staging.api.letsencrypt.org
+Renewing an existing certificate
+Performing the following challenges:
+http-01 challenge for example.com
+Waiting for verification...
+Cleaning up challenges
+
+-------------------------------------------------------------------------------
+new certificate deployed without reload, fullchain is
+/etc/letsencrypt/live/example.com/fullchain.pem
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+** DRY RUN: simulating 'certbot renew' close to cert expiry
+**          (The test certificates below have not been saved.)
+
+Congratulations, all renewals succeeded. The following certs have been renewed:
+  /etc/letsencrypt/live/example.com/fullchain.pem (success)
+** DRY RUN: simulating 'certbot renew' close to cert expiry
+**          (The test certificates above have not been saved.)
+-------------------------------------------------------------------------------
+```
+
+看到 `Congratulations`，表示成功从 80 端口 renew 。
+
+`注意，虽然 haproxy 配置好了，certbot 的配置文件也配置了 54321 但是如果不关闭服务，直接执行，还是会报错，可能是 certbot 的一个 bug`
+
+启动 HAProxy 服务
+
+```terminal
+$ sudo systemctl start haproxy
+```
+
+#### 创建一个 Cron 作业 
+我们将编辑一个 crontab 来创建一个作业，每天执行一次
 
 ```terminal
 $ sudo crontab -e
@@ -583,10 +536,10 @@ $ sudo crontab -e
 填写内容如下（注意，要在一行）
 
 ```conf
-30 2 * * 1 /usr/local/sbin/le-renew-haproxy >> /var/log/le-renewal.log
+30 1 * * * /usr/bin/certbot renew --renew-hook "/usr/local/bin/renew.sh" >> /var/log/le-renewal.log
 ```
 
-保存并且退出 `:wq` ，这个作业将每星期一的早晨 `2:30` 执行一次，并将日志写入 `/var/log/le-renewal.log` 中。
+保存并且退出 `:wq` ，这个作业将每天的早晨 `1:30` 执行一次，并将日志写入 `/var/log/le-renewal.log` 中。
 
 ## 结束语
 至此，HAProxy 使用 Let's Encrypt 进行 TLS/SSL 证书进行HTTPS传输。
