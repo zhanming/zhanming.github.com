@@ -167,8 +167,8 @@ Would you like to enter a view-only password (y/n)? n
 
 > **`注意`**
 >
-> 服务的文件 `/etc/systemd/system/vncserver@.service`没有 `:1`
-> `:1` 使当参数启动服务器，表示启动第一个界面
+> 1. 服务的文件 `/etc/systemd/system/vncserver@.service`没有 `:1`
+> 2. `:1` 使当参数启动服务器，表示启动第一个界面
 
 
 ### 客户端访问
@@ -176,7 +176,7 @@ Would you like to enter a view-only password (y/n)? n
 
 设置如下：
 
-VNC Server: YOUR_SERVER_IP:1
+VNC Server: YOUR_SERVER_IP:1  
 Name: YOUR_Display_1
 
 连接之后，输入 admin 的 vpnpasswd，既可看到界面了。
@@ -184,7 +184,7 @@ Name: YOUR_Display_1
 ## 参考资料
 [怎样在 CentOS 7.0 上安装和配置 VNC 服务器][1]  
 [How To Install / Configure VNC Server On CentOS 7.0][2]  
-[CHAPTER 12. TIGERVNC - RedHat Customer Portal][3]
+[CHAPTER 12. TIGERVNC - RedHat Customer Portal][3]  
 [VNC Viewer][4]  
 
 [1]: https://linux.cn/article-5335-1.html
