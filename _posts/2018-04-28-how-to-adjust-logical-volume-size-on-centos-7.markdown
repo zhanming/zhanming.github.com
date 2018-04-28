@@ -41,7 +41,7 @@ tmpfs                497M     0  497M   0% /sys/fs/cgroup
 tmpfs                100M     0  100M   0% /run/user/0
 ```
 
-可以看到 root 逻辑卷（`cl-root`）的大小是 50G，home 逻辑卷（`cl-root`）的大小是 74G。
+可以看到 root 逻辑卷（`cl-root`）的大小是 50G，home 逻辑卷（`cl-root`）的大小是 75G。
 
 ### 备份 /home 下的文件
 ```terminal
@@ -103,7 +103,7 @@ Do you really want to remove active logical volume cl/home? [y/n]: y
 ```
 
 ### 增加 root 逻辑卷的大小
-扩展 root 所在的 lv，本例中 home 逻辑卷大小有 75G，本例移动 40G 到 root 逻辑卷
+扩展 root 所在的逻辑卷，本例中 home 逻辑卷大小有 75G，本例移动 40G 到 root 逻辑卷。
 
 ```terminal
 # lvextend -L +40G /dev/mapper/cl-root 
@@ -113,7 +113,7 @@ Do you really want to remove active logical volume cl/home? [y/n]: y
 
 可以看到 root 逻辑卷大小有 50G 增加到 90G。
 
-之后需要扩展 /root 文件系统
+之后需要扩展 /root 文件系统:
 
 ```terminal
 # xfs_growfs /dev/mapper/cl-root 
