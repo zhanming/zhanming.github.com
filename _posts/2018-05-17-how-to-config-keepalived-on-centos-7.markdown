@@ -35,7 +35,7 @@ CentOS Linux release 7.4.1804 (Core)
 
 ## 步骤
 
-### 步骤 1：安装
+### 步骤 1: 安装
 Keepalived 可以使用 yum 直接安装，在 master 服务器和 backup 服务器执行：
 
 ```terminal
@@ -44,7 +44,7 @@ $ sudo yum install keepalived
 
 安装 Nginx, 参考 [Install Nginx Binary Releases][1] 。
 
-### 步骤 2：配置 Master 服务器
+### 步骤 2: 配置 Master 服务器
 
 先确认网卡
 
@@ -155,7 +155,7 @@ virtual_server 10.0.0.10 80 {
 
 本配置中，最后设置了虚拟 IP 的 80 端口，指向了本地的 80 端口。
 
-### 步骤3：配置 BACKUP 服务器
+### 步骤 3: 配置 BACKUP 服务器
 
 BACKUP 配置基本跟 MASTER 一致，主要有部分变动
 
@@ -215,7 +215,7 @@ virtual_server 10.0.0.10 80 {
 }
 
 ```
-### 步骤4：配置并启动服务
+### 步骤 4: 配置并启动服务
 配置 IP 转发
 
 ```terminal
@@ -285,7 +285,7 @@ $ ip a
 2. 当 MASTER 出问题时，IP 会漂移到 BACKUP 服务器（`10.0.0.12`），此时 BACKUP 服务器会有 2 个IP。
 3. 当 MASTER 重新启动后，虚拟 IP 又会漂移回 MASTER 服务器。 
 
-### 步骤5：服务测试
+### 步骤 5: 服务测试
 查看 IP 的变化可用如下命令（MASTER 和 BACKUP 都在线）：
 
 在 MASTER 服务器上执行
@@ -323,7 +323,7 @@ $ sudo tcpdump -i em1 vrrp -n
 
 这表明 MASTER 收到 BACKUP 的广播，此时虚拟 IP 时挂在 BACKUP 服务器上。
 
-### 步骤6：配置日志
+### 步骤 6: 配置日志
 
 > **`注意`** 
 > 
