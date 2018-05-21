@@ -103,21 +103,21 @@ vrrp_instance VI_1 {
     # 指定 keepalived 的角色，MASTER 表示此主机是主服务器，BACKUP 表示此主机是备用服务器
     state MASTER
 
-	# 指定网卡
+    # 指定网卡
     interface em1
 
-	# 虚拟路由标识，这个标识是一个数字，同一个vrrp实例使用唯一的标识。
-	# 即同一vrrp_instance下，MASTER和BACKUP必须是一致的
+    # 虚拟路由标识，这个标识是一个数字，同一个vrrp实例使用唯一的标识。
+    # 即同一vrrp_instance下，MASTER和BACKUP必须是一致的
     virtual_router_id 51
 
     # 定义优先级，数字越大，优先级越高（0-255）。
     # 在同一个vrrp_instance下，MASTER 的优先级必须大于 BACKUP 的优先级
     priority 100
 
-	# 设定 MASTER 与 BACKUP 负载均衡器之间同步检查的时间间隔，单位是秒
+    # 设定 MASTER 与 BACKUP 负载均衡器之间同步检查的时间间隔，单位是秒
     advert_int 1
 
-	# 如果两节点的上联交换机禁用了组播，则采用 vrrp 单播通告的方式
+    # 如果两节点的上联交换机禁用了组播，则采用 vrrp 单播通告的方式
     unicast_src_ip 10.0.0.11
     unicast_peer {
         10.0.0.12
@@ -125,15 +125,15 @@ vrrp_instance VI_1 {
 
     # 设置验证类型和密码
     authentication {
-		#设置验证类型，主要有PASS和AH两种
+        #设置验证类型，主要有PASS和AH两种
         auth_type PASS
-		#设置验证密码，在同一个vrrp_instance下，MASTER与BACKUP必须使用相同的密码才能正常通信
+        #设置验证密码，在同一个vrrp_instance下，MASTER与BACKUP必须使用相同的密码才能正常通信
         auth_pass 1111
     }
 
-	#设置虚拟IP地址，可以设置多个虚拟IP地址，每行一个
+    #设置虚拟IP地址，可以设置多个虚拟IP地址，每行一个
     virtual_ipaddress {
-		# 虚拟 IP
+        # 虚拟 IP
         10.0.0.10/24 brd 10.0.0.255
     }
 }
@@ -169,7 +169,7 @@ $ sudo vi /etc/keepalived/keepalived.conf
 > 2. interface 为网卡的 ID，要根据机器确认  
 > 3. virtual_route_id 要与 MASTER 一致，默认为 51  
 > 4. priority 要比 MASTER 小  
-> 5. unicast_src_ip 要设置正确，组播地址设置之后，要注释小 vrrp_strict 选项
+> 5. unicast_src_ip 要设置正确，组播地址设置之后，要注释 vrrp_strict 选项
 
 变动如下
 
@@ -195,7 +195,7 @@ vrrp_instance VI_1 {
 
     ...
     ...
-	# 如果两节点的上联交换机禁用了组播，则采用 vrrp 单播通告的方式
+    # 如果两节点的上联交换机禁用了组播，则采用 vrrp 单播通告的方式
     unicast_src_ip 10.0.0.12
     unicast_peer {
         10.0.0.11
@@ -293,18 +293,20 @@ $ sudo tcpdump -i em1 vrrp -n
 ...
 ...
 ```
-这表明 MASTER 在向 BACKUP 广播，MASTER 在线。此时虚拟 IP 时挂在 MASTER 上的。
 
-如果想退出, 按 `Ctrl+C`。
+这表明 MASTER 在向 BACKUP 广播，MASTER 在线。此时虚拟 IP 时挂在 MASTER 上的，如果想退出, 按 `Ctrl+C`。
 
 如果 MASTER 停止 keepalived，虚拟 IP 会漂移到 BACKUP 服务器上。  
 我们可以测试一下：
 
-1. 停止 MASTER 的 keepalived
+1. 停止 MASTER 的 keepalived  
+
 ```terminal
 $ sudo systemctl stop keepalived
 ```
+
 2. 在 MASTER 服务器上查看 VRRP 服务
+
 ```terminal
 $ sudo tcpdump -i em1 vrrp -n
 02:19:08.874676 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 99, authtype simple, intvl 1s, length 20
@@ -313,6 +315,7 @@ $ sudo tcpdump -i em1 vrrp -n
 ...
 ...
 ```
+
 这表明 MASTER 收到 BACKUP 的广播，此时虚拟 IP 时挂在 BACKUP 服务器上。
 
 ### 步骤6：配置日志
@@ -327,6 +330,7 @@ keepalived 默认将日志输出到系统日志`/var/log/messages`中，因为�
 我们可以将 keepalived 的日志单独拿出来，这需要修改日志输出路径。
 
 1. 修改 Keepalived 配置
+
 ```terminal
 $ sudo vi /etc/sysconfig/keepalived
 ```
@@ -351,11 +355,13 @@ KEEPALIVED_OPTIONS="-D -d -S 0"
 把 KEEPALIVED_OPTIONS="-D" 修改为 KEEPALIVED_OPTIONS="-D -d -S 0"，其中 -S 指定 syslog 的 facility
 
 2. 修改 `/etc/rsyslog.conf` 末尾添加
+
 ```terminal
 $ sudo vi /etc/rsyslog.conf 
 local0.*                                                /var/log/keepalived.log
 ```
 3. 重启日志记录服务
+
 ```terminal
 $ sudo systemctl restart rsyslog
 ```
