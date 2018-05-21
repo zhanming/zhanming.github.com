@@ -217,12 +217,14 @@ virtual_server 10.0.0.10 80 {
 ```
 ### 步骤4：配置并启动服务
 配置 IP 转发
+
 ```terminal
 $ sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 $ sudo sysctl -p
 ```
 
 防火墙添加规则，因为 VRRP 使用 `224.0.0.18` 这个组播地址
+
 ```terminal
 $ sudo firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
 success
@@ -233,6 +235,7 @@ success
 ```
 
 可以查看一下这两条规则
+
 ```terminal
 $ sudo firewall-cmd --direct --get-rules ipv4 filter INPUT
 0 --in-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
@@ -241,11 +244,13 @@ $ sudo firewall-cmd --direct --get-rules ipv4 filter OUTPUT
 ```
 
 启动 MASTER 和 BACKUP 的 keepalived 服务
+
 ```terminal
 $ sudo systemctl start keepalived
 ```
 
 设置开机启动
+
 ```terminal
 $ sudo systemctl enalbe keepalived
 ```
@@ -299,13 +304,13 @@ $ sudo tcpdump -i em1 vrrp -n
 如果 MASTER 停止 keepalived，虚拟 IP 会漂移到 BACKUP 服务器上。  
 我们可以测试一下：
 
-1. 停止 MASTER 的 keepalived  
+首先，停止 MASTER 的 keepalived  
 
 ```terminal
 $ sudo systemctl stop keepalived
 ```
 
-2. 在 MASTER 服务器上查看 VRRP 服务
+然后，在 MASTER 服务器上查看 VRRP 服务
 
 ```terminal
 $ sudo tcpdump -i em1 vrrp -n
@@ -329,12 +334,11 @@ keepalived 默认将日志输出到系统日志`/var/log/messages`中，因为�
 
 我们可以将 keepalived 的日志单独拿出来，这需要修改日志输出路径。
 
-1. 修改 Keepalived 配置
+修改 Keepalived 配置  
 
 ```terminal
 $ sudo vi /etc/sysconfig/keepalived
 ```
-
 更改如下：
 ```terminal
 # Options for keepalived. See `keepalived --help' output and keepalived(8) and
@@ -354,19 +358,19 @@ KEEPALIVED_OPTIONS="-D -d -S 0"
 ```
 把 KEEPALIVED_OPTIONS="-D" 修改为 KEEPALIVED_OPTIONS="-D -d -S 0"，其中 -S 指定 syslog 的 facility
 
-2. 修改 `/etc/rsyslog.conf` 末尾添加
+修改 `/etc/rsyslog.conf` 末尾添加
 
 ```terminal
 $ sudo vi /etc/rsyslog.conf 
 local0.*                                                /var/log/keepalived.log
 ```
-3. 重启日志记录服务
+重启日志记录服务
 
 ```terminal
 $ sudo systemctl restart rsyslog
 ```
 
-4. 重启 keepalived
+重启 keepalived
 
 ```terminal
 $ sudo systemctl restart keepalived
