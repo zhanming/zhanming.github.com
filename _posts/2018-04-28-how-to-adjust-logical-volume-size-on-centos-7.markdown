@@ -2,7 +2,7 @@
 layout: post
 title: CentOS 7 调整逻辑卷大小 
 categories: [Linux]
-tags: [centos]
+tags: [centos, lvm]
 summary: CentOS 7 安装之后，默认使用 LVM （逻辑卷管理）管理磁盘，默认的 home 逻辑卷很大，但是 root 逻辑卷相对较小，有时需要调整一下分区，将 home 逻辑卷的空间挪一部分到 root 逻辑卷，由于使用 LVM，使调整变得非常简单。
 ---
 ## 前言

@@ -2,7 +2,7 @@
 layout: post
 title: CentOS 7 配置 VNC Server 
 categories: [Linux]
-tags: [centos]
+tags: [centos, vnc]
 summary: CentOS 7 桌面版安装之后，可以安装 VNC Server, 使用户可以远程访问。
 ---
 ## 前言
