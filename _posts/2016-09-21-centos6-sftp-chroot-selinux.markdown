@@ -40,7 +40,7 @@ Match Group sftp
     ChrootDirectory /data/sftp/%u
     AllowTcpForwarding no
     X11Forwarding no
-	ForceCommand internal-sftp
+    ForceCommand internal-sftp
 ```
 
 含义如下
@@ -51,12 +51,12 @@ Subsystem	sftp	internal-sftp
 // 匹配sftp组的用户, 如果有多个组用逗号分割
 // 也可以使用 Match User username 匹配用户, 多个用户之间也是用逗号分割
 Match Group sftp
-	// 用 chroot 将用户的根目录指定到 /data/sftp/%u, %u 代表用户名, %h 表示用户根目录
+    // 用 chroot 将用户的根目录指定到 /data/sftp/%u, %u 代表用户名, %h 表示用户根目录
     ChrootDirectory /data/sftp/%u
-	// 禁止用户使用端口转发
+    // 禁止用户使用端口转发
     AllowTcpForwarding no
     X11Forwarding no
-	ForceCommand internal-sftp
+    ForceCommand internal-sftp
 ```
 
 通过如上配置，即可将用户限定在 `/data/sftp/%u` 目录下。
