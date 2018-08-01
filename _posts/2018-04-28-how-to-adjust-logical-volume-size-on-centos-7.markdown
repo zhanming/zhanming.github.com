@@ -192,7 +192,7 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 挂载 /home
 
 ```terminal
-# # mount /dev/mapper/cl-home /home
+# mount /dev/mapper/cl-home /home
 ```
 
 此时 /home 文件夹下是空的
