@@ -19,8 +19,8 @@ Keepalived 是以 VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余
 CentOS 7（Minimal Install）
 
 ```terminal
-# cat /etc/redhat-release 
-CentOS Linux release 7.4.1804 (Core) 
+$ cat /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
 ```
 
 本例演示环境如下

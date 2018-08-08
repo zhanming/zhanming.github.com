@@ -3,7 +3,7 @@ layout: post
 title: CentOS 7 下 yum 安装和配置 Nginx 
 categories: [Linux]
 tags: [centos, nginx]
-summary: Nginx (engine x) 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 服务器。。 本例演示 CentOS 7 下安装和配置 Nginx 的基本步骤。
+summary: Nginx (engine x) 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 服务器。 本例演示 CentOS 7 下安装和配置 Nginx 的基本步骤。
 ---
 ## 前言
 Nginx (engine x) 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 服务器。。 本例演示 CentOS 7 下安装和配置 Nginx 的基本步骤。
@@ -12,8 +12,8 @@ Nginx (engine x) 是一个高性能的 HTTP 和反向代理服务器，也是一
 CentOS 7（Minimal Install）
 
 ```terminal
-# cat /etc/redhat-release 
-CentOS Linux release 7.4.1804 (Core) 
+$ cat /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
 ```
 
 ## 步骤

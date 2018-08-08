@@ -12,7 +12,7 @@ summary: CentOS 7 安装 MySQL 后，数据库文件随着使用会逐渐变大�
 CentOS 7（Minimal Install）
 
 ```terminal
-# cat /etc/redhat-release 
+$ cat /etc/redhat-release 
 CentOS Linux release 7.4.1708 (Core) 
 ```
 
