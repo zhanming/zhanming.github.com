@@ -102,7 +102,7 @@ ssh dhcpv6-client http
 
 Nginx 是一个很方便的反向代理，配置反向代理可以参考 [Module ngx_http_proxy_module][2] 。本文不做累述。
 
-需要指出的是 CentOS 7 的 sulinux，使用反向代理需要打开网络访问权限。
+需要指出的是 CentOS 7 的 SELinux，使用反向代理需要打开网络访问权限。
 
 ```terminal
 $ sudo setsebool httpd_can_network_connect 1 
