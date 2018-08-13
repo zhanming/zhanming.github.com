@@ -216,6 +216,28 @@ $ sudo mkdir -p /backups/mysql
 $ sudo chown backup:mysql /backups/mysql
 ```
 
+CentOS 7 默认启用了 SELinux，这也需要进行授权，可以先查看一下
+
+```terminal
+$ ls -lh -Zd /backups/mysql
+drwxr-x--x. backup mysql unconfined_u:object_r:var_lib_t:s0 /backups/mysql
+```
+
+授权命令如下: 只更改类型即可
+
+```terminal
+$ sudo chcon -R -t mysqld_db_t /backups/mysql
+```
+
+查看一下
+
+```terminal
+$ ls -lh -Zd /backups/mysql
+drwxr-x--x. backup mysql unconfined_u:object_r:mysqld_db_t:s0 /backups/mysql
+```
+
+此时，SELinux 授权完成。
+
 这样 backup 用户就可以进入并操作这个目录了
 
 #### 创建密钥保护备份文件安全
@@ -771,13 +793,21 @@ $ ls -lh -Zd /var/lib/mysql
 drwxr-x--x. mysql mysql unconfined_u:object_r:var_lib_t:s0 /var/lib/mysql
 ```
 
-授权命令如下
+授权命令如下: 更改类型和用户的属性
 
 ```terminal
 $ sudo chcon -R -t mysqld_db_t /var/lib/mysql
+$ sudo chcon -u system_u /var/lib/mysql
 ```
 
-此时，权限已经恢复完全。
+查看一下
+
+```terminal
+$ ls -lh -Zd /var/lib/mysql
+drwxr-x--x. mysql mysql system_u:object_r:mysqld_db_t:s0 /var/lib/mysql
+```
+
+此时，SELinux 的权限已经恢复完全。
 
 启动 MySQL 服务，完成数据恢复。
 
