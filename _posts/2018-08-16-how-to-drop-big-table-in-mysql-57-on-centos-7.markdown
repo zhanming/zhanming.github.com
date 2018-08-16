@@ -113,7 +113,7 @@ Query Ok, 0 rows affacted(0.02 sec)
 > 有时数据库使用外键约束，造成删除不成功。  
 > Cannot delete or update a parent row: a foreign key constraint fails
 
-先确认表肯定要删除，确认之后，在本次会话设置FOREIGN_KEY_CHECKS变量来避免这种情况。
+先确认表肯定要删除，确认之后，在本次会话设置 `FOREIGN_KEY_CHECKS` 变量来避免这种情况。
 
 ```terminal
 mysql> SET FOREIGN_KEY_CHECKS = 0;
