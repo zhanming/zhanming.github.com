@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 配置 MySQL 5.7 主从复制
 categories: [Linux]
 tags: [centos, mysql, replication]
+update: 2018-08-17
 summary: CentOS 7 配置 MySQL 5.7 主从复制（Master Slave Replication ），记录一下大致的安装和配置过程。
 ---
 ## 前言
@@ -327,6 +328,24 @@ mysql> unlock tables;
 ```terminal
 mysql> source db1.sql;
 ```
+
+如果主库的表有使用 blob 等存储二进制数据类型的字段，需要设置从库的 `max_allowed_packet` 参数，之后再导入数据库。
+
+```terminal
+$ sudo vi /etc/my.cnf
+```
+
+添加如下参数
+
+```terminal
+max_allowed_packet=100M
+net_buffer_length=8K
+bulk_insert_buffer_size=128M
+```
+
+> **`注意`**  
+>
+> 以上字段的值，请根据实际情况修改。
 
 其他设置都一样，此处不再重复说明，主要是设置从库的复制参数
 
