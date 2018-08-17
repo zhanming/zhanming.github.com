@@ -31,7 +31,7 @@ mysql  Ver 14.14 Distrib 5.7.18, for Linux (x86_64) using  EditLine wrapper
 
 本系统初始有两个用户  
 超级管理员: root  
-管理组用户: admin
+管理组用户: admin，本例中 `${USER}` 就是这个用户
 
 ## 安装 Percona Xtrabackup 工具
 
@@ -219,21 +219,21 @@ $ sudo chown backup:mysql /backups/mysql
 CentOS 7 默认启用了 SELinux，这也需要进行授权，可以先查看一下
 
 ```terminal
-$ ls -lh -Zd /backups/mysql
-drwxr-x--x. backup mysql unconfined_u:object_r:var_lib_t:s0 /backups/mysql
+$ ls -lh -Zd /backups/mysql/
+drwxr-x--x. backup mysql unconfined_u:object_r:var_lib_t:s0 /backups/mysql/
 ```
 
 授权命令如下: 只更改类型即可
 
 ```terminal
-$ sudo chcon -R -t mysqld_db_t /backups/mysql
+$ sudo chcon -R -u system_u -t mysqld_db_t /backups/mysql/
 ```
 
 查看一下
 
 ```terminal
-$ ls -lh -Zd /backups/mysql
-drwxr-x--x. backup mysql unconfined_u:object_r:mysqld_db_t:s0 /backups/mysql
+$ ls -lh -Zd /backups/mysql/
+drwxr-x--x. backup mysql system_u:object_r:mysqld_db_t:s0 /backups/mysql/
 ```
 
 此时，SELinux 授权完成。
