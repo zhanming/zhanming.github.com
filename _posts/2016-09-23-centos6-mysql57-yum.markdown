@@ -73,7 +73,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 
 默认就是使用 mysql57-community 的 repo。
 
-3. yum 安装
+3.yum 安装
 
 ```terminal
 shell> yum install mysql
