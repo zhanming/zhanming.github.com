@@ -73,7 +73,13 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 
 默认就是使用 mysql57-community 的 repo。
 
-3.启动服务
+3. yum 安装
+
+```terminal
+shell> yum install mysql
+```
+
+4.启动服务
 
 ```terminal
 shell> service mysqld start
@@ -87,13 +93,13 @@ shell> service mysqld status
 mysqld (pid  xxxx) is running...
 ```
 
-4.开机启动
+5.开机启动
 
 ```terminal
 shell> chkconfig mysqld on
 ```
 
-5.修改 root 默认密码
+6.修改 root 默认密码
 
 MySQL 5.7 启动后，在 `/var/log/mysqld.log` 文件中给 root 生成了一个默认密码。通过下面的方式找到 root 默认密码，然后登录 mysql 进行修改：
 
@@ -154,7 +160,7 @@ validate_password = off
 shell> service mysqld restart
 ```
 
-6.添加远程登录用户
+7.添加远程登录用户
 
 MySQL 默认只允许 root 帐户在本地登录，如果要在其它机器上连接 MySQL，必须修改 root 允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，本例添加一个新的帐户：
 
@@ -162,7 +168,7 @@ MySQL 默认只允许 root 帐户在本地登录，如果要在其它机器上�
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' IDENTIFIED BY 'secret' WITH GRANT OPTION;
 ```
 
-7.配置默认编码为 utf8
+8.配置默认编码为 utf8
 
 MySQL 默认为 latin1, 一般修改为 UTF-8
 
