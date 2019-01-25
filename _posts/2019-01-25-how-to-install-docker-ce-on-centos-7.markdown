@@ -28,7 +28,7 @@ CentOS 7 以后都可以安装 Docker 了，也可以确认一下。
 
 ```terminal
 $ uname -a
-$ Linux localhost.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+Linux localhost.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
 Docker 需要用到 `centos-extra` 这个源，如果您关闭了，需要重启启用，可以参考 [Available Repositories for CentOS][2]。
