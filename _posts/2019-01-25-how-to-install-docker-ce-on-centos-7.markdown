@@ -90,8 +90,16 @@ $ sudo yum install docker-ce
 
 > **`注意`**  
 >
-> 默认的 docker 组是没有用户的（也就是说需要使用 sudo 才能使用 docker 命令）。
+> 默认的 docker 组是没有用户的（也就是说需要使用 sudo 才能使用 docker 命令）。  
 > 您可以将用户添加到 docker 组中（此用户就可以直接使用 docker 命令了）。
+
+加入 docker 用户组命令
+
+```terminal
+$ sudo usermod -aG docker USER_NAME
+```
+
+用户更新组信息后，重新登录系统即可生效。
 
 ### 安装指定版本
 
