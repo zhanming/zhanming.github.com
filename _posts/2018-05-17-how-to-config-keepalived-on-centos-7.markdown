@@ -216,11 +216,14 @@ virtual_server 10.0.0.10 80 {
 
 ```
 ### 步骤 4: 配置并启动服务
-配置 IP 转发
+配置 IP 转发，需要修改配置文件 `/etc/sysctl.conf`，默认只有 root 可以修改
 
 ```terminal
-$ sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-$ sudo sysctl -p
+$ su - root
+Password:
+# echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+# sysctl -p
+# exit
 ```
 
 防火墙添加规则，因为 VRRP 使用 `224.0.0.18` 这个组播地址
@@ -252,7 +255,7 @@ $ sudo systemctl start keepalived
 设置开机启动
 
 ```terminal
-$ sudo systemctl enalbe keepalived
+$ sudo systemctl enable keepalived
 ```
 
 此时查看 MASTER 的网卡
@@ -287,6 +290,12 @@ $ ip a
 
 ### 步骤 5: 服务测试
 查看 IP 的变化可用如下命令（MASTER 和 BACKUP 都在线）：
+
+安装 tcpdump 包
+
+```terminal
+$ sudo yum install tcpdump
+```
 
 在 MASTER 服务器上执行
 
