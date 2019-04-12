@@ -110,13 +110,65 @@ $ sudo setsebool httpd_can_network_connect 1
 
 打开网络权限之后，反向代理可以使用了。
 
+### 绑定其他端口
+
+Nginx 默认绑定的端口是 http 协议的默认端口，端口号为：`80`，如果需要绑定其他端口，需要注意 SELinux 的配置
+
+例如：绑定 8081 端口，但是会发现无法启动，一般的报错如下
+
+```terminal
+YYYY/MM/DD hh:mm:ss [emerg] 46123#0: bind() to 0.0.0.0:8081 failed (13: Permission denied)
+```
+
+此时需要更改 SELinux 的设置。我们使用 SELinux 的管理工具 `semanage` 进行操作，比较方便。
+
+安装 `semanage` 使用如下命令
+
+```terminal
+$ sudo yum install policycoreutils-python
+```
+
+然后查看是否有其他协议类型使用了此端口
+
+```terminal
+$ sudo semanage port -l | grep 8081
+transproxy_port_t              tcp      8081
+```
+
+返回了结果，表明已经被其他类型占用了，类型为 `transproxy_port_t`。
+
+我们还要查看一下 Nginx 的在 SELinux 中的类型 `http_port_t` 绑定的端口
+
+```terminal
+$ sudo semanage port -l | grep http_port_t
+http_port_t                    tcp      80, 81, 443, 488, 8008, 8009, 8443, 9000
+pegasus_http_port_t            tcp      5988
+```
+
+第一行 `http_port_t` 中没有包含 `8081` 这个端口。因此需要修改 `8081` 端口到 `http_port_t` 类型中。
+
+```terminal
+$ sudo semanage port -m -p tcp -t http_port_t 8081
+```
+
+如果没有其他协议类型使用想要绑定的端口，如 `8001`，则我们只要新增到 SELinux 中即可。
+
+```terminal
+$ sudo semanage port -l | grep 8001
+$ sudo semanage port -a -p tcp -t http_port_t 8001
+```
+
+此时，重新启动 Nginx 即可。
+
 ## 结论
 本文演示了 CentOS 7 下 yum 安装 Nginx，配置服务等。
 
 ## 参考资料
 [Install Nginx Binary Releases][1]  
 [Module ngx_http_proxy_module][2]  
+[Using NGINX and NGINX Plus with SELinux][3]  
 
  
 [1]: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/  
 [2]: http://nginx.org/en/docs/http/ngx_http_proxy_module.html
+[3]: https://www.nginx.com/blog/using-nginx-plus-with-selinux/
