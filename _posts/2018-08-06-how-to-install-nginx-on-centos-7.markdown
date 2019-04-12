@@ -98,7 +98,7 @@ ssh dhcpv6-client http
 
 可以看到，系统已经打开了 http 服务。
 
-### 步骤 4: 反向代理
+### 反向代理
 
 Nginx 是一个很方便的反向代理，配置反向代理可以参考 [Module ngx_http_proxy_module][2] 。本文不做累述。
 
