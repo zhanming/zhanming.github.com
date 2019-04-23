@@ -1,12 +1,12 @@
 ---
 layout: post
-title: CentOS 7 下 安装 Let's encrypt 的通配符证书
+title: CentOS 7 下 安装 Let's Encrypt 的通配符证书
 categories: [Linux]
 tags: [centos, let's encrypt, https, security]
-summary: Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 月中旬上线，可以免费申请，安装和使用。本次记录一下基本的步骤。
+summary: Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 月中旬上线，可以免费申请，安装和使用，本次记录一下基本的步骤。
 ---
 ## 前言
-Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 月中旬上线，可以免费申请，安装和使用。本次记录一下基本的步骤。
+Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 月中旬上线，可以免费申请，安装和使用，本次记录一下基本的步骤。
 
 申请通配符证书需要 ACME v2 协议的客户端，官方推荐使用 [Certbot][2]。
 
@@ -55,7 +55,7 @@ certbot 0.31.0
 申请通配符证书命令如下
 
 ```terminal
-$ sudo certbot certonly  -d yourdomain.com -d *.yourdomain.com --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+$ sudo certbot certonly -d yourdomain.com -d *.yourdomain.com --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 主要参数说明：
