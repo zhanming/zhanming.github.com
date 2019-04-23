@@ -8,9 +8,9 @@ summary: Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 
 ## 前言
 Let's Encrypt 的通配符证书 (Wildcard Certificate) 于 2018 年 3 月中旬上线，可以免费申请，安装和使用。本次记录一下基本的步骤。
 
-申请通配符证书需要 ACME v2 协议的客户端，官方推荐使用 Certbot[2]。
+申请通配符证书需要 ACME v2 协议的客户端，官方推荐使用 [Certbot][2]。
 
-Certbot[2] 官网也有安装步骤供您参考，本文只记录安装通配符证书的基本操作步骤，与其他软件集成和配置步骤不在本文范围。
+[Certbot][2] 官网也有安装步骤供您参考，本文只记录安装通配符证书的基本操作步骤，与其他软件集成和配置步骤不在本文范围。
 
 ### 环境说明
 
@@ -60,9 +60,11 @@ $ sudo certbot certonly  -d yourdomain.com -d *.yourdomain.com --manual --prefer
 
 主要参数说明：
 
-certonly 是 certbot 众多插件之一，您可以选择其他插件。  
--d 为那些主机申请证书，如果是通配符，输入 *.yourdomain.com。`注意：本文还申请了 yourdomain.com 这是为了避免通配符证书不匹配`。  
-–preferred-challenges dns，使用 DNS 方式校验域名所有权。`注意：通配符证书只能使用 dns-01 这种方式申请`。  
+1. certonly 是 certbot 众多插件之一，您可以选择其他插件。  
+2. -d 为那些主机申请证书，如果是通配符，输入 *.yourdomain.com。  
+`注意：本文还申请了 yourdomain.com 这是为了避免通配符证书不匹配`。  
+3. –preferred-challenges dns，使用 DNS 方式校验域名所有权。  
+`注意：通配符证书只能使用 dns-01 这种方式申请`。  
 
 输出如下
 
@@ -172,7 +174,7 @@ accounts  archive  csr  keys  live  renewal  renewal-hooks
 可以校验一下证书信息
 
 ```terminal
-$ sudo openssl x509 -in  /etc/letsencrypt/live/yourdomain.com/cert.pem -noout -text
+$ sudo openssl x509 -in /etc/letsencrypt/live/yourdomain.com/cert.pem -noout -text
 Certificate:
     Data:
         Version: 3 (0x2)
