@@ -107,7 +107,7 @@ gitlab_rails['ldap_servers'] = YAML.load <<-EOS
     port: 636  # 389 为 ldap, 636 为 ldaps
     uid: 'uid'
     method: 'ssl' # "tls" or "ssl" or "plain"
-    bind_dn: 'uid=system,cn=sysaccounts,cn=etc,dn=example,dn=com'
+    bind_dn: 'uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com'
     password: 'your_password'
     active_directory: false # 不是 Microsoft 的 AD
     allow_username_or_email_login: false
