@@ -6,11 +6,11 @@ tags: [centos, freeipa]
 summary: CentOS 7 配置 Free IPA，以前写过一篇，但是没有安装 DNS 服务，本次再写一次包含 DNS 服务的安装和配置过程。
 ---
 ## 前言
-CentOS 7 配置 Free IPA，以前写过一篇 [CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）][1]，该文中没有包括安装 DNS 服务，本次写一篇包含 DNS 服务的安装和配置过程。
+CentOS 7 配置 Free IPA，以前写过一篇 [CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）][1]，该文中没有包括安装 DNS 服务，本次写一篇安装 FreeIPA 带 DNS 服务的安装和配置过程。
 
 因为使用 bind 进行 DNS 配置，每次配置都需要更改配置再重新加载服务，作为测试和少量部署还可以应付，但是如果内部很多服务器，管理起来相对费事，FreeIPA 自带 bind 支持，有 web 界面配置支持，比较方便。
 
-如果您使用单独的 DNS 服务器，可以参考 [CentOS 7 配置 Free IPA (主从复制)][1]
+如果您使用单独的 DNS 服务器，可以参考 [CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）][1]
 
 顺便说一句：FreeIPA 中的 A 部分，也就是 Audit 部分还不是很完善，但是一直在改进中，I 和 P 部分做得很好，很适合作为企业内部的基础设施。
 
@@ -35,17 +35,17 @@ CentOS Linux release 7.6.1810 (Core)
 | 10.11.0.249/24 | ipa.corp.example.com  | 主服务器    |
 | 10.11.0.250/24 | ipa2.corp.example.com | 复制服务器  |
 
-> `注意`, 
+> `注意`  
 > 内存至少 1.5 G 以上。  
 > Host 列请改为您自己的主机名。  
 > 本文都是以 root 用户进行操作，您可以使用其他有相应 sudo 权限的用户。  
-> 建议使用三级域名，如本例为 `corp.example.com` 因为 `example.com` 一般为公网使用。
+> 建议使用三级域名，如本例为 `corp.example.com` 因为 `example.com` 一般为公网使用。  
 > 本机 IP 的子网掩码不能是 `/32` (255.255.255.255), 至少是 `/24`(255.255.255.0) 或 `/16`(255.255.0.0)。  
 > 启动防火墙，因为 LDAP 是非常重要的服务，安全性很重要。  
 
 ## 安装和配置
 
-先要设置本机机器名,并配置 DNS，必须保障机器名正确, 因为需要使用 FQDN，两台机器都是一样。这里以
+先要设置本机机器名,并配置 DNS，必须保障机器名正确, 因为需要使用 FQDN，两台机器都是一样。
 
 这里以 `ipa.corp.example.com` 为例，`ipa2.corp.example.com` 请修改相应 IP 和 FQDN。
 
@@ -110,7 +110,7 @@ Server host name [ipa.corp.example.com]: # 回车
 Warning: skipping DNS resolution of host ipa.corp.example.com
 The domain name has been determined based on the host name.
 
-Please confirm the domain name [corp.example.com]: 回车
+Please confirm the domain name [corp.example.com]: # 回车
 
 The kerberos protocol requires a Realm name to be defined.
 This is typically the domain name converted to uppercase.
@@ -488,7 +488,7 @@ Number of entries returned 1
 
 访问 `https://ipa.corp.example.com`
 
-> `注意`:默认使用 https 的证书是自签发的，因此是不被浏览器信任的。如果内部使用，可以不必理会，否则您可以购买该域名相应的证书并配置。
+`注意`:默认使用 https 的证书是自签发的，因此是不被浏览器信任的。如果内部使用，可以不必理会，否则您可以购买该域名相应的证书并配置。
 
 ### 证书更新(可选)
 
@@ -536,7 +536,9 @@ Current domain level: 1
 
 本例使用的是 FreeIPA 4.6, 默认的 domain level 是 1 ，如果是 FreeIPA 4.2 以前的复制，不在本例范围。
 
-> `注意` 复制服务器的域名，为 `ipa2.corp.example.com` 主服务器域名为 `ipa.corp.example.com`
+> `注意`  
+> 复制服务器的域名，为 `ipa2.corp.example.com`  
+> 主服务器域名为 `ipa.corp.example.com`  
 
 FreeIPA 4.3 版本以后，复制服务安装流程简化，只要两步
 
@@ -579,7 +581,7 @@ ipa2.corp.example.com
 # yum install ipa-client
 ```
 
-执行 FreeIPA 客户端安装命令(带上参数为：创建用户的家目录)
+接下来执行 FreeIPA 客户端安装命令，带上参数 `--mkhomedir`(如果用户登录，默认会创建用户的家目录）
 
 ```
 # ipa-client-install --mkhomedir
@@ -779,8 +781,7 @@ Run ipa-ca-install(1) on another master to accomplish this.
 
 FreeIPA 复制服务，安装完成。
 
-> `注意`
-> FreeIPA 的复制属于主主复制，即两个服务器都是主节点，会将更改相互发送给其他节点。
+`注意`，FreeIPA 的复制属于主主复制，即两个服务器都是主节点，会将更改相互发送给其他节点。
 
 
 ### 安装 FreeIPA CA 服务
