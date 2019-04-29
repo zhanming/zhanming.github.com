@@ -1,13 +1,13 @@
 ---
 layout: post
-title: CentOS 7 配置 Free IPA (主从复制)
+title: CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）
 categories: [Linux]
 tags: [centos, freeipa]
-summary: CentOS 7 配置 Free IPA (主从复制)，记录一下大致的安装和配置过程。
+summary: CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务），记录一下大致的安装和配置过程。
 ---
 ## 前言
 
-CentOS 7 配置 Free IPA (主从复制)，记录一下大致的安装和配置过程。
+CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务），记录一下大致的安装和配置过程。
 
 域控制器，主要作用是很好的管理计算机，统一身份认证。 Microsoft Windows 的产品 Active Directory 是 Windows 下常用的域管理。本文介绍一下 CentOS 7 下域控制器 FreeIPA 的安装和配置。
 
@@ -354,7 +354,9 @@ Current domain level: 1
 
 本例使用的是 FreeIPA 4.4, 默认的 domain level 是 1 ，如果是 FreeIPA 4.2 以前的复制，不在本例范围。
 
-> `注意` 复制服务器的域名，为 `ipa2.example.com` 主服务器域名为 `ipa.example.com`
+> `注意`  
+> 复制服务器的域名，为 `ipa2.example.com`  
+> 主服务器域名为 `ipa.example.com`
 
 FreeIPA 4.3 版本以后，复制服务安装流程简化
 
