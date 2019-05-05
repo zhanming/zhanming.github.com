@@ -135,11 +135,11 @@ ExecStop=-/usr/bin/vncserver -kill %i
 WantedBy=multi-user.target
 ``` 
 
-> **`注意`**
->
-> 1. 启动服务的用户为 root，这样 VNC Client 访问时可以看到菜单栏(Menu bar)
-> 2. 用户使用的是 admin，这样用户登录到 admin 的界面
-> 
+**`注意`**
+
+1. 启动服务的用户为 root，这样 VNC Client 访问时可以看到菜单栏(Menu bar)  
+2. 用户使用的是 admin，这样用户登录到 admin 的界面
+ 
 
 `：wq` 保存配置之后，重启 systemd
 
@@ -165,10 +165,10 @@ Would you like to enter a view-only password (y/n)? n
 
 这样就开启了第一个界面
 
-> **`注意`**
->
-> 1. 服务的文件 `/etc/systemd/system/vncserver@.service`没有 `:1`
-> 2. `:1` 使当参数启动服务器，表示启动第一个界面
+**`注意`**
+
+1. 服务的文件 `/etc/systemd/system/vncserver@.service`没有 `:1`  
+2. `:1` 使当参数启动服务器，表示启动第一个界面
 
 
 ### 打开防火墙
