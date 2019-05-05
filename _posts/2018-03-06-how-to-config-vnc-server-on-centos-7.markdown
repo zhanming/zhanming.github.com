@@ -171,6 +171,16 @@ Would you like to enter a view-only password (y/n)? n
 > 2. `:1` 使当参数启动服务器，表示启动第一个界面
 
 
+### 打开防火墙
+
+我们需要配置防火墙, 打开 VNC 服务
+
+```terminal
+$ sudo firewall-cmd --permanent --add-service vnc-server
+success
+$ sudo firewall-cmd --reload
+```
+
 ### 客户端访问
 下载 [VNC Viewer][4] 
 
