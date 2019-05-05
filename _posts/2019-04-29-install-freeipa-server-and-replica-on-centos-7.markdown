@@ -784,7 +784,7 @@ FreeIPA 复制服务，安装完成。
 `注意`，FreeIPA 的复制属于主主复制，即两个服务器都是主节点，会将更改相互发送给其他节点。
 
 
-### 安装 FreeIPA CA 服务
+### 安装 FreeIPA CA 复制服务
 
 FreeIPA Replia 安装的最后，可以看到提示： CA 服务只装在一台服务器上，建议运行 `ipa-ca-install` 命令。
 
@@ -829,7 +829,120 @@ Done configuring certificate server (pki-tomcatd).
 Updating DNS system records
 ```
 
-至此，FreeIPA CA 服务安装完成。
+至此，FreeIPA CA 复制服务安装完成。
+
+查看服务状态
+
+```terminal
+# ipactl status
+Directory Service: RUNNING
+krb5kdc Service: RUNNING
+kadmin Service: RUNNING
+httpd Service: RUNNING
+ipa-custodia Service: RUNNING
+ntpd Service: RUNNING
+pki-tomcatd Service: RUNNING
+ipa-otpd Service: RUNNING
+ipa: INFO: The ipactl command was successful
+```
+
+可以看到目前有 8 个服务启动，但是跟主服务器少了 `named Service` 和 `ipa-dnskeysyncd Service`, 接下来安装 dns 服务。
+
+
+### 安装 FreeIPA DNS 复制服务
+
+```terminal
+# ipa-dns-install
+
+The log file for this installation can be found in /var/log/ipaserver-install.log
+==============================================================================
+This program will setup DNS for the IPA Server.
+
+This includes:
+  * Configure DNS (bind)
+  * Configure SoftHSM (required by DNSSEC)
+  * Configure ipa-dnskeysyncd (required by DNSSEC)
+
+NOTE: DNSSEC zone signing is not enabled by default
+
+
+To accept the default shown in brackets, press the Enter key.
+
+Do you want to configure DNS forwarders? [yes]: yes # 输入
+Following DNS servers are configured in /etc/resolv.conf: 10.11.0.249
+Do you want to configure these servers as DNS forwarders? [yes]: yes # 输入
+All DNS servers from /etc/resolv.conf were added. You can enter additional addresses now:
+Enter an IP address for a DNS forwarder, or press Enter to skip: # 输入回车
+Checking DNS forwarders, please wait ...
+DNS server 10.11.0.249: answer to query '. SOA' is missing DNSSEC signatures (no RRSIG data)
+Please fix forwarder configuration to enable DNSSEC support.
+(For BIND 9 add directive "dnssec-enable yes;" to "options {}")
+DNS server 8.8.8.8: answer to query '. SOA' is missing DNSSEC signatures (no RRSIG data)
+Please fix forwarder configuration to enable DNSSEC support.
+(For BIND 9 add directive "dnssec-enable yes;" to "options {}")
+WARNING: DNSSEC validation will be disabled
+Do you want to search for missing reverse zones? [yes]: # 输入回车
+
+The following operations may take some minutes to complete.
+Please wait until the prompt is returned.
+
+Configuring DNS (named)
+  [1/8]: generating rndc key file
+  [2/8]: setting up our own record
+  [3/8]: adding NS record to the zones
+  [4/8]: setting up kerberos principal
+  [5/8]: setting up named.conf
+  [6/8]: setting up server configuration
+  [7/8]: configuring named to start on boot
+  [8/8]: changing resolv.conf to point to ourselves
+Done configuring DNS (named).
+Restarting the web server to pick up resolv.conf changes
+Configuring DNS key synchronization service (ipa-dnskeysyncd)
+  [1/7]: checking status
+  [2/7]: setting up bind-dyndb-ldap working directory
+  [3/7]: setting up kerberos principal
+  [4/7]: setting up SoftHSM
+  [5/7]: adding DNSSEC containers
+  [6/7]: creating replica keys
+  [7/7]: configuring ipa-dnskeysyncd to start on boot
+Done configuring DNS key synchronization service (ipa-dnskeysyncd).
+Restarting ipa-dnskeysyncd
+Restarting named
+Updating DNS system records
+==============================================================================
+Setup complete
+
+Global DNS configuration in LDAP server is empty
+You can use 'dnsconfig-mod' command to set global DNS options that
+would override settings in local named.conf files
+
+
+	You must make sure these network ports are open:
+		TCP Ports:
+		  * 53: bind
+		UDP Ports:
+		  * 53: bind
+
+```
+
+查看服务状态
+
+```terminal
+# ipactl status
+Directory Service: RUNNING
+krb5kdc Service: RUNNING
+kadmin Service: RUNNING
+named Service: RUNNING
+httpd Service: RUNNING
+ipa-custodia Service: RUNNING
+ntpd Service: RUNNING
+pki-tomcatd Service: RUNNING
+ipa-otpd Service: RUNNING
+ipa-dnskeysyncd Service: RUNNING
+ipa: INFO: The ipactl command was successful
+```
+
+可以看到，主服务器与复制服务器现在的服务都一致了，主要的三个服务(CA, DNS, NTP)都在进行复制。 
 
 ### 查看 FreeIPA 复制服务
 
@@ -840,8 +953,8 @@ Updating DNS system records
 ## 结束语
 本例介绍 FreeIPA 的安装过程，主要包含了Kerberos，DNS, LDAP, NTP 等基础服务。
 
-1. Auth-A 服务可以方便管理 CentOS 服务器的认证，FreeIPA 集成了 Kerberos。
-2. Auth-Z 服务可以方便管理 CentOS 服务器的授权，FreeIPA 集成了 sssd。
+1. Auth-A 服务可以方便管理 CentOS 服务器的认证，FreeIPA 集成了 Kerberos，SSSD。
+2. Auth-Z 服务可以方便管理 CentOS 服务器的授权，FreeIPA 集成了 Kerberos，SSSD。
 3. CA 服务可以方便管理企业的证书，FreeIPA 集成了 Dogtag。
 4. NTP 服务可以方便时间同步，FreeIPA 集成了 ntpd。
 5. LDAP 服务可以同意管理用户名和密码以及与其他子系统集成， FreeIPA 集成了 389 Directory Server。
@@ -852,6 +965,8 @@ FreeIPA 有友好的 CLI 和 Web UI，使用起来非常方便。
 ## 参考资料
 [CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）][1]  
 [How to Install FreeIPA Server on CentOS 7][2]  
+[FreeIPA Workshop][3]  
   
 [1]: https://qizhanming.com/blog/2017/06/07/how-to-config-freeipa-server-and-replica-on-centos-7  
 [2]: https://computingforgeeks.com/install-freeipa-server-centos-7/  
+[3]: https://github.com/freeipa/freeipa-workshop  
