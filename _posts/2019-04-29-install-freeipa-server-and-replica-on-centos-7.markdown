@@ -1021,6 +1021,30 @@ ipa.corp.example.com: replica
 
 说明两台服务器都是主节点，并且都是对方的复制节点。
 
+## 其他
+
+使用 Chrom 登录 Web UI 会碰到 2 次输入用户名和密码，自助服务时（如修改密码）这会迷惑用户。
+
+解决方法如下：
+
+登录 IPA 服务器
+
+```terminal
+# vi /etc/httpd/conf.d/ipa-rewrite.conf
+```
+
+在最后加上如下
+
+```terminal
+# The following disables the annoying kerberos popup for Chrome
+RewriteCond %{HTTP_COOKIE} !ipa_session
+RewriteCond %{HTTP_REFERER} ^(.+)/ipa/ui/$
+RewriteRule ^/ipa/session/json$ - [R=401,L]
+RedirectMatch 401 ^/ipa/session/login_kerberos
+```
+
+这样登录服务器的时候就不会有弹出窗口了。具体解释可以参考 [Fixing the annoying popup in FreeIPA][4] 
+
 ## 结束语
 
 本例介绍 FreeIPA 的安装过程，主要包含了Kerberos，DNS, LDAP, NTP 等基础服务。
@@ -1042,3 +1066,4 @@ FreeIPA 有友好的 CLI 和 Web UI，使用起来非常方便。
 [1]: https://qizhanming.com/blog/2017/06/07/how-to-config-freeipa-server-and-replica-on-centos-7  
 [2]: https://computingforgeeks.com/install-freeipa-server-centos-7/  
 [3]: https://github.com/freeipa/freeipa-workshop  
+[4]: http://jdshewey.blogspot.com/2017/08/fixing-annoying-popup-in-freeipa.html  
