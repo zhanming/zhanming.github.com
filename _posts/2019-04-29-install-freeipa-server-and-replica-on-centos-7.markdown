@@ -1001,10 +1001,12 @@ ipa2.corp.example.com: master
 接下来查看复制情况，先查看 `ipa.corp.example.com` 的复制情况
 
 ```terminal
-# ipa-replica-manage list ipa.corp.example.com
-Directory Manager password: # 输入密码
-
+# ipa-replica-manage list -v ipa.corp.example.com
 ipa2.corp.example.com: replica
+  last init status: Error (0) Total update succeeded
+  last init ended: 2019-05-08 05:19:59+00:00
+  last update status: Error (0) Replica acquired successfully: Incremental update succeeded
+  last update ended: 2019-05-09 12:01:23+00:00
 ```
 
 可以看到，`ipa2.corp.example.com` 是 `ipa.corp.example.com` 的复制节点。
@@ -1012,10 +1014,12 @@ ipa2.corp.example.com: replica
 再查看 `ipa2.corp.example.com` 的复制情况
 
 ```terminal
-# ipa-replica-manage list ipa2.corp.example.com
-Directory Manager password:  # 输入密码
-
+# ipa-replica-manage list -v ipa2.corp.example.com
 ipa.corp.example.com: replica
+  last init status: None
+  last init ended: 1970-01-01 00:00:00+00:00
+  last update status: Error (0) Replica acquired successfully: Incremental update succeeded
+  last update ended: 2019-05-09 12:01:17+00:00
 ```
 可以看到 `ipa.corp.example.com` 是 `ipa2.corp.example.com` 的复制节点。
 
