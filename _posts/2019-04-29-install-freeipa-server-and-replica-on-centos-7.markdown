@@ -984,7 +984,45 @@ ipa: INFO: The ipactl command was successful
 
 同样的，可以登录 `https://ipa2.corp.example.com` 因为两个系统是同步的，所以内容是一样的。
 
+或者使用命令行验证
+
+登录主服务器 `ipa.corp.example.com`
+
+```terminal
+# ipa-replica-manage list
+Directory Manager password: # 输入密码
+
+ipa.corp.example.com: master
+ipa2.corp.example.com: master
+```
+
+可以看到两个都是主节点。
+
+接下来查看复制情况，先查看 `ipa.corp.example.com` 的复制情况
+
+```terminal
+# ipa-replica-manage list ipa.corp.example.com
+Directory Manager password: # 输入密码
+
+ipa2.corp.example.com: replica
+```
+
+可以看到，`ipa2.corp.example.com` 是 `ipa.corp.example.com` 的复制节点。
+
+再查看 `ipa2.corp.example.com` 的复制情况
+
+```terminal
+# ipa-replica-manage list ipa2.corp.example.com
+Directory Manager password:  # 输入密码
+
+ipa.corp.example.com: replica
+```
+可以看到 `ipa.corp.example.com` 是 `ipa2.corp.example.com` 的复制节点。
+
+说明两台服务器都是主节点，并且都是对方的复制节点。
+
 ## 结束语
+
 本例介绍 FreeIPA 的安装过程，主要包含了Kerberos，DNS, LDAP, NTP 等基础服务。
 
 1. Auth-A 服务可以方便管理 CentOS 服务器的认证，FreeIPA 集成了 Kerberos，SSSD。
