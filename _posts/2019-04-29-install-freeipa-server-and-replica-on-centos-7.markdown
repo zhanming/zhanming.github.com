@@ -402,7 +402,7 @@ files is the Directory Manager password
 ### 打开防火墙端口
 
 ```terminal
-# firewall-cmd --permanent --add-service={ntp,http,https,ldap,ldaps,kerberos,kpasswd,dns}
+# firewall-cmd --permanent --add-service={freeipa-ldap,freeipa-ldaps,dns}
 success
 # firewall-cmd --reload
 success
@@ -417,7 +417,7 @@ public (active)
   icmp-block-inversion: no
   interfaces: enp0s3
   sources: 
-  services: ssh dhcpv6-client ntp http https ldap ldaps kerberos kpasswd dns
+  services: ssh dhcpv6-client freeipa-ldap freeipa-ldaps dns
   ports: 
   protocols: 
   masquerade: no
@@ -547,6 +547,15 @@ FreeIPA 4.3 版本以后，复制服务安装流程简化，只要两步
 
 ### 安装 FreeIPA 复制服务器
 
+登录主服务器 Web UI: `https://ipa.corp.example.com` 
+
+1. 选择: 网络服务 -> DNS 区域
+2. 添加一个 10.11.0.0/24 的反向区域IP网络
+3. 点击 DNS 区域的 corp.example.com 进去这个子域内
+4. 增加一条 ipa2.corp.example.com 的 A 记录，并且在 Create reverse 打勾，添加 IP 地址的反向记录
+
+登录复制服务器
+
 1. 登录 `ipa2.corp.exmple.com` 服务器。
 2. 设置本机的 DNS 为 ipa.corp.example.com 的 IP。
 
@@ -633,13 +642,38 @@ The ipa-client-install command was successful
 
 ### 安装和配置 FreeIPA Replica
 
+安装 FreeIPA 服务端组件
+
+```terminal
+# yum install ipa-server ipa-server-dns
+```
+
 首先打开复制服务器防火墙端口
 
 ```terminal
-# firewall-cmd --permanent --add-service={ntp,http,https,ldap,ldaps,kerberos,kpasswd,dns}
+# firewall-cmd --permanent --add-service={freeipa-ldap,freeipa-ldaps,freeipa-replication,dns}
 success
 # firewall-cmd --reload
 success
+```
+
+查看防火墙打开的服务
+
+```terminal
+# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3
+  sources: 
+  services: ssh dhcpv6-client freeipa-ldap freeipa-ldaps freeipa-replication dns
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules:
 ```
 
 执行 FreeIPA 复制服务的安装命令
