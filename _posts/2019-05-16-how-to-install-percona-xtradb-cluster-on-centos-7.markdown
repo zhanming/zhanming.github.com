@@ -142,9 +142,11 @@ Complete!
 
 安装过程中会出现如下提示，可以根据需要进行配置。
 
-`注意` 3 个节点都安装完软件包之后，接下来只对第一个节点 `pxc1` 进行操作。
+### 修改密码
 
-启动 Percona XtraDB Cluster 服务。
+3 个节点都安装完软件包之后，接下来只对第一个节点 `pxc1` 进行修改密码操作。
+
+先启动 Percona XtraDB Cluster 服务。
 
 ```terminal
 [admin@pxc1 ~] $ sudo systemctl start mysqld
@@ -234,38 +236,38 @@ wsrep_node_address=10.11.0.83
 
 ### 配置参数说明
 
-`wsrep_provider` 
-> 指定 Galera 库的路径。
+`wsrep_provider`   
+指定 Galera 库的路径。
 
-`wsrep_cluster_name` 
-> 指定集群的逻辑名称，集群内的所有节点，这个名称必须一致。
+`wsrep_cluster_name`   
+指定集群的逻辑名称，集群内的所有节点，这个名称必须一致。
 
-`wsrep_cluster_address`
-> 指定集群内节点的 IP 地址，建议将集群节点都配上。
+`wsrep_cluster_address`  
+指定集群内节点的 IP 地址，建议将集群节点都配上。
 
-`wsrep_node_name`
-> 指定单个节点的逻辑名称，如果没有指定，将使用 hostname 作为逻辑名称。
+`wsrep_node_name`  
+指定单个节点的逻辑名称，如果没有指定，将使用 hostname 作为逻辑名称。
 
-`wsrep_node_address`
-> 指定此特定节点的 IP 地址。
+`wsrep_node_address`  
+指定此特定节点的 IP 地址。
 
-`wsrep_sst_method`
-> 默认的使用 Percona Xtrabackup 进行 State Snapshot Transfer (SST)，强烈建议使用 `wsrep_sst_method=xtrabackup-v2`
+`wsrep_sst_method`  
+默认的使用 Percona Xtrabackup 进行 State Snapshot Transfer (SST)，强烈建议使用 `wsrep_sst_method=xtrabackup-v2`
 
-`wsrep_sst_auth`
-> 指定 sst 的身份验证凭据，使用`<sst_user>:<sst_pass>` 这种格式，启动第一个节点时必须创建，并且提供相应的权限。
+`wsrep_sst_auth`  
+指定 sst 的身份验证凭据，使用`<sst_user>:<sst_pass>` 这种格式，启动第一个节点时必须创建，并且提供相应的权限。
 
-`pxc_strict_mode`
-> 关闭实验性的或者不支持的特性
+`pxc_strict_mode`  
+关闭实验性的或者不支持的特性
 
-`binlog_format`
-> Galera 只支持 row-level replication，所以设置为 `binlog_format=ROW`。
+`binlog_format`  
+Galera 只支持 row-level replication，所以设置为 `binlog_format=ROW`。
 
-`default_storage_engine`
-> Galera 只支持 InnoDB 引擎，所以设置为 `default_storage_engine=InnoDB`。
+`default_storage_engine`  
+Galera 只支持 InnoDB 引擎，所以设置为 `default_storage_engine=InnoDB`。
 
-`innodb_autoinc_lock_mode`
-> Galera 只支持 lock mode 为 `2` 的 InnoDB 引擎，所以设置为 `innodb_autoinc_lock_mode=2`。
+`innodb_autoinc_lock_mode`  
+Galera 只支持 lock mode 为 `2` 的 InnoDB 引擎，所以设置为 `innodb_autoinc_lock_mode=2`。
 
 ## 启动第一个节点
 
