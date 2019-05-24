@@ -39,12 +39,13 @@ VERSION: 4.4.0, API_VERSION: 2.213
 
 ```terminal
 # ldapmodify -x -D 'cn=Directory Manager' -W
+Enter LDAP Password: # 输入密码，之后手动输入一下信息
 dn: uid=system,cn=sysaccounts,cn=etc,dc=example,dc=com
 changetype: add
 objectclass: account
 objectclass: simplesecurityobject
 uid: system
-userPassword: your_password
+userPassword: secret123 # 注意修改为您自己的密码
 passwordExpirationTime: 20380119031407Z
 nsIdleTimeout: 0
 <blank line>
