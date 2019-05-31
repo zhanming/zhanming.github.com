@@ -14,7 +14,7 @@ title: Archive
            <ul class="list-unstyled">
            {% assign myDate = currentDate %}
        {% endif %}
-       <li><strong>{{ post.date | date:"%Y-%m-%d" }}</strong> - <a href="{{ post.url }}">{{ post.title }}</a></li>
+       <li><strong>{{ post.date | date:"%Y-%m-%d" }}</strong> <a href="{{ post.url }}">{{ post.title }}</a></li>
        {% if forloop.last %}</ul>{% endif %}
     {% endfor %}
 </div>
