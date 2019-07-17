@@ -138,7 +138,7 @@ WantedBy=multi-user.target
 **`注意`**
 
 1. 启动服务的用户为 root，添加 `User=root`, 这样 VNC Client 访问时可以看到菜单栏(Menu bar);  
-2. 将 <USER> 替换为 admin (本机的非 root 用户), 这样用户登录到 admin 的界面;
+2. 将 `<USER>` 替换为 admin (本机的非 root 用户), 这样用户登录到 admin 的界面;
 
 `:wq` 保存配置之后，重启 systemd
 
