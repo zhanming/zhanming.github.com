@@ -14,7 +14,7 @@ CentOS 7（Desktop Install）
 因为使用图形用户界面，本例使用 GNOME 桌面环境。
 
 ```terminal
-# cat /etc/redhat-release 
+$ cat /etc/redhat-release 
 CentOS Linux release 7.4.1708 (Core) 
 ```
 
@@ -30,21 +30,21 @@ CentOS Linux release 7.4.1708 (Core)
 > 
 
 ```terminal
-# yum check-update
-# yum groupinstall "X Window System"
-# yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
+$ sudo yum check-update
+$ sudo yum groupinstall "X Window System"
+$ sudo yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
 ```
 设置默认启动图形界面
 
 ```terminal
-# unlink /etc/systemd/system/default.target
-# ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target
+$ sudo unlink /etc/systemd/system/default.target
+$ sudo ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target
 ```
 
 重启服务器
 
 ```terminal
-# reboot
+$ sudo reboot
 ```
 
 重启之后，应该有 CentOS 7 的桌面环境了。
@@ -53,7 +53,7 @@ CentOS Linux release 7.4.1708 (Core)
 yum 安装 tigervnc-server
 
 ```terminal
-# yum install tigervnc-server -y
+$ sudo yum install tigervnc-server
 ```
 
 ## 配置
@@ -71,7 +71,7 @@ VNC Server 支持多种配置，如：
 拷贝模板
 
 ```terminal
-# cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+$ sudo cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
 ```
 
 网上其他资料，拷贝的文件名为 vncserver@:1.service，没有必要，后续说明。
@@ -79,7 +79,7 @@ VNC Server 支持多种配置，如：
 编辑配置文件
 
 ```terminal
-# vi /etc/systemd/system/vncserver@.service
+$ sudo vi /etc/systemd/system/vncserver@.service
 ```
 
 编辑后看起来是这样的
@@ -126,10 +126,10 @@ Type=forking
 User=root
 
 # Clean any existing files in /tmp/.X11-unix environment
-ExecStartPre=-/usr/bin/vncserver -kill %i
+ExecStartPre=/bin/sh -c '/usr/bin/vncserver -kill %i > /dev/null 2>&1 || :'
 ExecStart=/usr/sbin/runuser -l admin -c "/usr/bin/vncserver %i -geometry 1280x1024"
 PIDFile=/home/admin/.vnc/%H%i.pid
-ExecStop=-/usr/bin/vncserver -kill %i
+ExecStop=/bin/sh -c '/usr/bin/vncserver -kill %i > /dev/null 2>&1 || :'
 
 [Install]
 WantedBy=multi-user.target
@@ -137,18 +137,17 @@ WantedBy=multi-user.target
 
 **`注意`**
 
-1. 启动服务的用户为 root，这样 VNC Client 访问时可以看到菜单栏(Menu bar)  
-2. 用户使用的是 admin，这样用户登录到 admin 的界面
- 
+1. 启动服务的用户为 root，添加 `User=root`, 这样 VNC Client 访问时可以看到菜单栏(Menu bar);  
+2. 将 <USER> 替换为 admin (本机的非 root 用户), 这样用户登录到 admin 的界面;
 
-`：wq` 保存配置之后，重启 systemd
+`:wq` 保存配置之后，重启 systemd
 
 ```terminal
-# systemctl daemon-reload
+$ sudo systemctl daemon-reload
 ```
 
 ### 配置访问密码
-本例使用 admin 用户的桌面环境，切换到 admin 用户
+本例使用 admin 用户的桌面环境，如果使用其他用户，请先切换到 admin 用户
 ```terminal
 # su admin
 $ vncpasswd
@@ -160,7 +159,7 @@ Would you like to enter a view-only password (y/n)? n
 ### 开启服务
 
 ```terminal
-# systemctl start vncserver@:1
+$ sudo systemctl start vncserver@:1
 ```
 
 这样就开启了第一个界面
@@ -179,6 +178,7 @@ Would you like to enter a view-only password (y/n)? n
 $ sudo firewall-cmd --permanent --add-service vnc-server
 success
 $ sudo firewall-cmd --reload
+success
 ```
 
 ### 客户端访问
