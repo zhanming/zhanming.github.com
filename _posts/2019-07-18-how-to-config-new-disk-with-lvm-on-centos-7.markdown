@@ -2,7 +2,7 @@
 layout: post
 title: CentOS 7 在新磁盘上配置 LVM
 categories: [Linux]
-tags: [centos, mysql, proxysql, keepalived]
+tags: [centos, partition, lvm]
 summary: LVM 是 Logical Volume Manager(逻辑卷管理)的简写，本文介绍创建 LVM 的简单过程。
 ---
 ## 前言
