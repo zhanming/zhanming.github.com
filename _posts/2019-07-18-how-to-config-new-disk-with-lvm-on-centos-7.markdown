@@ -259,6 +259,7 @@ sr0                 11:0    1 1024M  0 rom
 
 ## 结束语
 
+本文创建 lvm 为例，方便以后的管理磁盘，如扩大，缩小等操作。
 
 ## 参考资料
 [Gluster Quick start guide][1]  
