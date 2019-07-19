@@ -122,18 +122,20 @@ Syncing disks.
 至此分区结束，可以再次查看一下
 
 ```terminal
-$ sudo fdisk -l /dev/sdb
-
-Disk /dev/sdb: 8589 MB, 8589934592 bytes, 16777216 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk label type: dos
-Disk identifier: 0xa6bc9924
-
-   Device Boot      Start         End      Blocks   Id  System
-/dev/sdb1            2048    16777215     8387584   83  Linux
+$ lsblk
+NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda               8:0    0  128G  0 disk 
+├─sda1            8:1    0    1G  0 part /boot
+└─sda2            8:2    0  127G  0 part 
+  ├─centos-root 253:0    0   50G  0 lvm  /
+  ├─centos-swap 253:1    0    2G  0 lvm  [SWAP]
+  └─centos-home 253:2    0   75G  0 lvm  /home
+sdb               8:16   0    8G  0 disk 
+└─sdb1            8:17   0    8G  0 part 
+sr0              11:0    1 1024M  0 rom
 ```
+
+可以看到 `sdb` 磁盘下有了新建的 `sdb1` 分区。
 
 ### 创建 PV 物理卷
 
@@ -162,7 +164,8 @@ $ sudo pvs
 使用如下命令创建 
 
 ```terminal
-$ vgcreate data /dev/sdb1
+$ sudo vgcreate data /dev/sdb1
+  Volume group "data" successfully created
 ```
 
 创建了 data 卷组
@@ -196,9 +199,9 @@ $ sudo vgs
   data     1   1   0 wz--n-   <8.00g    0 
 ```
 
-可以看到，已经全部使用了。
+可以看到 data 卷组的 VFree 为 0，表示已经全部使用了。
 
-记下来查看一下 LV 逻辑卷
+接下来查看一下 LV 逻辑卷
 
 ```terminal
 $ sudo lvs
