@@ -135,7 +135,7 @@ See  http://www.percona.com/doc/percona-server/5.7/management/udf_percona_toolki
 ...
 ...
 Replaced:
-  mariadb-libs.x86_64 1:5.5.60-1.el7_5                                                                                                                                                                   
+  mariadb-libs.x86_64 1:5.5.60-1.el7_5
 
 Complete!
 ```
