@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 调整逻辑卷大小 
 categories: [Linux]
 tags: [centos, lvm]
+update: 2019-07-28
 summary: CentOS 7 安装之后，默认使用 LVM （逻辑卷管理）管理磁盘，默认的 home 逻辑卷很大，但是 root 逻辑卷相对较小，有时需要调整一下分区，将 home 逻辑卷的空间挪一部分到 root 逻辑卷，由于使用 LVM，使调整变得非常简单。
 ---
 ## 前言
@@ -205,11 +206,14 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 # mv ~/homebak/admin/ /home/
 ```
 
-设置权限
+设置文件和目录的权限
 
 > **`注意`**
 >
-> 请根据实际情况设置
+> 请根据实际情况设置，本例以 `admin` 用户为例
+
+
+1. 修改文件所属的用户组和用户
 
 ```terminal
 chown -R admin:admin /home/admin/
@@ -217,6 +221,27 @@ chown -R admin:admin /home/admin/
 total 0
 drwx------. 2 admin admin 62 Apr 28 09:13 admin
 ``` 
+
+2. 一般还需要修改安全上下文
+
+设置 `/home` 目录的安全上下文
+
+```terminal
+# chcon -t home_root_t /home
+```
+
+设置 `admin` 用户家目录 `/home/admin` 下文件和目录的安全上下文 
+
+```terminal
+# chcon -t user_home_t -R /home/admin/;
+```
+
+设置 `/home/admin` 家目录的安全上下文
+
+```terminal
+# chcon -t user_home_dir_t /home/admin/ ;
+```
+
 此时权限设置完毕，admin 可以登录了。
 
 ### 查看最终结果
