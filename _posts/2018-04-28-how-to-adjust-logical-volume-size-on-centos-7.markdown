@@ -213,7 +213,7 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 > 请根据实际情况设置，本例以 `admin` 用户为例
 
 
-1. 修改文件所属的用户组和用户
+修改文件所属的用户组和用户
 
 ```terminal
 chown -R admin:admin /home/admin/
@@ -222,7 +222,7 @@ total 0
 drwx------. 2 admin admin 62 Apr 28 09:13 admin
 ``` 
 
-2. 一般还需要修改安全上下文
+一般还需要修改安全上下文，具体如下
 
 设置 `/home` 目录的安全上下文
 
