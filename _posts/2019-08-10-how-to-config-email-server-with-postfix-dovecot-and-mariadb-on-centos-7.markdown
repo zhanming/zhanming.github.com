@@ -82,19 +82,19 @@ Complete!
 
 配置数据库部分需要先配置 MariaDB，再创建数据库和表
 
-1. 开启数据库服务 
+开启数据库服务 
 
 ```terminal
 $ sudo systemctl start mariadb
 ```
 
-1. 设置开机启动
+设置开机启动
 
 ```terminal
 $ sudo systemctl enable mariadb
 ```
 
-1. 使用 [mysql_secure_installation][2] 初始化数据库
+使用 [mysql_secure_installation][2] 初始化数据库
 
 ```terminal
 $ sudo mysql_secure_installation
@@ -160,31 +160,31 @@ installation should now be secure.
 Thanks for using MariaDB!
 ```
 
-1. 创建一个新的数据库 
+创建一个新的数据库 
 
 ```terminal
 $ sudo mysqladmin -u root -p create mailserver
 ```
 
-1. 登录 MySQL
+登录 MySQL
 
 ```terminal
 $ mysql -u root -p
 ```
 
-1. 创建 MySQL 用户，分配相应的权限，*注意* 替换 `mailuserpass` 为您自己的密码
+创建 MySQL 用户，分配相应的权限，*注意* 替换 `mailuserpass` 为您自己的密码
 
 ```terminal
 MariaDB [(none)]> GRANT SELECT ON mailserver.* TO 'mailuser'@'127.0.0.1' IDENTIFIED BY 'mailuserpass';
 ```
 
-1. 刷新 MySQL 权限，应用更改
+刷新 MySQL 权限，应用更改
 
 ```terminal
 MariaDB [(none)]> FLUSH PRIVILEGES;
 ```
 
-1. 切换到新的数据库
+切换到新的数据库
 
 ```terminal
 MariaDB [(none)]> USE mailserver;
@@ -192,7 +192,7 @@ Database changed
 MariaDB [mailserver]> 
 ```
 
-1. 创建表来存储邮件的域名
+创建表来存储邮件的域名
 
 ```terminal
 CREATE TABLE `virtual_domains` (
@@ -202,7 +202,7 @@ CREATE TABLE `virtual_domains` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-1. 创建一个表来存储邮件地址和密码
+创建一个表来存储邮件地址和密码
 
 ```terminal
 CREATE TABLE `virtual_users` (
@@ -216,7 +216,7 @@ CREATE TABLE `virtual_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-1. 创建一个表来存储邮件的别名
+创建一个表来存储邮件的别名
 
 ```terminal
 CREATE TABLE `virtual_aliases` (
@@ -233,7 +233,7 @@ CREATE TABLE `virtual_aliases` (
 
 现在需要添加数据到表中
 
-1. 新增域名到 `virtual_domains` 表中
+新增域名到 `virtual_domains` 表中
 
 ```terminal
 INSERT INTO `mailserver`.`virtual_domains`
@@ -244,7 +244,7 @@ VALUES
 
 注意，`id` ，由于三个表有主外键关系，这个 `id` 的值要插入到其他两个表中。
 
-1. 新增用户到 `vurtial_users` 表中。
+新增用户到 `vurtial_users` 表中。
 
 ```terminal
 INSERT INTO `mailserver`.`virtual_users`
@@ -255,7 +255,7 @@ VALUES
 
 注意，请替换 `password` 为您的密码，替换 `postmaster@example.com` 为您的邮箱地址。
 
-1. 新增邮件别名，邮件别名可以主要用于转发，用于将别名的邮件转到真实的邮件地址。
+新增邮件别名，邮件别名可以主要用于转发，用于将别名的邮件转到真实的邮件地址。
 
 ```terminal
 INSERT INTO `mailserver`.`virtual_aliases`
@@ -268,7 +268,7 @@ VALUES
 
 添加完数据之后，我们可以测试一下，查看一下插入的值
 
-1. 查看 `virtual_domains` 表的内容
+查看 `virtual_domains` 表的内容
 
 ```terminal
 MariaDB [mailserver]> SELECT * FROM mailserver.virtual_domains;
@@ -280,7 +280,7 @@ MariaDB [mailserver]> SELECT * FROM mailserver.virtual_domains;
 1 row in set (0.00 sec)
 ```
 
-2. 查看 `virtual_users` 表的内容
+查看 `virtual_users` 表的内容
 
 ```terminal
 MariaDB [mailserver]> SELECT * FROM mailserver.virtual_users;
@@ -292,7 +292,7 @@ MariaDB [mailserver]> SELECT * FROM mailserver.virtual_users;
 1 row in set (0.00 sec)
 ```
 
-1. 查看 `virtual_alias` 表的内容
+查看 `virtual_alias` 表的内容
 
 ```terminal
 MariaDB [mailserver]> SELECT * FROM mailserver.virtual_aliases;
@@ -304,7 +304,7 @@ MariaDB [mailserver]> SELECT * FROM mailserver.virtual_aliases;
 1 row in set (0.00 sec)
 ```
 
-1. 如果内容没有问题，我们可以退出数据库了
+如果内容没有问题，我们可以退出数据库了
 
 ```terminal
 MariaDB [mailserver]> exit
@@ -316,13 +316,13 @@ MariaDB [mailserver]> exit
 
 `main.cf` 是 Postfix 的主要配置文件，配置步骤如下
 
-1. 拷贝原始文件，以备恢复
+拷贝原始文件，以备恢复
 
 ```terminal
 $ sudo cp /etc/postfix/main.cf /etc/postfix/main.cf.orig
 ```
 
-1. 编辑 `main.cf` 配置文件，*注意*，请替换 `example.com` 为您的域名
+编辑 `main.cf` 配置文件，*注意*，请替换 `example.com` 为您的域名
 
 ```terminal
 $ sudo vi /etc/postfix/main.cf
@@ -374,7 +374,7 @@ virtual_transport = lmtp:unix:private/dovecot-lmtp
 
 `main.cf` 声明了 `virtual_mailbox_domains`, `virtual_mailbox_maps`, `virtual-alias-maps` 和 `mysql-virtual-email2email` 的位置
 
-1. 创建 `mysql-virtual-alias-maps.cf`，注意修改相关参数值符合您的实际配置
+创建 `mysql-virtual-alias-maps.cf`，注意修改相关参数值符合您的实际配置
 
 ```terminal
 $ sudo vi /etc/postfix/mysql-virtual-mailbox-domains.cf
@@ -390,7 +390,7 @@ dbname = mailserver
 query = SELECT 1 FROM virtual_domains WHERE name='%s'
 ```
 
-1. 创建 `/etc/postfix/mysql-virtual-mailbox-maps.cf`
+创建 `/etc/postfix/mysql-virtual-mailbox-maps.cf`
 
 ```terminal
 $ sudo vi /etc/postfix/mysql-virtual-mailbox-maps.cf
@@ -406,7 +406,7 @@ dbname = mailserver
 query = SELECT 1 FROM virtual_users WHERE email='%s'
 ```
 
-1. 创建 `/etc/postfix/mysql-virtual-alias-maps.cf`
+创建 `/etc/postfix/mysql-virtual-alias-maps.cf`
 
 ```terminal
 $ sudo vi /etc/postfix/mysql-virtual-alias-maps.cf
@@ -422,7 +422,7 @@ dbname = mailserver
 query = SELECT destination FROM virtual_aliases WHERE source='%s'
 ```
 
-1. 创建 `/etc/postfix/mysql-virtual-email2email.cf` 
+创建 `/etc/postfix/mysql-virtual-email2email.cf` 
 
 ```terminal
 $ sudo vi /etc/postfix/mysql-virtual-email2email.cf
@@ -438,34 +438,34 @@ dbname = mailserver
 query = SELECT email FROM virtual_users WHERE email='%s'
 ```
 
-1. 重启 Postfix
+重启 Postfix
 
 ```terminal
 $ sudo systemctl restart postfix
 ```
 
-1. 使用 `postmap` 命令测试访问 `virtual_domains` 表，返回 `1` 表示成功
+使用 `postmap` 命令测试访问 `virtual_domains` 表，返回 `1` 表示成功
 
 ```terminal
 $ sudo postmap -q example.com mysql:/etc/postfix/mysql-virtual-mailbox-domains.c
 1
 ```
 
-1. 测试访问 `virtual_users` 表，返回 `1` 表示成功
+测试访问 `virtual_users` 表，返回 `1` 表示成功
 
 ```terminal
 $ sudo postmap -q email1@example.com mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 1
 ```
 
-1. 测试 `virtual_users` 表 返回对应的 email 值
+测试 `virtual_users` 表 返回对应的 email 值
 
 ```terminal
 $ sudo postmap -q postmaster@example.com mysql:/etc/postfix/mysql-virtual-email2email.cf
 postmaster@example.com
 ```
 
-1. 测试 `virtual_alias` 表，返回对应的 destination 值
+测试 `virtual_alias` 表，返回对应的 destination 值
 
 ```terminal
 $ sudo postmap -q alias@example.com mysql:/etc/postfix/mysql-virtual-alias-maps.cf
@@ -494,7 +494,7 @@ $ sudo systemctl restart postfix
 
 ### 配置 Dovecot
 
-1. 备份需要配置的文件，以备恢复
+备份需要配置的文件，以备恢复
 
 ```terminal
 $ sudo cp /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.orig
@@ -505,14 +505,26 @@ $ sudo cp /etc/dovecot/conf.d/10-master.conf /etc/dovecot/conf.d/10-master.conf.
 $ sudo cp /etc/dovecot/conf.d/10-ssl.conf /etc/dovecot/conf.d/10-ssl.conf.orig
 ```
 
-1. 编辑 `/etc/dovecot/dovecot.conf` 文件，取消注释 `protocols = imap pop3 lmtp`
+编辑 `/etc/dovecot/dovecot.conf` 文件，取消注释 `protocols = imap pop3 lmtp`
+
+```terminal
+$ sudo vi /etc/dovecot/dovecot.conf
+```
+
+取消如下注释内容
 
 ```terminal
 # Protocols we want to be serving.
 protocols = imap pop3 lmtp
 ```
 
-1. 编辑 `/etc/dovecot/conf.d/10-mail.conf`，修改如下配置
+编辑 `/etc/dovecot/conf.d/10-mail.conf`，设置邮件位置和权限的配置
+
+```terminal
+$ sudo vi /etc/dovecot/conf.d/10-mail.conf
+```
+
+修改为如下配置
 
 ```terminal
 ...
@@ -522,13 +534,13 @@ mail_privileged_group = mail
 ...
 ```
 
-1. 创建 `/var/mail/vhosts/` 目录，修改 `example.com` 为您的域名
+创建 `/var/mail/vhosts/` 目录，修改 `example.com` 为您的域名
 
 ```terminal
 $ sudo mkdir -p /var/mail/vhosts/example.com
 ```
 
-1. 创建 `vmail` 用户组，用户组的 ID 为 `5000`，添加 `vmail` 用户到 `vmail` 用户组，这个系统用户将用于读取邮件
+创建 `vmail` 用户组，用户组的 ID 为 `5000`，添加 `vmail` 用户到 `vmail` 用户组，这个系统用户将用于读取邮件
 
 ```terminal
 $ sudo groupadd -g 5000 vmail
@@ -537,13 +549,19 @@ useradd: warning: the home directory already exists.
 Not copying any file from skel directory into it.
 ```
 
-1. 更改 `/var/mail` 的所属组和所属用户
+更改 `/var/mail` 的所属组和所属用户
 
 ```terminal
 $ sudo chown -R vmail:vmail /var/mail/
 ```
 
-1. 更改用户授权配置文件 `/etc/dovecot/conf.d/10-auth.conf`，取消如下配置的注释
+更改用户授权配置文件 `/etc/dovecot/conf.d/10-auth.conf`，取消如下配置的注释
+
+```terminal
+$ sudo vi /etc/dovecot/conf.d/10-auth.conf
+```
+
+修改内容如下
 
 ```terminal
 ...
@@ -555,7 +573,13 @@ auth_mechanisms = plain login
 ...
 ```
 
-1. 编辑 `/etc/dovecot/conf.d/auth-sql.conf.ext` 更改授权和存储的配置，确保如下配置 
+编辑 `/etc/dovecot/conf.d/auth-sql.conf.ext` 更改授权和存储的配置
+
+```terminal
+$ sudo vi /etc/dovecot/conf.d/auth-sql.conf.ext
+```
+
+确保如下配置 
 
 ```terminal
 ...
@@ -571,7 +595,7 @@ userdb {
 ...
 ```
 
-1. 创建 `/etc/dovecot/dovecot-sql.conf.ext` 注意替换为您自己的 `dbname`, `user` 和 `password`
+创建 `/etc/dovecot/dovecot-sql.conf.ext` 注意替换为您自己的 `dbname`, `user` 和 `password`
 
 ```terminal
 $ sudo vi /etc/dovecot/dovecot-sql.conf.ext
@@ -586,19 +610,19 @@ default_pass_scheme = SHA512-CRYPT
 password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
 ```
 
-1. 更改 `/etc/dovecot` 目录的所属权限
+更改 `/etc/dovecot` 目录的所属权限
 
 ```terminal
 $ sudo chown -R vmail:dovecot /etc/dovecot
 ```
 
-1. 更改 `/etc/dovecot` 目录的读写权限
+更改 `/etc/dovecot` 目录的读写权限
 
 ```terminal
 $ sudo chmod -R o-rwx /etc/dovecot
 ```
 
-1. 编辑服务配置文件 `/etc/dovecot/conf.d/10-master.conf`
+编辑服务配置文件 `/etc/dovecot/conf.d/10-master.conf`
 
 ```terminal
 $ sudo vi /etc/dovecot/conf.d/10-master.conf
@@ -662,7 +686,7 @@ service auth-worker {
 }
 ```
 
-1. 保存更改后，重启 dovecot 服务
+保存更改后，重启 dovecot 服务
 
 ```terminal
 $ sudo systemctl restart dovecot
@@ -672,13 +696,13 @@ $ sudo systemctl restart dovecot
 
 测试一下邮件服务，本例已经新建了 `postmaster@example.com` 的邮箱，以此为例
 
-1. 本例使用 `mailx` 进行发邮件的测试，先进行安装
+本例使用 `mailx` 进行发邮件的测试，先进行安装
 
 ```terminal
 $ sudo yum install mailx
 ```
 
-1. 使用如下命令进行测试
+使用如下命令进行测试
 
 ```terminal
 $ sudo mail postmaster@example.com
@@ -689,7 +713,7 @@ Hello
 
 `*注意*` 输入 `Ctrl+D` 进行退出并发送
 
-1. 当邮件发送之后，我们可以通过查看日志 `/var/log/maillog` 进行确认
+当邮件发送之后，我们可以通过查看日志 `/var/log/maillog` 进行确认
 
 ```terminal
 $ sudo tail /var/log/maillog
@@ -701,7 +725,7 @@ Aug  9 10:11:42 localhost postfix/qmgr[3410]: C728062BF: removed
 
 这表示邮件已经发送
 
-1. 也可以进入目录查看一下，使用 `mutt` 命令
+也可以进入目录查看一下，使用 `mutt` 命令
 
 ```terminal
 $ sudo yum install mutt
