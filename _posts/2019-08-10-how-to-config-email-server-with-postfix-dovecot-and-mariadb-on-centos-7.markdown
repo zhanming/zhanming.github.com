@@ -3,9 +3,12 @@ layout: post
 title: CentOS 7 使用 Postfix, Dovecot 和 MariaDB 搭建邮箱服务
 categories: [Linux]
 tags: [centos, postfix, dovecot]
-summary: Postfix 是一个邮件传输代理软件（MTA: Mail Transfer Agent），主要支持 smtp 协议，用于发送邮件。
+summary: 邮件服务是很常见的服务，有时公司内部需要使用，本文简述使用 Postfix, Dovecot 和 MariaDB 配置邮件服务的过程。
 ---
 ## 前言
+
+邮件服务是很常见的服务，有时公司内部需要使用，本文简述使用 Postfix, Dovecot 和 MariaDB 配置邮件服务的过程。
+
 Postfix 是一个邮件传输代理软件 (MTA: Mail Transfer Agent)，支持 smtp 协议，主要用于接收和发送邮件。
 
 Dovecot 是一个本地邮件传输服务 (LMTP: Local Mail Transfer Protocol service)，支持 imap 和 pop3 协议，主要用于验证身份，方便客户端连接服务器发送和下载邮件。
