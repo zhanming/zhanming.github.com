@@ -1,5 +1,6 @@
 ---
 layout: page
+navigation: Tags
 title: Tags
 ---
 
