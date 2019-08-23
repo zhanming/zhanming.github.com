@@ -1067,7 +1067,7 @@ FreeIPA 有友好的 CLI 和 Web UI，使用起来非常方便。
 [How to Install FreeIPA Server on CentOS 7][2]  
 [FreeIPA Workshop][3]  
   
-[1]: https://qizhanming.com/blog/2017/06/07/how-to-config-freeipa-server-and-replica-on-centos-7  
+[1]: {{ site.baseurl }}{% post_url 2017-06-07-how-to-config-freeipa-server-and-replica-on-centos-7 %}  
 [2]: https://computingforgeeks.com/install-freeipa-server-centos-7/  
 [3]: https://github.com/freeipa/freeipa-workshop  
 [4]: http://jdshewey.blogspot.com/2017/08/fixing-annoying-popup-in-freeipa.html  

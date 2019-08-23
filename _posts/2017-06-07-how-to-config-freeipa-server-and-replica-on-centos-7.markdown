@@ -586,5 +586,5 @@ Done configuring ipa-otpd.
 [CentOS 7 使用 bind 配置私有网络的 DNS][2]  
   
 [1]: https://www.digitalocean.com/community/tutorials/how-to-set-up-centralized-linux-authentication-with-freeipa-on-centos-7
-[2]: http://qizhanming.com/blog/2017/05/27/how-to-configure-bind-as-a-private-network-dns-server-on-centos-7
+[2]: {{ site.baseurl }}{% post_url 2017-05-27-how-to-configure-bind-as-a-private-network-dns-server-on-centos-7 %}
 

@@ -127,7 +127,7 @@ Bundler version 1.15.0
 [Ruby Version Manager (RVM)][2]  
 [在centos虚拟机中jekyll的环境搭建][3]
 
-[1]: http://qizhanming.com/blog/2012/03/29/using-git-jekyll-githubpages-build-blog
-[2]: https://rvm.io
-[3]: http://www.jianshu.com/p/792238859c6f
-[4]: http://ruby-china.org/
+[1]: {{ site.baseurl }}{% post_url 2012-03-29-using-git-jekyll-githubpages-build-blog %}  
+[2]: https://rvm.io  
+[3]: http://www.jianshu.com/p/792238859c6f  
+[4]: http://ruby-china.org/  

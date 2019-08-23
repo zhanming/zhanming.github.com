@@ -74,4 +74,4 @@ $ git gui
 
 [0]: http://en.wikipedia.org/wiki/VirtualBox
 [1]: http://www.google.com/chrome/eula.html?hl=en
-[2]: http://qizhanming.com/blog/2012/04/27/go-intro-2-install-form-source/
+[2]: {{ site.baseurl }}{% post_url 2012-04-27-go-intro-2-install-form-source %}
