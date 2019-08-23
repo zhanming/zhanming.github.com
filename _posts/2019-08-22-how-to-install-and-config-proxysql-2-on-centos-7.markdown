@@ -186,7 +186,7 @@ Admin> insert into mysql_servers (hostgroup_id, hostname, port, weight) values (
 
 本例设置了 `pxc1` 为可写，`pxc2` 和 `pxc3` 为可读，可以查看一下。
 
-```terminal
+```
 Admin> select * from mysql_servers;
 +--------------+------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname   | port | gtid_port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
@@ -195,7 +195,7 @@ Admin> select * from mysql_servers;
 | 3            | 10.11.0.82 | 3306 | 0         | ONLINE | 100    | 0           | 1000            | 0                   | 0       | 0              |         |
 | 3            | 10.11.0.83 | 3306 | 0         | ONLINE | 10     | 0           | 1000            | 0                   | 0       | 0              |         |
 +--------------+------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-3 rows in set (0.01 sec)                                                                                                                                      
+3 rows in set (0.01 sec)
 ```
 
 接下来，增加 `galera_hostgroup` 的配置
