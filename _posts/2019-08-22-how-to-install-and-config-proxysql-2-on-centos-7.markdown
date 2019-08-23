@@ -39,7 +39,7 @@ PXC 集群已经安装好，并且可以访问。可以参考 [CentOS 7 安装 P
 $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 ```
 
-`注意` 本文使用时，yum 安装的版本为 `percona-release-1.0-11.noarch`，默认启用了 `Percona Original repository`，为 MySQL 5.7 的版本。
+`注意` 本文使用时，yum 安装的版本为 `percona-release-1.0-12.noarch`，默认启用了 `Percona Original repository`，为 MySQL 5.7 的版本。
 
 安装 proxysql2 的包
 
