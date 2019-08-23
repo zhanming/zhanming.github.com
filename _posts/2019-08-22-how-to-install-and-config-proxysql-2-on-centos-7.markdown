@@ -450,6 +450,22 @@ mysql> select @@server_id;
 
 这样，客户端就可以访问数据库，并进行数据库操作了。
 
+### 其他
+
+开放防火墙端口
+
+```terminal
+$ sudo firewall-cmd --add-port=6033/tcp --permanent
+success
+$ sudo firewall-cmd --reload
+```
+
+查看日志，位置为 `/var/lib/proxysql/proxysql.log`
+
+```terminal
+$ sudo tail -f /var/lib/proxysql/proxysql.log
+```
+
 ## 结束语
 
 本例演示 ProxySQL 的配置过程，本例只是单点，如果增加高可用性，可以参考 [CentOS 7 配置 Keepalived 实现双机热备][4]
