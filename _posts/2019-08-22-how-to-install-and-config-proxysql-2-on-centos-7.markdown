@@ -187,7 +187,7 @@ Admin> insert into mysql_servers (hostgroup_id, hostname, port, weight) values (
 本例设置了 `pxc1` 为可写，`pxc2` 和 `pxc3` 为可读，可以查看一下。
 
 ```terminal
-Admin> select * from mysql_servers;                                                                                                                          
+Admin> select * from mysql_servers;
 +--------------+------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname   | port | gtid_port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
 +--------------+------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
