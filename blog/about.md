@@ -17,13 +17,13 @@ title: About
 > Powered by [Github Pages][3].
 
 #### License
+> Source code is at <https://github.com/zhanming/zhanming.github.io>  
 > Code licensed under the [Apache License v2.0][4].   
 > Documentation licensed under [CC BY-NC-SA 4.0][5].  
 
-
-[0]: http://qizhanming.com
-[1]: https://github.com/mojombo/jekyll
-[2]: http://twitter.github.com/bootstrap/
-[3]: http://pages.github.com
-[4]: http://www.apache.org/licenses/LICENSE-2.0
-[5]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[0]: http://qizhanming.com  
+[1]: https://github.com/mojombo/jekyll  
+[2]: http://twitter.github.com/bootstrap/  
+[3]: http://pages.github.com  
+[4]: http://www.apache.org/licenses/LICENSE-2.0  
+[5]: http://creativecommons.org/licenses/by-nc-sa/4.0/  
