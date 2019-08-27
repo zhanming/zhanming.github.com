@@ -4,9 +4,6 @@ navigation: About
 title: About
 ---
 
-### About
-
-
 #### 关于作者 / About me
 > 姓名: 齐占明  
 > 在北京工作，计算机行业，性格随和，难道是因为我老了……
