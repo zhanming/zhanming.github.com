@@ -195,4 +195,4 @@ $ sudo firewall-cmd --reload
  
 [1]: https://dev.mysql.com/doc/mysql-repo-excerpt/5.7/en/
 [2]: http://blog.csdn.net/xyang81/article/details/51759200
-[3]: {{ site.baseurl }}{% post_url 2016-09-23-centos6-mysql57-yum %}
+[3]: {{ site.baseurl }}{% post_url 2016-09-23-how-to-yum-install-mysql57-on-centos-6 %}

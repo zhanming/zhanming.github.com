@@ -370,5 +370,5 @@ MySQL 复制有多种方式，复制的是构建大规模，高性能的基础�
 [CentOS 7 下 Yum 安装 MySQL 5.7][2]  
  
 [1]: https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql
-[2]: {{ site.baseurl }}{% post_url 2017-05-10-centos-7-yum-install-mysql-57 %}
+[2]: {{ site.baseurl }}{% post_url 2017-05-10-how-to-yum-install-mysql-57-on-centos-7 %}
 [3]: {{ site.baseurl }}{% post_url 2017-05-27-how-to-configure-bind-as-a-private-network-dns-server-on-centos-7 %}
