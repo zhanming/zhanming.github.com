@@ -21,8 +21,7 @@ title: About
 
 #### License
 > Code licensed under the [Apache License v2.0][4].   
-> Documentation licensed under [CC BY 4.0][5].  
-> Icons from [Glyphicons Free][6], licensed under [CC BY 3.0][5]. 
+> Documentation licensed under [CC BY-NC-SA 4.0][5].  
 
 
 [0]: http://qizhanming.com
@@ -30,5 +29,4 @@ title: About
 [2]: http://twitter.github.com/bootstrap/
 [3]: http://pages.github.com
 [4]: http://www.apache.org/licenses/LICENSE-2.0
-[5]: http://creativecommons.org/licenses/by/4.0/
-[6]: http://glyphicons.com/
+[5]: http://creativecommons.org/licenses/by-nc-sa/4.0/
