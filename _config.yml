@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Zhanming's blog
-email: qizhanming@gmail.com
+email: zhanming.qi@qq.com
 description: > # this means to ignore newlines until "baseurl:"
   This blog is mainly about my learning experience, 
   including java, python, go, linux and maybe something else.
@@ -57,7 +57,7 @@ exclude:
 
 safe: false
 # This is the URI format.
-# For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
+# For more see: https://jekyllrb.com/docs/permalinks/
 permalink: /blog/:year/:month/:day/:title
 
 paginate: 7
@@ -81,7 +81,7 @@ context: /blog
 
 author:
   name: Qi Zhanming
-  email: qizhanming@gmail.com
+  email: zhanming.qi@qq.com
   github: zhanming
 
 # All specific configurations are namespaced into this hash
