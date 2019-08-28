@@ -168,8 +168,8 @@ Checking LDAP ... Finished
 [GitLab - Setting up LDAP sign-in][4]  
 [GitLab - LDAP][5]
  
-[1]: {{ site.baseurl }}{% post_url 2017-02-28-how-to-install-gitlab-ce-on-centos-7 %}
-[2]: {{ site.baseurl }}{% post_url 2017-06-07-how-to-config-freeipa-server-and-replica-on-centos-7 %}
+[1]: {% post_url 2017-02-28-how-to-install-gitlab-ce-on-centos-7 %}
+[2]: {% post_url 2017-06-07-how-to-config-freeipa-server-and-replica-on-centos-7 %}
 [3]: https://www.freeipa.org/page/HowTo/LDAP
 [4]: https://docs.gitlab.com/omnibus/settings/ldap.html
 [5]: https://docs.gitlab.com/ce/administration/auth/ldap.html

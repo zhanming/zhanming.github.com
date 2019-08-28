@@ -478,8 +478,8 @@ $ sudo tail -f /var/lib/proxysql/proxysql.log
 [PROXYSQL 2.0安装和PERCONA CLUSTER5.7集成][6]
   
 [1]: https://www.percona.com/doc/percona-xtradb-cluster/5.7/howtos/proxysql-v2.html  
-[2]: {{ site.baseurl }}{% post_url 2019-05-16-how-to-install-percona-xtradb-cluster-on-centos-7 %}  
+[2]: {% post_url 2019-05-16-how-to-install-percona-xtradb-cluster-on-centos-7 %}  
 [3]: https://github.com/sysown/proxysql/blob/master/doc/global_variables.md  
-[4]: {{ site.baseurl }}{% post_url 2018-05-17-how-to-config-keepalived-on-centos-7 %}  
+[4]: {% post_url 2018-05-17-how-to-config-keepalived-on-centos-7 %}  
 [5]: https://proxysql.com/blog/proxysql-native-galera-support  
 [6]: http://www.dboracle.com/archivers/proxysql-2-0%e5%ae%89%e8%a3%85%e5%92%8cpercona-cluster5-7%e9%9b%86%e6%88%90.html  
