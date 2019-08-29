@@ -26,12 +26,13 @@ code {
     border-radius: 2px;
 /*    color: #0c5176 !important; */
     font-size: 90%;
-/*    padding: 3px 7px; */
+    padding: 2px 4px;
     overflow-x: scroll;
     white-space: nowrap;
 }
 
 pre code {
+    padding: 0;
     background-color: transparent;
     overflow-x: auto;
     overflow-wrap: normal;
