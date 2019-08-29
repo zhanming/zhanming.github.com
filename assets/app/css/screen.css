@@ -4,7 +4,6 @@ body,p,input,button,select,textarea {
 
 /* Show it is fixed to the top */
 body {
-	padding-top: 4.5rem;
 	font-size: 14px;
 }
 
@@ -19,8 +18,12 @@ blockquote {
     border-left: 5px solid #eee;
 }
 
+.navbar {
+    margin-bottom: 16px;
+}
+
 .sticky-top {
-    top:  4.5rem;
+    top: 4.5rem;
 }
 
 .footer {
