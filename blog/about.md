@@ -14,7 +14,7 @@ title: About
 
 #### This blog is powered by
 > Blog-aware, static site generator by [Jekyll][1] and [Bootstrap][2].  
-> Powered by [Github Pages][3].
+> Powered by [Github Pages][3].  
 > Source code is at <https://github.com/zhanming/zhanming.github.io>  
 
 #### License
