@@ -122,6 +122,6 @@ go version go1.0.1
 ## 参考文档
 [Installing Go from source][1]
 
-[0]: {{ site.baseurl }}{% post_url 2012-04-21-go-intro-1-install-on-centos %}
+[0]: {% post_url 2012-04-21-go-intro-1-install-on-centos %}
 [1]: http://golang.org/doc/install/source
 [2]: http://golang.org/doc/install
