@@ -20,10 +20,9 @@ title: About
 #### License
 > Code licensed under the [Apache License v2.0][4].   
 > Documentation licensed under [CC BY-NC-SA 4.0][5].  
-
-[0]: http://qizhanming.com  
-[1]: https://github.com/mojombo/jekyll  
-[2]: http://twitter.github.com/bootstrap/  
+  
+[1]: https://github.com/jekyll/jekyll  
+[2]: https://github.com/twbs/bootstrap  
 [3]: http://pages.github.com  
 [4]: http://www.apache.org/licenses/LICENSE-2.0  
 [5]: http://creativecommons.org/licenses/by-nc-sa/4.0/  
