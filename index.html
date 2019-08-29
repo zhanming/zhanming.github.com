@@ -23,13 +23,13 @@ notoc: true
 <ul class="pagination">
 	{% if paginator.previous_page %}
 	{% if paginator.previous_page == 1 %}
-	<li class="previous"><a href="/" title="Previous Page">&laquo; Previous</a></li>
+	<li class="page-item mr-auto"><a href="/" class="page-link">&laquo; Previous</a></li>
 	{% else %}
-	<li class="previous"><a href="/blog/page/{{ paginator.previous_page }}" class="previous">&laquo; Previous</a></li>
+	<li class="page-item mr-auto"><a href="/blog/page/{{ paginator.previous_page }}" class="page-link">&laquo; Previous</a></li>
 	{% endif %}
 	{% endif %}
 	{% if paginator.next_page %}
-	<li class="next"><a href="/blog/page/{{ paginator.next_page }}" class="next ">Next &raquo;</a></li>
+	<li class="page-item ml-auto"><a href="/blog/page/{{ paginator.next_page }}" class="page-link ">Next &raquo;</a></li>
 	{% endif %}
 </ul>
 

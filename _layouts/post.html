@@ -21,12 +21,12 @@ layout: default
 		</div>
 		{% comment %}<!---->{% endcomment %}
 		<div>
-			<ul class="pager">
+			<ul class="pagination">
 				{% if page.previous %}
-				<li class="previous"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; {{ page.previous.title }}</a></li>
+				<li class="page-item mr-auto"><a href="{{ page.previous.url }}" class="page-link" title="{{ page.previous.title }}">&larr; {{ page.previous.title }}</a></li>
 				{% endif %}
 				{% if page.next %}
-				<li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title }} &rarr;</a></li>
+				<li class="page-item ml-auto"><a href="{{ page.next.url }}" class="page-link" title="{{ page.next.title }}">{{ page.next.title }} &rarr;</a></li>
 				{% endif %}
 			</ul>
 		</div>
