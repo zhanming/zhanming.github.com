@@ -4,7 +4,7 @@ navigation: Tags
 title: Tags
 ---
 
-<h3>Tags</h3>
+<h3>标签</h3>
 
 <div id="tag_cloud" class="cloud">
 {% for tag in site.tags %}

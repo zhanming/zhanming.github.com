@@ -3,7 +3,7 @@ layout: page
 title: Categories
 ---
 
-<h3>Categories</h3>
+<h3>分类</h3>
 <div id="tag_cloud" class="cloud">
 {% for category in site.categories %}
 <a href="#{{ category[0] }}" title="{{ category[0] }}" rel="{{ 12 | minus:tag[0].size }}">{{ category[0] }} ({{ category[1].size }})</a>

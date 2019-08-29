@@ -4,7 +4,7 @@ navigation: Archives
 title: Archive
 ---
 
-<h3>Archives</h3>
+<h3>归档</h3>
 <div id="archives">
     {% for post in site.posts %}
     	{% assign currentDate = post.date | date: "%Y" %}
