@@ -113,8 +113,8 @@ Bundler version 1.15.0
 新建项目，并测试，参考 <https://jekyllrb.com/> 首页的快速开始介绍
 
 ```terminal
-~ $ jekyll new my-awesome-site
-~ $ cd my-awesome-site
+$ jekyll new my-awesome-site
+$ cd my-awesome-site
 ~/my-awesome-site $ bundle exec jekyll serve
 # => Now browse to http://localhost:4000
 ```
