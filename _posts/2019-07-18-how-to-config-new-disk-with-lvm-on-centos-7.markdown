@@ -29,7 +29,7 @@ CentOS Linux release 7.6.1810 (Core)
 首先查看一下磁盘当前的格式化情况
 
 ```terminal
-sudo fdisk -l /dev/sdb 
+$ sudo fdisk -l /dev/sdb 
 
 Disk /dev/sdb: 8589 MB, 8589934592 bytes, 16777216 sectors
 Units = sectors of 1 * 512 = 512 bytes
@@ -142,7 +142,7 @@ sr0              11:0    1 1024M  0 rom
 将新添加的磁盘进行整盘 PV 创建，也可以根据需要将磁盘分区后，选择性进行 PV 创建。本次实验将对整盘进行 PV 创建。
 
 ```terminal
-sudo pvcreate /dev/sdb1 
+$ sudo pvcreate /dev/sdb1 
   Physical volume "/dev/sdb1" successfully created.
 ```
 
