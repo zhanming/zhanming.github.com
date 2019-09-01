@@ -168,7 +168,9 @@ $ sudo vgcreate data /dev/sdb1
   Volume group "data" successfully created
 ```
 
-创建了 data 卷组
+创建了 data 卷组 
+
+`*注意*` 如果想使用以有的 centos 卷组，可以用 `sudo vgextend centos /dev/sdb1` 命令来扩展。
 
 本例中 `lsblk` 可以看到，已经有 vg 卷组了,现在查看会看到增加了 data 卷组
 
