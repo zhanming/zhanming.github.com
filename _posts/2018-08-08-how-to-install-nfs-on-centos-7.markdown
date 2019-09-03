@@ -262,11 +262,13 @@ uid=0(root) gid=0(root) groups=0(root)
 
 回到 Windows 进行配置
 
-1. 启动注册表编辑器
+首先，启动注册表编辑器
 
 ```terminal
 C:> regedit
 ```
+
+然后，进行如下步骤
 
 1. 定位到这一项 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default`
 
@@ -298,9 +300,11 @@ C:> umount X:
 
 1. 在弹出的计算机对话框中，在工具栏找到 `映射网络驱动器`
 
-1. 输入驱动器地址 `X:` 输入文件夹 `192.168.0.110:/data`
+1. 驱动器地址输入 `X:` 
 
-1. 默认是勾选的 `登录时重新连接`，确认一下，这个会在登录时自动挂载共享目录
+1. 文件夹输入 `192.168.0.110:/data`
+
+1. 确认 `登录时重新连接` 是勾选的，这个配置表示登录时自动挂载共享目录。
 
 ### 客户端测试
 
