@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 下 yum 安装和配置 NFS 
 categories: [Linux]
 tags: [centos, nfs]
+update: 2019-09-03
 summary: NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例演示 CentOS 7 下安装和配置 NFS 的基本步骤。
 ---
 ## 前言
