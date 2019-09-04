@@ -130,8 +130,8 @@ $ sudo systemctl enable rpcbind
 $ sudo systemctl start rpcbind
 ```
 
-> **`注意`**  
->
+*`注意`*  
+
 > 客户端不需要打开防火墙，因为客户端时发出请求方，网络能连接到服务端即可。   
 > 客户端也不需要开启 NFS 服务，因为不共享目录。
   
@@ -212,7 +212,7 @@ $ sudo vi /etc/fstab
 UUID=414ee961-c1cb-4715-b321-241dbe2e9a32 /boot                   xfs     defaults        0 0
 /dev/mapper/cl-home     /home                   xfs     defaults        0 0
 /dev/mapper/cl-swap     swap                    swap    defaults        0 0
-192.168.0.110:/data      /data                   nfs     defaults        0 0
+192.168.0.110:/data     /data                   nfs     defaults        0 0
 
 ```
 
@@ -246,7 +246,7 @@ Windows 安装 NFS 客户端，不同的 Windows 版本，安装方式不大一�
 ### 客户端安装
 本例的 Windows 为 `Windows Server 2008 R2`
 
-```terminal
+```powershell
 C:> servermanagercmd.exe -install FS-NFS-Services
 ```
 
@@ -265,7 +265,7 @@ uid=0(root) gid=0(root) groups=0(root)
 
 首先，启动注册表编辑器
 
-```terminal
+```powershell
 C:> regedit
 ```
 
@@ -275,25 +275,26 @@ C:> regedit
 
 1. 创建两个 DWORD 值，名称分别为 `AnonymousUid` 和 `AnonymousUid`
 
-1. 设置 UID 和 GID 的值，本例设置为 0
+1. 设置 UID 和 GID 的值，本例设置为 `0` (*`注意`* uid 和 gid 的值是服务端有权限访问文件夹的用户的 uid 和 gid, 本例：`uid=0` `gid=0`)
 
 1. 重启 Windows 操作系统 (或者重启 NFS Client 服务)
 
 服务器重启之后，挂载文件夹，在 DOS 命令窗口输入命令
 
-```terminal
+```powershell
 C:> mount 192.168.0.110:/data X:
 ```
 
-我们将 NFS 服务端的共享文件夹挂载到了本地的 X 盘，
+这样，就将 NFS 服务端的共享文件夹挂载到了本地的 `X:` 盘，
 
-也可以卸载掉这个驱动器
+也可以卸载掉这个驱动器，使用如下命令：
 
-```terminal
+```powershell
 C:> umount X:
 ```
 
-*注意* 通过此命令操作挂载，当服务器重启时，不会自动挂载。
+*`注意`*  
+> 通过此命令操作挂载，当服务器重启时，不会自动挂载。
 
 登录时自动挂载，进行如下步骤
 
