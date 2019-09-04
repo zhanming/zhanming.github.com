@@ -275,7 +275,7 @@ C:> regedit
 
 1. 创建两个 DWORD 值，名称分别为 `AnonymousUid` 和 `AnonymousUid`
 
-1. 设置 UID 和 GID 的值，本例设置为 `0` (*`注意`* uid 和 gid 的值是服务端有权限访问文件夹的用户的 uid 和 gid, 本例：`uid=0` `gid=0`)
+1. 设置 UID 和 GID 的值，本例设置为 `0` (*`注意`* uid 和 gid 的值是服务端有权限访问文件夹的用户的 uid 和 gid)
 
 1. 重启 Windows 操作系统 (或者重启 NFS Client 服务)
 
