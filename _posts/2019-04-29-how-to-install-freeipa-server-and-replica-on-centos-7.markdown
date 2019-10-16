@@ -1,6 +1,7 @@
 ---
 layout: post
 title: CentOS 7 安装 FreeIPA 主从复制
+update: 2019-10-16
 categories: [Linux]
 tags: [centos, freeipa]
 summary: CentOS 7 配置 Free IPA，以前写过一篇，但是没有安装 DNS 服务，本次再写一次包含 DNS 服务的安装和配置过程。
@@ -1026,6 +1027,50 @@ ipa.corp.example.com: replica
 说明两台服务器都是主节点，并且都是对方的复制节点。
 
 ## 其他
+
+### 数据同步
+
+大部分遇到的情况是时间不同步，如下情况
+
+```terminal
+# ipa-replica-manage list -v ipa.corp.cedex.cn
+Directory Manager password:
+
+ipa2.corp.example.cn: replica
+  last init status: None
+  last init ended: 1970-01-01 00:00:00+00:00
+  last update status: Error (49) Problem connecting to replica - LDAP error: Invalid credentials (connection error)
+  last update ended: 2019-10-08 05:33:13+00:00
+```
+如果 `last update status` 不是 `Error(0)` 表示同步有问题。
+
+解决步骤如下
+
+首先，停止在复制服务器 `ipa2.corp.example.com` 上的 `ntp` 服务
+
+```terminal
+# systemctl stop ntpd
+```
+
+然后，使用 `ntpdate` 命令与主服务器 `ipa.corp.example.com` 同步一下时间
+
+```terminal
+# ntpdate ipa.corp.example.com
+```
+
+最后，将 `ntp` 服务重新启动
+
+```terminal
+# systemctl start ntpd
+```
+
+等待一会儿，会自动重新尝试同步数据，如果查看还是没有同步，可以手工重启一下 `ipa` 服务
+
+```terminal
+# systemctl restart ipa
+```
+
+### 输入密码次数
 
 使用 Chrom 登录 Web UI 会碰到 2 次输入用户名和密码，自助服务时（如修改密码）这会迷惑用户。
 
