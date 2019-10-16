@@ -1033,7 +1033,7 @@ ipa.corp.example.com: replica
 大部分遇到的情况是时间不同步，如下情况
 
 ```terminal
-# ipa-replica-manage list -v ipa.corp.cedex.cn
+# ipa-replica-manage list -v ipa.corp.example.cn
 Directory Manager password:
 
 ipa2.corp.example.cn: replica
