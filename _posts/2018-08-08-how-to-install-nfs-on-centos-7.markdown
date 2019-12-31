@@ -134,7 +134,7 @@ $ sudo systemctl start rpcbind
 
 > 客户端不需要打开防火墙，因为客户端时发出请求方，网络能连接到服务端即可。   
 > 客户端也不需要开启 NFS 服务，因为不共享目录。
-  
+
 
 ### 客户端连接 NFS
 
@@ -261,6 +261,9 @@ uid=0(root) gid=0(root) groups=0(root)
 
 可以看到 `uid=0`, `gid=0`，需要在 Windows 客户端上进行配置，参考 [UID/GID using the registry entries][3]
 
+> **`注意`**  
+> 本例以 root 为例，生产环境要考虑安全因素，请修改为相应的有权限的用户 
+
 回到 Windows 进行配置
 
 首先，启动注册表编辑器
@@ -273,7 +276,7 @@ C:> regedit
 
 1. 定位到这一项 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default`
 
-1. 创建两个 DWORD 值，名称分别为 `AnonymousUid` 和 `AnonymousUid`
+1. 创建两个 DWORD 值，名称分别为 `AnonymousUid` 和 `AnonymousGid`
 
 1. 设置 UID 和 GID 的值，本例设置为 `0`
 
@@ -321,7 +324,7 @@ Windows 操作都是有界面的，本例不做具体截图，可以点击进入
 [Setting Up NFS Server And Client On CentOS 7][1]  
 [Chapter 8. Network File System (NFS) - Red Hat Customer Portal][2]  
 [Can I Set Up User Name Mapping in Windows Vista?][3]  
- 
-[1]: https://www.unixmen.com/setting-nfs-server-client-centos-7/  
-[2]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/ch-nfs  
-[3]: https://blogs.msdn.microsoft.com/sfu/2009/03/27/can-i-set-up-user-name-mapping-in-windows-vista/  
+
+[1]: https://www.unixmen.com/setting-nfs-server-client-centos-7/
+[2]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/ch-nfs
+[3]: https://blogs.msdn.microsoft.com/sfu/2009/03/27/can-i-set-up-user-name-mapping-in-windows-vista/
