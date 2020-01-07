@@ -92,7 +92,7 @@ success
 打开之后，可以查看一下防火墙打开的所有的服务
 
 ```terminal
-$ sudo sudo firewall-cmd --list-service
+$ sudo firewall-cmd --list-service
 ssh dhcpv6-client http
 ```
 
@@ -105,7 +105,7 @@ Nginx 是一个很方便的反向代理，配置反向代理可以参考 [Module
 需要指出的是 CentOS 7 的 SELinux，使用反向代理需要打开网络访问权限。
 
 ```terminal
-$ sudo setsebool httpd_can_network_connect 1 
+$ sudo setsebool -P httpd_can_network_connect on 
 ```
 
 打开网络权限之后，反向代理可以使用了。
@@ -168,7 +168,7 @@ $ sudo semanage port -a -p tcp -t http_port_t 8001
 [Module ngx_http_proxy_module][2]  
 [Using NGINX and NGINX Plus with SELinux][3]  
 
- 
-[1]: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/  
+
+[1]: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
 [2]: http://nginx.org/en/docs/http/ngx_http_proxy_module.html
 [3]: https://www.nginx.com/blog/using-nginx-plus-with-selinux/
