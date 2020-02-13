@@ -1,11 +1,22 @@
 ---
 layout: post
+update: 2020-02-13
 title: CentOS 7 配置 ProxySQL 2 集成 Percona XtraDB Cluster
 categories: [Linux]
 tags: [centos, mysql, proxysql, galera]
 summary: CentOS 7 配置 ProxySQL 2 集成 Percona XtraDB Cluster，记录一下安装过程。
 ---
+
+> **`注意`**
+>
+> 本例的配置，在后来测试使用中发现严重问题：回滚会失败。
+>
+> 具体原因没有去排查，改用其他方式 (HAProxy) 了。
+>
+> **`请不要用于生产环境`**
+
 ## 前言
+
 CentOS 7 配置 ProxySQL 2 集成 Percona XtraDB Cluster，记录一下安装过程。
 
 ### 环境说明
@@ -476,10 +487,10 @@ $ sudo tail -f /var/lib/proxysql/proxysql.log
 [ProxySQL - Global Variables][3]  
 [Native Galera Support In ProxySQL][5]  
 [PROXYSQL 2.0安装和PERCONA CLUSTER5.7集成][6]
-  
-[1]: https://www.percona.com/doc/percona-xtradb-cluster/5.7/howtos/proxysql-v2.html  
+
+[1]: https://www.percona.com/doc/percona-xtradb-cluster/5.7/howtos/proxysql-v2.html
 [2]: {% post_url 2019-05-16-how-to-install-percona-xtradb-cluster-on-centos-7 %}  
-[3]: https://github.com/sysown/proxysql/blob/master/doc/global_variables.md  
+[3]: https://github.com/sysown/proxysql/blob/master/doc/global_variables.md
 [4]: {% post_url 2018-05-17-how-to-config-keepalived-on-centos-7 %}  
-[5]: https://proxysql.com/blog/proxysql-native-galera-support  
-[6]: http://www.dboracle.com/archivers/proxysql-2-0%e5%ae%89%e8%a3%85%e5%92%8cpercona-cluster5-7%e9%9b%86%e6%88%90.html  
+[5]: https://proxysql.com/blog/proxysql-native-galera-support
+[6]: http://www.dboracle.com/archivers/proxysql-2-0%e5%ae%89%e8%a3%85%e5%92%8cpercona-cluster5-7%e9%9b%86%e6%88%90.html
