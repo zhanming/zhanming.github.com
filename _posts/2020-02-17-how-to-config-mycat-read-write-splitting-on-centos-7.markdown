@@ -309,15 +309,15 @@ $ mysql -h 127.0.0.1 -P 9066 -u root -p
 
 ```terminal
 mysql> show @@help;
-+--------------------------------------------------------------+--------------------------------------------+
-| STATEMENT                                                    | DESCRIPTION                                |
-+--------------------------------------------------------------+--------------------------------------------+
-| show @@time.current                                          | Report current timestamp                   |
-...
-...
-...
-| clear @@slow where datanode = ?                              | Clear slow sql by datanode                 |
-+--------------------------------------------------------------+--------------------------------------------+
++------------------------------------------+----------------------------------+
+| STATEMENT                                | DESCRIPTION                      |
++------------------------------------------+----------------------------------+
+| show @@time.current                      | Report current timestamp         |
+| ...                                      | ...                              |
+| ...                                      | ...                              |
+| ...                                      | ...                              |
+| clear @@slow where datanode = ?          | Clear slow sql by datanode       |
++------------------------------------------+----------------------------------+
 59 rows in set (0.01 sec)
 ```
 
@@ -379,7 +379,7 @@ attachment=node1{select * from example}, respHandler=SingleNodeHandler
 statusSync=...]
 ```
 
-可以看到，是读节点进行查询
+可以看到，`host=10.11.0.82` 说明 SQL 语句是读节点进行查询
 
 再添加一条插入语句，测试写入节点
 
@@ -394,11 +394,11 @@ $ grep 'insert into example' $MYCAT/logs/mycat.log
 ...
 ...
 2020-02-17 15:58:41.486 DEBUG ...
-attachment=node1{insert into example(node_id, node_name) values (2, 'percona2')}, respHandler=SingleNodeHandler 
-[node=node1{insert into example(node_id, node_name) values (2, 'percona2')}, packetId=1], host=10.11.0.81, port=3306, statusSync=...]
+[node=node1{insert into example(node_id, node_name) values (2, 'percona2')}, 
+packetId=1], host=10.11.0.81, port=3306, statusSync=...]
 ```
 
-可以看到，是在写节点执行的，读写分离没有问题。
+可以看到，`host=10.11.0.81` 说明 SQL 语句是在写节点执行的，读写分离没有问题。
 
 ## 总结
 
