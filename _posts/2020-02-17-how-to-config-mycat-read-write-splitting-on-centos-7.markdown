@@ -112,7 +112,7 @@ $ sudo vi /etc/profile
 在 profile 的最后，追加 `MYCAT_HOME` 环境变量
 
 ```terminal
-export JAVA_HOME=/usr # 刚才添加的JAVA_HOME
+export JAVA_HOME=/usr
 
 export MYCAT_HOME=/usr/local/mycat
 ```
@@ -208,9 +208,10 @@ $ vi server.xml
 </mycat:server>
 ```
 
-本例修改了默认的 `serverPort` 由原来的 8066 改为默认的 3306，您可以根据自己的需要更改。
+说明：
 
-## 测试
+1. 本例修改了默认的 `serverPort` 由原来的 8066 改为默认的 3306，您可以根据自己的需要更改。
+2. 本例新建了连接 mycat 的 root 用户（用户名可以修改）
 
 ### 启动 mycat
 
@@ -321,9 +322,11 @@ mysql> show @@help;
 59 rows in set (0.01 sec)
 ```
 
-### 读写分离
+## 读写分离测试
 
-主要是用查日志的方式查看效果，需要先将 log4j2.xml 的日志级别修改为 debug 级别。
+### 修改日志级别
+
+主要是使用查日志来查看效果，需要先将 mycat 的 log4j2.xml 的日志级别修改为 debug 级别。
 
 ```terminal
 $ cd $MYCAT_HOME
@@ -358,6 +361,8 @@ $ cd $MYCAT_HOME
 $ bin/mycat start
 Starting Mycat-server...
 ```
+
+### 测试
 
 连接到 mycat，并使用测试数据库执行一个查询语句。
 
