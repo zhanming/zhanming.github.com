@@ -170,11 +170,11 @@ $ vi schema.xml
 
 这里的 writeHost 和 readHost 是代表后端真实的 MySQL 数据库的连接参数
 
-> 说明
->
-> 1. 本例配置了两个 `writeHost` ；
-> 2. 如果第一个 writeHost 连接不上（或者宕机），会继续用第二个 writeHost 作为写节点；
-> 3. 事务内部的一切操作都会走写节点；
+说明
+
+1. 本例配置了两个 `writeHost` ；
+2. 如果第一个 writeHost 连接不上（或者宕机），会继续用第二个 writeHost 作为写节点；
+3. 事务内部的一切操作都会走写节点；
 
 ### 配置 server.xml
 
