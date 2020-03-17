@@ -28,13 +28,13 @@ keytool 是 Java 自带的工具，所以需要安装 Java。
 
 本例使用 brew 安装 OpenJDK 11 为例。
 
-1. 安装软件包
+安装软件包
 
 ```terminal
 % brew tap homebrew/cask-versions
 ```
 
-2. 搜索一下 Java 版本
+搜索一下 Java 版本
 
 ```terminal
 % brew cask info java11
@@ -48,13 +48,13 @@ OpenJDK Java Development Kit
 jdk-11.0.2.jdk -> /Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk (Generic Artifact)
 ```
 
-3. 安装 OpenJDK11
+安装 OpenJDK11
 
 ```terminal
 % brew cask install java11   
 ```
 
-4. 查看一下 Java 的版本
+查看一下 Java 的版本
 
 ```terminal
 % java -version
@@ -65,7 +65,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
 
 安装好 java 之后, keytool 应该也已经安装好了。
 
-5. 查看一下 keytool
+查看一下 keytool
 
 ```terminal
 % which keytool
