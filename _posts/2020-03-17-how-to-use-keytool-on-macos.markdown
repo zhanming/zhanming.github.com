@@ -27,11 +27,15 @@ keytool 是 Java 自带的工具，所以需要安装 Java。
 因为安装 Java 的方式有很多，当前最新的 Java 为 Java 13, 但是 Java 11 是长期支持版本，所以本例安装低一点的版本。
 
 本例使用 brew 安装 OpenJDK 11 为例。
+
 1. 安装软件包
+
 ```terminal
 % brew tap homebrew/cask-versions
 ```
+
 2. 搜索一下 Java 版本
+
 ```terminal
 % brew cask info java11
 java11: 11.0.2,9
@@ -43,23 +47,31 @@ OpenJDK Java Development Kit
 ==> Artifacts
 jdk-11.0.2.jdk -> /Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk (Generic Artifact)
 ```
+
 3. 安装 OpenJDK11
+
 ```terminal
 % brew cask install java11   
 ```
+
 4. 查看一下 Java 的版本
+
 ```terminal
 % java -version
 openjdk version "11.0.2" 2019-01-15
 OpenJDK Runtime Environment 18.9 (build 11.0.2+9)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
 ```
+
 安装好 java 之后, keytool 应该也已经安装好了。
+
 5. 查看一下 keytool
+
 ```terminal
 % which keytool
 /usr/bin/keytool
 ```
+
 ### 使用 keytool
 
 #### 查看帮助
