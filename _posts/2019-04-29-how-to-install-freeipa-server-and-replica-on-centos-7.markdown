@@ -1094,6 +1094,92 @@ RedirectMatch 401 ^/ipa/session/login_kerberos
 
 这样登录服务器的时候就不会有弹出窗口了。具体解释可以参考 [Fixing the annoying popup in FreeIPA][4] 
 
+### 升级
+
+参考 [FreeIPA Upgrade][5] ，由于版本为 4.2 以后
+
+> *`注意`*，主从复制的 FreeIPA 的结构，不能同时升级，否则会造成冲突，请在每个服务器上依次执行
+
+```terminal
+# yum update
+# ipa-server-upgrade
+Upgrading IPA:. Estimated time: 1 minute 30 seconds
+  [1/11]: stopping directory server
+  [2/11]: saving configuration
+  [3/11]: disabling listeners
+  [4/11]: enabling DS global lock
+  [5/11]: disabling Schema Compat
+  [6/11]: starting directory server
+  [7/11]: updating schema
+  [8/11]: upgrading server
+  [9/11]: stopping directory server
+  [10/11]: restoring configuration
+  [11/11]: starting directory server
+Done.
+Update complete
+Upgrading IPA services
+Upgrading the configuration of the IPA services
+[Verifying that root certificate is published]
+[Migrate CRL publish directory]
+CRL tree already moved
+[Verifying that CA proxy configuration is correct]
+[Verifying that KDC configuration is using ipa-kdb backend]
+[Fix DS schema file syntax]
+Syntax already fixed
+[Removing RA cert from DS NSS database]
+RA cert already removed
+[Enable sidgen and extdom plugins by default]
+[Updating HTTPD service IPA configuration]
+[Updating HTTPD service IPA WSGI configuration]
+Nothing to do for configure_httpd_wsgi_conf
+[Updating mod_nss protocol versions]
+Protocol versions already updated
+[Updating mod_nss cipher suite]
+[Updating mod_nss enabling OCSP]
+[Fixing trust flags in /etc/httpd/alias]
+Trust flags already processed
+[Moving HTTPD service keytab to gssproxy]
+[Removing self-signed CA]
+[Removing Dogtag 9 CA]
+[Checking for deprecated KDC configuration files]
+[Checking for deprecated backups of Samba configuration files]
+[Add missing CA DNS records]
+IPA CA DNS records already processed
+[Removing deprecated DNS configuration options]
+[Ensuring minimal number of connections]
+[Updating GSSAPI configuration in DNS]
+[Updating pid-file configuration in DNS]
+[Checking global forwarding policy in named.conf to avoid conflicts with automatic empty zones]
+Changes to named.conf have been made, restart named
+[Upgrading CA schema]
+CA schema update complete (no changes)
+[Verifying that CA audit signing cert has 2 year validity]
+[Update certmonger certificate renewal configuration]
+Certmonger certificate renewal configuration already up-to-date
+[Enable PKIX certificate path discovery and validation]
+PKIX already enabled
+[Authorizing RA Agent to modify profiles]
+[Authorizing RA Agent to manage lightweight CAs]
+[Ensuring Lightweight CAs container exists in Dogtag database]
+[Adding default OCSP URI configuration]
+[Ensuring CA is using LDAPProfileSubsystem]
+[Migrating certificate profiles to LDAP]
+[Ensuring presence of included profiles]
+[Add default CA ACL]
+Default CA ACL already added
+[Set up lightweight CA key retrieval]
+Creating principal
+Retrieving keytab
+Creating Custodia keys
+Configuring key retriever
+[Create systemd-user hbac service and rule]
+hbac service systemd-user already exists
+[Setup PKINIT]
+[Enable certauth]
+The IPA services were upgraded
+The ipa-server-upgrade command was successful
+```
+
 ## 结束语
 
 本例介绍 FreeIPA 的安装过程，主要包含了Kerberos，DNS, LDAP, NTP 等基础服务。
@@ -1111,8 +1197,9 @@ FreeIPA 有友好的 CLI 和 Web UI，使用起来非常方便。
 [CentOS 7 配置 Free IPA 主从复制（本地已有 DNS 服务）][1]  
 [How to Install FreeIPA Server on CentOS 7][2]  
 [FreeIPA Workshop][3]  
-  
+
 [1]: {% post_url 2017-06-07-how-to-config-freeipa-server-and-replica-on-centos-7 %}  
-[2]: https://computingforgeeks.com/install-freeipa-server-centos-7/  
-[3]: https://github.com/freeipa/freeipa-workshop  
-[4]: http://jdshewey.blogspot.com/2017/08/fixing-annoying-popup-in-freeipa.html  
+[2]: https://computingforgeeks.com/install-freeipa-server-centos-7/
+[3]: https://github.com/freeipa/freeipa-workshop
+[4]: http://jdshewey.blogspot.com/2017/08/fixing-annoying-popup-in-freeipa.html
+[5]: https://www.freeipa.org/page/Upgrade
