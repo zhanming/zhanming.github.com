@@ -68,13 +68,13 @@ $ ls -alZ /etc/redis*
 备份 redis 配置文件
 
 ```terminal
-$ sudo cp /etc/redis.conf /etc/redis.conf.original
+$ sudo cp --preserve=all /etc/redis.conf /etc/redis.conf.original
 ```
 
 备份 redis-sentinel 配置文件
 
 ```terminal
-$ sudo cp /etc/redis-sentinel.conf /etc/redis-sentinel.conf.original
+$ sudo cp --preserve=all /etc/redis-sentinel.conf /etc/redis-sentinel.conf.original
 ```
 
 接下来，开始进行主从复制的配置，本例为一主两从复制。
