@@ -3,6 +3,7 @@ layout: post
 title: CentOS 8 配置 Redis Sentinel 
 categories: [Linux]
 tags: [centos, redis, redis sentinel]
+update: 2020-05-15
 summary: Redis 通过 Redis Sentinel 分布式系统提供高可用性。Sentinel 帮助监视 Redis 实例，检测故障并自动进行角色切换，从而使 Redis 部署能够抵抗任何类型的故障。
 ---
 ## 前言
@@ -99,6 +100,9 @@ bind 0.0.0.0
 # 由于是 CentOS 8 所以使用 systemd
 supervised systemd
 
+# 主服务器密码
+masterauth <your_password>
+
 # 设置密码
 requirepass <your_password>
 
@@ -126,7 +130,7 @@ supervised systemd
 # 指定主服务器，注意：有关 replicaof 的配置只是配置从服务器，主服务器不需要配置
 replicaof 10.11.0.167 6379
 
-# 主服务器密码，注意：有关 replicaof 的配置只是配置从服务器，主服务器不需要配置
+# 主服务器密码
 masterauth <your_password>
 
 # 设置密码
@@ -164,16 +168,16 @@ OK
 # Replication
 role:master # 当前服务器的角色
 connected_slaves:2 # 连接的 salve 数量
-slave0:ip=10.11.0.168,port=6379,state=online,offset=296355,lag=0 # 这是 slave0 的信息
-slave1:ip=10.11.0.169,port=6379,state=online,offset=296355,lag=0 # 这是 slave1 的信息
-master_replid:308243d168d3c33a44c480fee8a6fdf887f14a68
+slave0:ip=10.11.0.168,port=6379,state=online,offset=91804,lag=0
+slave1:ip=10.11.0.169,port=6379,state=online,offset=91804,lag=1
+master_replid:365c9e16c9b7641df89d4c7240b37b65498fcde5
 master_replid2:0000000000000000000000000000000000000000
-master_repl_offset:296355
+master_repl_offset:91818
 second_repl_offset:-1
 repl_backlog_active:1
 repl_backlog_size:1048576
 repl_backlog_first_byte_offset:1
-repl_backlog_histlen:296355
+repl_backlog_histlen:91818
 10.11.0.167:6379> exit # 退出
 ```
 
@@ -186,24 +190,24 @@ OK
 10.11.0.168:6379> info replication
 # Replication
 role:slave # 当前服务器的角色
-master_host:10.11.0.167 # 主服务器的 IP
+master_host:10.11.0.167
 master_port:6379
 master_link_status:up
 master_last_io_seconds_ago:0
 master_sync_in_progress:0
-slave_repl_offset:344471
+slave_repl_offset:116158
 slave_priority:100
 slave_read_only:1
 connected_slaves:0
-master_replid:308243d168d3c33a44c480fee8a6fdf887f14a68
+master_replid:365c9e16c9b7641df89d4c7240b37b65498fcde5
 master_replid2:0000000000000000000000000000000000000000
-master_repl_offset:344471
+master_repl_offset:116158
 second_repl_offset:-1
 repl_backlog_active:1
 repl_backlog_size:1048576
-repl_backlog_first_byte_offset:1
-repl_backlog_histlen:344471
-10.11.0.168:6379>
+repl_backlog_first_byte_offset:7266
+repl_backlog_histlen:108893
+10.11.0.168:6379> exit # 退出
 ```
 
 可以看到，已经复制服务已经开启。
@@ -212,7 +216,9 @@ repl_backlog_histlen:344471
 
 哨兵模式主要是配置 `redis-sentinel.conf` 配置文件。
 
-### 主服务器
+> `注意`
+>
+> 三个服务器的配置都一样。
 
 编辑配置文件
 
@@ -226,33 +232,15 @@ $ sudo vi /etc/redis-sentinel.conf
 # sentinel monitor <master-name> <ip> <redis-port> <quorum>
 # 配置监听的主服务器，
 # mymaster 代表服务器的名称，可以自定义。
-# 10.11.0.168 代表监控的主服务器
+# 10.11.0.167 代表监控的主服务器
 # 6379 代表端口
 # 2 代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。
-sentinel monitor mymaster 127.0.0.1 6379 2
+sentinel monitor mymaster 10.11.0.167 6379 2
 
 # sentinel auth-pass <master-name> <password>
 # 定义服务的密码
 # mymaster 是服务名称
 # <your_password> 是 Redis 服务器密码
-sentinel auth-pass mymaster <your_password>
-```
-
-### 复制服务器
-
-编辑配置文件，两个复制服务器都是一样的，主要是配置 IP 地址和密码。
-
-```terminal
-$ sudo vi /etc/redis-sentinel.conf
-```
-
-主要修改如下参数：
-
-```terminal
-# 监听服务器
-sentinel monitor mymaster 10.11.0.167 6379 2
-
-# 监听服务的密码
 sentinel auth-pass mymaster <your_password>
 ```
 
@@ -322,7 +310,96 @@ $ redis-cli -h 10.11.0.169 -p 26379 sentinel get-master-addr-by-name mymaster
 
 可以看到，现在 Redis2 和 Redis3 服务器的主服务器改为了 Redis2 (即 `10.11.0.168`）.
 
+## 报错处理
+
+启动好服务之后，可以查看一下 `redis.log`  和 `sentinel.log`
+
+```terminal
+$ sudo tail -fn 100 /var/log/redis/redis.log
+```
+
+```terminal
+$ sudo tail -fn 100 /var/log/redis/sentinel.log
+```
+
+### 错误1
+
+可能会发现有如下错误：
+
+```terminal
+WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+```
+
+解决办法
+
+`注意` 使用 root 账户
+
+```terminal
+# echo 1 > /proc/sys/vm/overcommit_memory
+```
+
+这会立刻生效
+
+或者设置 `/etc/sysctl.conf` 文件
+
+ ```terminal
+# vi /etc/sysctl.conf
+ ```
+
+再文件最后追加如下内容
+
+```terminal
+vm.overcommit_memory=1
+```
+
+这种方式需要重启机器生效
+
+### 错误2
+
+```terminal
+WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+```
+
+解决办法
+
+```terminal
+# echo 1024 > /proc/sys/net/core/somaxconn
+```
+
+这会立即生效
+
+或者设置 `/etc/sysctl.conf` 文件
+
+```terminal
+# vi /etc/sysctl.conf
+```
+
+追加如下内容
+
+```terminal
+net.core.somaxconn=65535
+```
+
+这种方式需要重启机器生效
+
+### 错误3
+
+可能会出现如下错误
+
+```terminal
+WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+```
+
+解决办法
+
+```terminal
+# echo never > /sys/kernel/mm/transparent_hugepage/enabled
+```
+
+会立刻生效
+
 ## 结论
+
 本文演示了 CentOS 8 下 Redis 哨兵模式，哨兵模式主要提供了高可用，如果数据量很大，可以考虑 [Redis Cluster][3]。
 
 ## 参考资料
