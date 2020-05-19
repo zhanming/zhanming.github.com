@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 配置 Keepalived 实现双机热备 
 categories: [Linux]
 tags: [centos, keepalived, vrrp]
+update: 2020-05-19
 summary: Keepalived 是集群管理中保证集群高可用的一个服务软件，其功能类似于 heartbeat，用来防止单点故障。 本例演示 CentOS 7 下安装和配置 Keepalived 的基本步骤。
 ---
 ## 前言
@@ -33,18 +34,18 @@ CentOS Linux release 7.5.1804 (Core)
 
 本例安装 Nginx，使用浏览器查看效果。
 
-## 步骤
+## 安装
 
-### 步骤 1: 安装
+### 安装 Keepalived
 Keepalived 可以使用 yum 直接安装，在 master 服务器和 backup 服务器执行：
 
 ```terminal
 $ sudo yum install keepalived
 ```
 
-安装 Nginx, 参考 [Install Nginx Binary Releases][1] 。
+## 配置
 
-### 步骤 2: 配置 Master 服务器
+### 配置 Master 服务器
 
 先确认网卡
 
@@ -112,7 +113,7 @@ vrrp_instance VI_1 {
 
     # 定义优先级，数字越大，优先级越高（0-255）。
     # 在同一个vrrp_instance下，MASTER 的优先级必须大于 BACKUP 的优先级
-    priority 100
+    priority 101
 
     # 设定 MASTER 与 BACKUP 负载均衡器之间同步检查的时间间隔，单位是秒
     advert_int 1
@@ -137,25 +138,11 @@ vrrp_instance VI_1 {
         10.0.0.10/24 brd 10.0.0.255
     }
 }
-
-# 虚拟服务器端口配置
-virtual_server 10.0.0.10 80 {
-    delay_loop 6
-    lb_algo rr
-    lb_kind NAT
-    persistence_timeout 50
-    protocol TCP
-
-    real_server 10.0.0.11 80 {
-        weight 1
-    }
-}
-
 ```
 
 本配置中，最后设置了虚拟 IP 的 80 端口，指向了本地的 80 端口。
 
-### 步骤 3: 配置 BACKUP 服务器
+### 配置 BACKUP 服务器
 
 BACKUP 配置基本跟 MASTER 一致，主要有部分变动
 
@@ -191,7 +178,7 @@ vrrp_instance VI_1 {
     virtual_router_id 51 
 
     # 比 MASTER 小
-    priority 99 
+    priority 100 
 
     ...
     ...
@@ -200,50 +187,34 @@ vrrp_instance VI_1 {
     unicast_peer {
         10.0.0.11
     }
-    ...
-    ...
-}
-
-# 虚拟服务器端口配置
-virtual_server 10.0.0.10 80 {
-    ...
-    ...
-
-    real_server 10.0.0.12 80 {
-        weight 1
+    
+    # 设置验证类型和密码
+    authentication {
+        #设置验证类型，主要有PASS和AH两种
+        auth_type PASS
+        #设置验证密码，在同一个vrrp_instance下，MASTER与BACKUP必须使用相同的密码才能正常通信
+        auth_pass 1111
     }
+    
+    #设置虚拟IP地址，可以设置多个虚拟IP地址，每行一个
+    virtual_ipaddress {
+        # 虚拟 IP
+        10.0.0.10/24 brd 10.0.0.255
+    }
+    ...
+    ...
 }
-
 ```
-### 步骤 4: 配置并启动服务
+### 配置并启动服务
 配置 IP 转发，需要修改配置文件 `/etc/sysctl.conf`，默认只有 root 可以修改
 
 ```terminal
 $ su - root
 Password:
-# echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+# echo "net.ipv4.ip_nonlocal_bind = 1" >> /etc/sysctl.conf
 # sysctl -p
+net.ipv4.ip_nonlocal_bind = 1
 # exit
-```
-
-防火墙添加规则，因为 VRRP 使用 `224.0.0.18` 这个组播地址
-
-```terminal
-$ sudo firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
-success
-$ sudo firewall-cmd --direct --permanent --add-rule ipv4 filter OUTPUT 0 --out-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
-success
-$ sudo firewall-cmd --reload
-success
-```
-
-可以查看一下这两条规则
-
-```terminal
-$ sudo firewall-cmd --direct --get-rules ipv4 filter INPUT
-0 --in-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
-$ sudo firewall-cmd --direct --get-rules ipv4 filter OUTPUT
-0 --out-interface em1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
 ```
 
 启动 MASTER 和 BACKUP 的 keepalived 服务
@@ -288,7 +259,7 @@ $ ip a
 2. 当 MASTER 出问题时，IP 会漂移到 BACKUP 服务器（`10.0.0.12`），此时 BACKUP 服务器会有 2 个IP。
 3. 当 MASTER 重新启动后，虚拟 IP 又会漂移回 MASTER 服务器。 
 
-### 步骤 5: 服务测试
+### 测试
 查看 IP 的变化可用如下命令（MASTER 和 BACKUP 都在线）：
 
 安装 tcpdump 包
@@ -301,9 +272,9 @@ $ sudo yum install tcpdump
 
 ```terminal
 $ sudo tcpdump -i em1 vrrp -n
-02:16:07.739305 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
-02:16:08.740362 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
-02:16:09.741401 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+02:16:07.739305 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 101, authtype simple, intvl 1s, length 20
+02:16:08.740362 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 101, authtype simple, intvl 1s, length 20
+02:16:09.741401 IP 10.0.0.11 > 10.0.0.12: VRRPv2, Advertisement, vrid 51, prio 101, authtype simple, intvl 1s, length 20
 ...
 ...
 ```
@@ -323,16 +294,16 @@ $ sudo systemctl stop keepalived
 
 ```terminal
 $ sudo tcpdump -i em1 vrrp -n
-02:19:08.874676 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 99, authtype simple, intvl 1s, length 20
-02:19:09.875710 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 99, authtype simple, intvl 1s, length 20
-02:19:10.876742 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 99, authtype simple, intvl 1s, length 20
+02:19:08.874676 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+02:19:09.875710 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+02:19:10.876742 IP 10.0.0.12 > 10.0.0.11: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
 ...
 ...
 ```
 
 这表明 MASTER 收到 BACKUP 的广播，此时虚拟 IP 时挂在 BACKUP 服务器上。
 
-### 步骤 6: 配置日志
+### 配置日志
 
 > **`注意`** 
 > 
@@ -395,8 +366,8 @@ $ sudo systemctl restart keepalived
 [centos7 keepalived以及防火墙配置][3]  
 [Keepalived日志][4]  
 
- 
-[1]: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/  
+
+[1]: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
 [2]: https://www.cnblogs.com/jefflee168/p/7442127.html
-[3]: https://www.cnblogs.com/lgh344902118/p/7737129.html 
+[3]: https://www.cnblogs.com/lgh344902118/p/7737129.html
 [4]: https://www.cnblogs.com/zzzhfo/p/6070575.html
