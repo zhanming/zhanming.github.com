@@ -292,7 +292,7 @@ $ redis-cli -h 10.11.0.169 -p 26379 sentinel get-master-addr-by-name mymaster
 
 ```terminal
 $ redis-cli -h 10.11.0.167
-10.11.0.167:6379> auth cedex@@123
+10.11.0.167:6379> auth <your_password>
 OK
 10.11.0.167:6379> debug sleep 60
 ```
