@@ -152,6 +152,9 @@ $ sudo systemctl enable --now redis
 
 ```terminal
 $ sudo firewall-cmd --zone=public --permanent --add-service=redis
+success
+$ sudo firewall-cmd --reload
+success
 ```
 
 配置了主从复制之后，主节点可读可写，复制节点只读。
@@ -256,6 +259,9 @@ $ sudo systemctl enable --now redis-sentinel
 
 ```terminal
 $ sudo firewall-cmd --zone=public --permanent --add-service=redis-sentinel
+success
+$ sudo firewall-cmd --reload
+success
 ```
 
 查看 Sentinel 状态
