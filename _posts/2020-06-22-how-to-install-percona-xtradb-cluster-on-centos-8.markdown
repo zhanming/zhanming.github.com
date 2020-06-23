@@ -250,9 +250,7 @@ wsrep_node_name=pxc1
 pxc-encrypt-cluster-traffic=OFF
 ```
 
->`注意`
->
->本例使用 `pxc-encrypt-cluster-traffic=OFF` 关闭了传输加密，参考 [Encrypting PXC Traffic][5]
+`注意`本例使用 `pxc-encrypt-cluster-traffic=OFF` 关闭了传输加密，参考 [Encrypting PXC Traffic][5]
 
 这些内容也同样对 `pxc2`,  `pxc3` 进行配置，只有两个参数 `wsrep_node_name`, `wsrep_node_address` 配置的值需要修改一下
 
