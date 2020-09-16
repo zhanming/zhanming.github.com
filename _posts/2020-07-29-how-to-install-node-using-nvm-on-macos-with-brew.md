@@ -1,7 +1,7 @@
 ---
 layout: post
 title: macOS 上使用 brew 安装 NVM 管理 node.js 
-categories: [Tutorial]
+categories: [macOS]
 tags: [macos, nvm, node.js]
 summary: node.js 使用 nvm 进行版本管理，比较方便，记录一下使用 brew 在 macOS 上的安装步骤。
 ---

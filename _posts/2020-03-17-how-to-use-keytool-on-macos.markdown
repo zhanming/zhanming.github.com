@@ -1,7 +1,7 @@
 ---
 layout: post
 title: macOS 上使用 keytool 生成 keystore
-categories: [Tutorial]
+categories: [macOS]
 tags: [macos, keytool, keystore]
 summary: keytool 是 Java 自带的用于密钥和证书的管理工具，Java 开发阶段中经常用到，本例介绍常用的几个命令的例子。
 ---
