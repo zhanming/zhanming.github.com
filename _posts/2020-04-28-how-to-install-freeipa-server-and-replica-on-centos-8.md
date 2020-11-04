@@ -3,7 +3,7 @@ layout: post
 title: CentOS 8 安装 FreeIPA 主从复制
 categories: [Linux]
 tags: [centos, ldap, freeipa]
-update: 2020-04-29
+update: 2020-11-04
 summary: FreeIPA 4.7 之后，默认支持从 RHEL 8 开始，本次写一篇 CentOS 8 中 FreeIPA 的安装和配置过程。
 ---
 ## 前言
@@ -578,6 +578,56 @@ ipa: INFO: The ipactl command was successful
 ```
 
 可以看到 9 个服务都在运行，与主服务器一致
+
+### 删除复制服务
+
+如果想要删除复制服务器，如下步骤
+
+先在主服务器上执行初始化会话
+
+```terminal
+# kinit admin
+Password for admin@CORP.EXAMPLE.COM: # 输入密码
+```
+
+查看一下主服务器
+
+```terminal
+# klist
+Ticket cache: KCM:0
+Default principal: admin@CORP.EXAMPLE.COM
+
+Valid starting     Expires            Service principal
+11/04/20 17:58:25  11/05/20 17:58:22  krbtgt/CORP.EXAMPLE.COM@CORP.EXAMPLE.COM
+```
+
+查看一下有复制服务器信息
+
+```terminal
+# ipa-replica-manage list
+idm.corp.example.com: master
+idm2.corp.example.com: master
+```
+
+之后删除复制服务器，本例 `idm2.corp.example.com` 为例
+
+```terminal
+# ipa-replica-manage del idm2.corp.example.com
+Updating DNS system records
+------------------------------------------
+Deleted IPA server "idm2.corp.example.com"
+------------------------------------------
+```
+
+这样主服务器已经删除了配置。
+
+还需要去复制服务器卸载，命令如下
+
+```terminal
+[root@idm2]# ipa-server-install --uninstall
+```
+
+至此，复制服务器已经删除。
 
 ## 结束语
 
