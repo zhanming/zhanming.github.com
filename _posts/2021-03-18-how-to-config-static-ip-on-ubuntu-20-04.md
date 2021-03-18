@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Ubuntu Server 20.04 上设置静态 IP 地址 
+title: Ubuntu 20.04 上设置静态 IP 地址 
 categories: [Linux]
 tags: [ubuntu, netplan]
-summary: Ubuntu Server 20.04 上设置静态 IP 地址，记录一下配置的步骤。
+summary: Ubuntu 20.04 上设置静态 IP 地址，记录一下配置的步骤。
 ---
 ## 前言
-Ubuntu Server 20.04 上设置静态 IP 地址，记录一下配置的步骤。
+Ubuntu 20.04 上设置静态 IP 地址，记录一下配置的步骤。
 
 ### 环境说明
 Ubuntu Server 20.04
@@ -18,7 +18,7 @@ Ubuntu 20.04.2 LTS \n \l
 
 ## 配置
 
-Ubuntu Server 20.04 配置网络，默认使用 netplan 方式进行设置。
+Ubuntu 20.04 配置网络，默认使用 netplan 方式进行设置。
 
 netplan 方式的配置为 yaml 格式
 
@@ -75,7 +75,7 @@ $ ping 114.114.114.114
 
 ## 结束语
 
-本例演示 Ubuntu Server 20.04 配置静态 IP 地址。
+本例演示 Ubuntu 20.04 配置静态 IP 地址。
 
 ## 参考资料
 [Ubuntu 20.04修改ip地址][1]    
