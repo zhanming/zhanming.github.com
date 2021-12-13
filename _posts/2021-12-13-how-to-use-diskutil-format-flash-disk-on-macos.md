@@ -1,12 +1,12 @@
 ---
 layout: post
-title: MacOS 使用 diskutil 命令格式化 U 盘 
+title: macOS 使用 diskutil 命令格式化 U 盘 
 categories: [macOS]
 tags: [macOS, diskutil]
-summary: MacOS 使用 diskutil 命令格式化 U 盘，记录一下操作步骤。
+summary: macOS 使用 diskutil 命令格式化 U 盘，记录一下操作步骤。
 ---
 ## 前言
-MacOS 使用 diskutil 命令格式化 U 盘，记录一下操作步骤。
+macOS 使用 diskutil 命令格式化 U 盘，记录一下操作步骤。
 
 ### 环境说明
 macOS
