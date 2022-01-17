@@ -13,7 +13,7 @@ summary: 由于 CentOS 8 的 EOL(End Of Life) 时间为 2021-12-31，目前已�
 Rocky Linux 的[官方网站][3] 
 
 ### 环境说明
-RockyLinux 8（Minimal）
+Rocky Linux 8（Minimal）
 
 ```bash
 # cat /etc/system-release
