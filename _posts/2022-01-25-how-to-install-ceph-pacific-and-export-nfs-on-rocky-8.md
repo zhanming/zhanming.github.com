@@ -2,7 +2,7 @@
 layout: post
 title: Rocky 8 使用 cephadm 安装 Ceph 16.2 实验 NFS 服务
 categories: [Linux]
-tags: [ceph, storage, linux]
+tags: [ceph, storage, rocky]
 summary: Rocky 8 使用 cephadm 安装 Ceph 16.2 (Pacific)，实验 NFS 服务，记录一下安装和配置过程。
 ---
 ## 前言
