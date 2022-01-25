@@ -1,19 +1,19 @@
 ---
 layout: post
-title: Rocky Linux 8 安装后的系统初始化 
+title: Rocky 8 安装后的系统初始化 
 categories: [Linux]
-tags: [rockylinux]
+tags: [rocky]
 summary: 由于 CentOS 8 的 EOL(End Of Life) 时间为 2021-12-31，目前已经停止了支持，可以使用 Rocky Linux 8 进行替代。Rocky Linux 8 安装之后，初始化的配置过程，主要包括新建用户，分配 `sudo` 命令，配置远程访问等。
 ---
 ## 前言
 由于 CentOS 8 的 EOL 时间为 2021-12-31，已经停止了支持，可以使用 Rocky Linux 8 进行替代。
 
-服务器安装完 Rocky Linux（Minimal）操作系统后，需要对其进行初始化的配置，以增强服务器的安全性和可用性，本文介绍几个基本的步骤。跟以前的 [CentOS 8 安装后的初始化配置][1] 基本相同。
+服务器安装完 Rocky （Minimal Install）操作系统后，需要对其进行初始化的配置，以增强服务器的安全性和可用性，本文介绍几个基本的步骤。跟以前的 [CentOS 8 安装后的初始化配置][1] 基本相同。
 
 Rocky Linux 的[官方网站][3] 
 
 ### 环境说明
-Rocky Linux 8（Minimal）
+Rocky 8（Minimal Install）
 
 ```bash
 # cat /etc/system-release
@@ -23,7 +23,7 @@ Rocky Linux release 8.5 (Green Obsidian)
 ## 配置
 
 ### Root 登录
-root 账号是 Rocky Linux 的根用户，刚装完的 Rocky Linux 8 (Minial) 操作系统，一般只有 root 账号，并且 ssh 服务对外开放。
+root 账号是 Rocky 的根用户，刚装完的 Rocky 8 (Minial Install) 操作系统，一般只有 root 账号，并且 ssh 服务对外开放。
 
 本地登录
 
