@@ -20,7 +20,13 @@ cephadm 为单独部署工具，使用容器化技术进行集群部署和管理
 具体说法可以参考官方文档 [NFS CLUSTER MANAGEMENT][2]
 
 ```
-Note: The ingress implementation is not yet complete. Enabling ingress will deploy multiple ganesha instances and balance load across them, but a host failure will not immediately cause cephadm to deploy a replacement daemon before the NFS grace period expires.  This high-availability functionality is expected to be completed by the Quincy release (March 2022).
+Note: The ingress implementation is not yet complete.  Enabling
+	  ingress will deploy multiple ganesha instances and balance
+	  load across them, but a host failure will not immediately
+	  cause cephadm to deploy a replacement daemon before the NFS
+	  grace period expires.  This high-availability functionality
+	  is expected to be completed by the Quincy release (March
+	  2022).
 ```
 
 ### 环境说明
