@@ -326,7 +326,7 @@ ceph version 16.2.7 (dd0603118f56ab514f133c8d2e3adfc983942503) pacific (stable)
 以后可以再 `ceph1` 节点上直接执行 ceph 命令了。
 
 > `推荐`  
-> 推荐使用方法 1 进行操作，红帽的官方文档事例都是这么操作的。因为使用的是容器内的命令，升级也方便，本地包依赖较少。
+> 推荐使用方法 1 进行操作，红帽的官方文档示例都是这么操作的。因为使用的是容器内的命令，升级也方便，本地包依赖较少。
 
 本实验使用方法 3，方便一点。
 
@@ -798,7 +798,7 @@ mon.ceph3: mon_allow_pool_delete = 'true'
 之后删除
 
 ```bash
-[root@ceph1 ceph]# ceph osd pool delete ganesha_data ganesha_data --yes-i-really-really-mean-it
+[root@ceph1 ceph]# ceph osd pool delete mynfs_data mynfs_data --yes-i-really-really-mean-it
 pool 'ganesha_data' removed
 [root@ceph1 ceph]# ceph osd pool delete .nfs .nfs --yes-i-really-really-mean-it
 pool '.nfs' removed
