@@ -3,6 +3,7 @@ layout: post
 title: CentOS 7 下 Yum 安装 GitLab CE 8.16.6
 categories: [Linux]
 tags: [centos, gitlab, yum]
+update: 2022-08-09
 summary: GitLab CE 8.16.6 的安装，记录一下大致的安装和配置过程。
 ---
 ## 前言
@@ -89,11 +90,27 @@ $ crontab -e
 
 6.更新
 
-注意：不要停止 gitlab，直接更新即可。  
+`注意`：不要停止 gitlab，直接更新即可。  
 比如 8.17.0 版本已经有了，或在 Admin Area 中可以看到 `update available` 或 `update ASAP`。
 
 ```terminal
 $ sudo yum update gitlab-ce
+```
+
+`注意`：升级有时不能跨版本升级，具体版本要求，请参考 <https://docs.gitlab.com/ee/update/index.html#upgrade-paths>
+
+此时升级过程如下(如：8.13.4 升级到 9.5.10)
+
+按照要求一步一步升级： `8.13.4 -> 8.17.7 -> 9.5.10`
+
+```terminal
+$ sudo yum install gitlab-ce-8.17.7
+```
+
+之后再
+
+```terminal
+$ sudo yum install gitlab-ce-9.5.10
 ```
 
 安装更新会自动备份一次，并且 `reconfigure`。  如果一切顺利，在 Admin Area 看到 `up-to-date` 的字样。
