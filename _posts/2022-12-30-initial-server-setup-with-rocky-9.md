@@ -27,8 +27,6 @@ Rocky Linux release 9.1 (Blue Onyx)
 
 ## 配置
 
-> `注意` 操作系统的默认安装过程中只有 root 的密码设置，没有新用户的设置，所以只能在系统安装好之后，再设置普通用户。
-
 ### Root 登录
 
 root 账号是 Rocky 的根用户，刚装完的 Rocky 9(Minial Install) 操作系统，一般只有 root 账号，并且 ssh 服务对外开放。
