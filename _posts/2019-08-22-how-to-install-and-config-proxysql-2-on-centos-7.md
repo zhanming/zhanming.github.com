@@ -1,19 +1,11 @@
 ---
 layout: post
-update: 2020-02-13
+update: 2023-02-06
 title: CentOS 7 配置 ProxySQL 2 集成 Percona XtraDB Cluster
 categories: [Linux]
 tags: [centos, mysql, proxysql, galera]
 summary: CentOS 7 配置 ProxySQL 2 集成 Percona XtraDB Cluster，记录一下安装过程。
 ---
-
-> **`注意`**
->
-> 本例的配置，在后来测试使用中发现严重问题：回滚会失败。
->
-> 具体原因没有去排查，改用其他方式 (HAProxy) 了。
->
-> **`请不要用于生产环境`**
 
 ## 前言
 
